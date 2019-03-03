@@ -40,6 +40,18 @@ public class NrcListActivity extends AppCompatActivity {
 
         setupRecyclerView();
 
+        adapter.setOnItemClickListener(new NrcListAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(DocumentSnapshot documentSnapshot, int position) {
+                NRC Title = documentSnapshot.toObject(NRC.class);
+                String id = documentSnapshot.getId();
+                str = Title.getUser_id();
+                Toast.makeText(NrcListActivity.this,"position: " + position + "ID: " + id + str, Toast.LENGTH_SHORT).show();
+                showsendref();
+
+            }
+        });
+
 
     }
 
@@ -74,6 +86,11 @@ public class NrcListActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         adapter.stopListening();
+    }
+    public void showsendref(){
+        Intent intent = new Intent(this, SendReferralActivity.class);
+        intent.putExtra("message", str);
+        startActivity(intent);
     }
 }
 
