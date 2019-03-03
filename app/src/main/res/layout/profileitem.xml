@@ -12,7 +12,7 @@
     android:paddingLeft="15dp"
     android:paddingTop="16dp"
     android:paddingRight="16dp"
-    android:paddingBottom="15dp">>
+    android:paddingBottom="15dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
