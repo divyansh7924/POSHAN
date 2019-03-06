@@ -143,16 +143,15 @@
         android:id="@+id/viewonmap"
         android:layout_marginLeft="39dp"/>
 
-        <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Select Referrals"
-        android:textColor="#000"
-        android:background="@drawable/round"
-        android:id="@+id/viewonmap"
-        android:layout_marginLeft="39dp"
-        android:textStyle="bold"
-        android:layout_marginBottom="0dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:layout_marginTop="50dp"
+            android:text="Select Referrals"
+            android:textSize="20sp"
+            android:textColor="#000"
+            android:layout_marginLeft="10dp"/>
 
 
 
@@ -173,10 +172,6 @@
             </android.support.v7.widget.RecyclerView>
 
         </android.support.design.widget.CoordinatorLayout>
-
-
-
-
 
 
 </LinearLayout>
