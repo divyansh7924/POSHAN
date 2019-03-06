@@ -8,7 +8,12 @@
     android:orientation="vertical"
     android:background="@drawable/gradient1">
 
-    <TextView
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textStyle="bold"
@@ -19,7 +24,7 @@
         android:layout_marginLeft="10dp"
         android:id="@+id/nrc_title"/>
 
-    <TextView
+        <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textStyle="normal"
@@ -29,7 +34,7 @@
         android:layout_marginLeft="10dp"
         android:id="@+id/nrc_address"/>
 
-    <TextView
+        <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textStyle="normal"
@@ -39,7 +44,7 @@
         android:layout_marginLeft="10dp"
         android:id="@+id/nrc_city"/>
 
-    <LinearLayout
+        <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingVertical="20dp"
@@ -47,89 +52,89 @@
         android:layout_marginHorizontal="17dp">
 
         <android.support.v7.widget.AppCompatImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/bedavailable"
-            android:layout_marginLeft="20dp" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/bedavailable"
+        android:layout_marginLeft="20dp" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginHorizontal="45dp">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Beds Available"
-                android:textSize="15sp"
-                android:textStyle="bold"
-                android:textColor="#6e57ee"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginHorizontal="45dp">
+        <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Beds Available"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:textColor="#6e57ee"/>
+        <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="11"
-                    android:textSize="15sp"
-                    android:textStyle="bold"
-                    android:textColor="#6e57ee"
-                    android:layout_marginTop="2dp"
-                    android:id="@+id/bedvacant"/>
+        <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="11"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:textColor="#6e57ee"
+        android:layout_marginTop="2dp"
+        android:id="@+id/bedvacant"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=" / "
-                    android:textSize="15sp"
-                    android:textStyle="bold"
-                    android:textColor="#6e57ee"
-                    android:layout_marginTop="2dp"/>
+        <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=" / "
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:textColor="#6e57ee"
+        android:layout_marginTop="2dp"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="20"
-                    android:textSize="15sp"
-                    android:textStyle="bold"
-                    android:textColor="#6e57ee"
-                    android:layout_marginTop="2dp"
-                    android:id="@+id/totalbeds"/>
+        <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="20"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:textColor="#6e57ee"
+        android:layout_marginTop="2dp"
+        android:id="@+id/totalbeds"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=" Beds"
-                    android:textSize="15sp"
-                    android:textStyle="bold"
-                    android:textColor="#6e57ee"
-                    android:layout_marginTop="2dp"/>
+        <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=" Beds"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:textColor="#6e57ee"
+        android:layout_marginTop="2dp"/>
 
-            </LinearLayout>
-
-            <ProgressBar
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@android:style/Widget.ProgressBar.Horizontal"
-                android:minHeight="5dp"
-                android:maxHeight="5dp"
-                android:layout_marginTop="7dp"
-                android:indeterminate="true"
-                android:indeterminateTintMode="src_atop"
-                android:indeterminateTint="@color/colorPrimary"
-                android:progress="55"/>
-
-            <android.support.v4.widget.ContentLoadingProgressBar
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#6e57ee"
-                android:id="@+id/bedprogress"
-                />
         </LinearLayout>
-    </LinearLayout>
 
-    <Button
+        <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@android:style/Widget.ProgressBar.Horizontal"
+        android:minHeight="5dp"
+        android:maxHeight="5dp"
+        android:layout_marginTop="7dp"
+        android:indeterminate="true"
+        android:indeterminateTintMode="src_atop"
+        android:indeterminateTint="@color/colorPrimary"
+        android:progress="55"/>
+
+        <android.support.v4.widget.ContentLoadingProgressBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#6e57ee"
+        android:id="@+id/bedprogress"
+        />
+        </LinearLayout>
+        </LinearLayout>
+
+        <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="View on maps >"
@@ -138,7 +143,7 @@
         android:id="@+id/viewonmap"
         android:layout_marginLeft="39dp"/>
 
-    <Button
+        <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Select Referrals"
@@ -149,18 +154,13 @@
         android:textStyle="bold"
         android:layout_marginBottom="0dp"/>
 
-    <android.support.v7.widget.AppCompatImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/scrolldown"
-        android:layout_marginLeft="192dp"
-        />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+
+
+    </LinearLayout>
+
+
         <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
             xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -173,14 +173,7 @@
             </android.support.v7.widget.RecyclerView>
 
         </android.support.design.widget.CoordinatorLayout>
-    </LinearLayout>
 
-    <android.support.v7.widget.AppCompatImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/scrollup"
-        android:layout_marginLeft="192dp"
-        />
 
 
 
