@@ -15,6 +15,7 @@ public class RCRActivity extends AppCompatActivity {
 
     private Button btn_create_new_referral;
     private Button btn_ListofNRC;
+    private Button btn_updateref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +24,7 @@ public class RCRActivity extends AppCompatActivity {
 
         btn_create_new_referral = (Button) findViewById(R.id.rcr_btn_create_new_ref);
         btn_ListofNRC = (Button)findViewById(R.id.rcr_btn_nrc_list);
+        btn_updateref = (Button)findViewById(R.id.rcr_btn_update_profile);
 
 
         btn_ListofNRC.setOnClickListener(new View.OnClickListener() {
@@ -37,6 +39,12 @@ public class RCRActivity extends AppCompatActivity {
                 registerChild();
             }
         });
+        btn_updateref.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                agnupdateref();
+            }
+        });
     }
 
     private void registerChild() {
@@ -46,6 +54,11 @@ public class RCRActivity extends AppCompatActivity {
 
     private void listofnrc() {
         Intent intent = new Intent(this, StatesActivity.class);
+        startActivity(intent);
+    }
+
+    private void agnupdateref() {
+        Intent intent = new Intent(this, AgnUpdateReferralActivity.class);
         startActivity(intent);
     }
 
