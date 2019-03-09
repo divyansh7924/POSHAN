@@ -2,15 +2,18 @@ package com.example.sihtry1;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,11 +24,13 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
-public class CreateReferralActivity extends AppCompatActivity {
+public class CreateReferralActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     private int mYear, mMonth, mDay;
     private Button create_referral_btn_submit;
@@ -34,6 +39,9 @@ public class CreateReferralActivity extends AppCompatActivity {
             create_referral_et_weight, create_referral_et_aadhaar_parent, create_referral_et_aadhaar_child, create_referral_et_add, create_referral_et_phone;
     private RadioButton create_referral_rb_child_male, create_referral_rb_child_female, create_referral_rb_child_other;
     private int day_of_birth, month_of_birth, year_of_birth;
+    private Spinner spinner_oedema;
+
+    private int oedema_stage = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +67,8 @@ public class CreateReferralActivity extends AppCompatActivity {
         create_referral_rb_child_male = (RadioButton) findViewById(R.id.create_referral_rb_child_male);
         create_referral_rb_child_female = (RadioButton) findViewById(R.id.create_referral_rb_child_female);
         create_referral_rb_child_other = (RadioButton) findViewById(R.id.create_referral_rb_child_other);
+        spinner_oedema = (Spinner) findViewById(R.id.create_referral_spinner_oedema);
+        spinner_oedema.setOnItemSelectedListener(this);
 
 
         create_referral_btn_submit.setOnClickListener(new View.OnClickListener() {
@@ -74,14 +84,7 @@ public class CreateReferralActivity extends AppCompatActivity {
                 }
 
 
-                IMainActivity iMainActivity = new IMainActivity();
-                iMainActivity.createNewReferral(getApplicationContext(), "fdvdfzv", create_referral_et_child_f_name.getText().toString(),
-                        create_referral_et_child_l_name.getText().toString(), create_referral_et_parent_name.getText().toString(), FirebaseAuth.getInstance().getCurrentUser().getUid(), null,
-                        create_referral_et_aadhaar_parent.getText().toString(), gender, day_of_birth, month_of_birth, year_of_birth, create_referral_et_symptoms.getText().toString(),
-                        create_referral_et_bloodgp.getText().toString(), Integer.parseInt(create_referral_et_ashamsmt.getText().toString()),
-                        Integer.parseInt(create_referral_et_height.getText().toString()), Integer.parseInt(create_referral_et_weight.getText().toString()),
-                        create_referral_et_phone.getText().toString(), create_referral_et_add.getText().toString(), create_referral_et_state.getText().toString()
-                        , create_referral_et_city.getText().toString(), Integer.parseInt(create_referral_et_pincode.getText().toString()));
+                createNewReferral();
             }
         });
 
@@ -148,5 +151,92 @@ public class CreateReferralActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void createNewReferral() {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        DocumentReference newReferralRef = db.collection("referral").document();
+        Referral referral = new Referral();
+        String userid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+
+        Date date = new Date();
+        DateFormat dateFormat = new SimpleDateFormat("yyyymmddhhmmss");
+        String referralid = dateFormat.format(date);
+        referral.setReferral_id(referralid);
+
+        referral.setChild_first_name(create_referral_et_child_f_name.getText().toString());
+
+        referral.setChild_last_name(create_referral_et_child_l_name.getText().toString());
+
+        if (create_referral_rb_child_male.isChecked()) {
+            referral.setChild_gender("m");
+        } else if (create_referral_rb_child_female.isChecked()) {
+            referral.setChild_gender("f");
+        } else {
+            referral.setChild_gender("o");
+        }
+
+        referral.setDay_of_birth(day_of_birth);
+
+        referral.setMonth_of_birth(month_of_birth);
+
+        referral.setYear_of_birth(year_of_birth);
+
+        referral.setBlood_group(create_referral_et_bloodgp.getText().toString());
+
+        referral.setAsha_measure(Float.parseFloat(create_referral_et_ashamsmt.getText().toString()));
+
+        referral.setHeight(Float.parseFloat(create_referral_et_height.getText().toString()));
+
+        referral.setWeight(Float.parseFloat(create_referral_et_weight.getText().toString()));
+
+        referral.setOedema(oedema_stage);
+
+        referral.setGuadian_name(create_referral_et_parent_name.getText().toString());
+
+        referral.setGuardian_aadhaar_num(create_referral_et_aadhaar_parent.getText().toString());
+
+        referral.setNrc_id(null);
+
+        referral.setRcr_id(userid);
+
+        referral.setOther_symptoms(create_referral_et_symptoms.getText().toString());
+
+        referral.setPhone(create_referral_et_phone.getText().toString());
+
+        referral.setState(create_referral_et_state.getText().toString());
+
+        referral.setCity(create_referral_et_city.getText().toString());
+
+        referral.setPincode(Integer.parseInt(create_referral_et_pincode.getText().toString()));
+
+        referral.setAddress(create_referral_et_add.getText().toString());
+
+        referral.setChild_aadhaar_num(create_referral_et_aadhaar_child.getText().toString());
+
+
+        newReferralRef.set(referral).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                    Intent intent = new Intent(getApplicationContext(), RCRActivity.class);
+                    startActivity(intent);
+
+                } else {
+                    Toast.makeText(getApplicationContext(), "Registeration Failed", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        oedema_stage = position - 1;
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
     }
 }

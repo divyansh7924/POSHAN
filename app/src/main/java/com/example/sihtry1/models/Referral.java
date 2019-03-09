@@ -1,79 +1,64 @@
 package com.example.sihtry1.models;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
 import com.google.firebase.database.IgnoreExtraProperties;
-
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
-import javax.annotation.Nullable;
 
 @IgnoreExtraProperties
 public class Referral {
-    String child_first_name;
     String referral_id;
+    String child_first_name;
     String child_last_name;
-    String guadian_name;
-    String nrc_id;
-    String rcr_id;
-    String guardian_aadhar_num;
     String child_gender;
+    String child_aadhaar_num;
     int day_of_birth;
     int month_of_birth;
     int year_of_birth;
-    String symptoms;
     String blood_group;
     float asha_measure;
     float height;
     float weight;
+    int oedema;
+
+    String guadian_name;
+    String guardian_aadhaar_num;
+
+    String nrc_id;
+    String rcr_id;
+
+    String other_symptoms;
     String phone;
     String state;
     String city;
     int pincode;
     String address;
 
+
     public Referral() {
     }
 
-    public Referral(String child_first_name, String referral_id, String child_last_name, String guadian_name,
-                    String nrc_id, String rcr_id, String guardian_aadhar_num, String child_gender,
-                    int day_of_birth, int month_of_birth, int year_of_birth, String symptoms, String blood_group,
-                    float asha_measure, float height, float weight, String phone, String state, String city, int pincode, String address) {
-        this.child_first_name = child_first_name;
+    public Referral(String referral_id, String child_first_name, String child_last_name, String child_gender, String child_aadhaar_num, int day_of_birth, int month_of_birth, int year_of_birth, String blood_group, float asha_measure, float height, float weight, int oedema, String guadian_name, String guardian_aadhaar_num, String nrc_id, String rcr_id, String other_symptoms, String phone, String state, String city, int pincode, String address) {
         this.referral_id = referral_id;
+        this.child_first_name = child_first_name;
         this.child_last_name = child_last_name;
-        this.guadian_name = guadian_name;
-        this.nrc_id = nrc_id;
-        this.rcr_id = rcr_id;
-        this.guardian_aadhar_num = guardian_aadhar_num;
         this.child_gender = child_gender;
+        this.child_aadhaar_num = child_aadhaar_num;
         this.day_of_birth = day_of_birth;
         this.month_of_birth = month_of_birth;
         this.year_of_birth = year_of_birth;
-        this.symptoms = symptoms;
         this.blood_group = blood_group;
         this.asha_measure = asha_measure;
         this.height = height;
         this.weight = weight;
+        this.oedema = oedema;
+        this.guadian_name = guadian_name;
+        this.guardian_aadhaar_num = guardian_aadhaar_num;
+        this.nrc_id = nrc_id;
+        this.rcr_id = rcr_id;
+        this.other_symptoms = other_symptoms;
         this.phone = phone;
         this.state = state;
         this.city = city;
         this.pincode = pincode;
         this.address = address;
-    }
-
-    public String getChild_first_name() {
-        return child_first_name;
-    }
-
-    public void setChild_first_name(String child_first_name) {
-        this.child_first_name = child_first_name;
     }
 
     public String getReferral_id() {
@@ -84,6 +69,14 @@ public class Referral {
         this.referral_id = referral_id;
     }
 
+    public String getChild_first_name() {
+        return child_first_name;
+    }
+
+    public void setChild_first_name(String child_first_name) {
+        this.child_first_name = child_first_name;
+    }
+
     public String getChild_last_name() {
         return child_last_name;
     }
@@ -92,44 +85,20 @@ public class Referral {
         this.child_last_name = child_last_name;
     }
 
-    public String getGuadian_name() {
-        return guadian_name;
-    }
-
-    public void setGuadian_name(String guadian_name) {
-        this.guadian_name = guadian_name;
-    }
-
-    public String getNrc_id() {
-        return nrc_id;
-    }
-
-    public void setNrc_id(String nrc_id) {
-        this.nrc_id = nrc_id;
-    }
-
-    public String getRcr_id() {
-        return rcr_id;
-    }
-
-    public void setRcr_id(String rcr_id) {
-        this.rcr_id = rcr_id;
-    }
-
-    public String getGuardian_aadhar_num() {
-        return guardian_aadhar_num;
-    }
-
-    public void setGuardian_aadhar_num(String guardian_aadhar_num) {
-        this.guardian_aadhar_num = guardian_aadhar_num;
-    }
-
     public String getChild_gender() {
         return child_gender;
     }
 
     public void setChild_gender(String child_gender) {
         this.child_gender = child_gender;
+    }
+
+    public String getChild_aadhaar_num() {
+        return child_aadhaar_num;
+    }
+
+    public void setChild_aadhaar_num(String child_aadhaar_num) {
+        this.child_aadhaar_num = child_aadhaar_num;
     }
 
     public int getDay_of_birth() {
@@ -154,14 +123,6 @@ public class Referral {
 
     public void setYear_of_birth(int year_of_birth) {
         this.year_of_birth = year_of_birth;
-    }
-
-    public String getSymptoms() {
-        return symptoms;
-    }
-
-    public void setSymptoms(String symptoms) {
-        this.symptoms = symptoms;
     }
 
     public String getBlood_group() {
@@ -194,6 +155,54 @@ public class Referral {
 
     public void setWeight(float weight) {
         this.weight = weight;
+    }
+
+    public int getOedema() {
+        return oedema;
+    }
+
+    public void setOedema(int oedema) {
+        this.oedema = oedema;
+    }
+
+    public String getGuadian_name() {
+        return guadian_name;
+    }
+
+    public void setGuadian_name(String guadian_name) {
+        this.guadian_name = guadian_name;
+    }
+
+    public String getGuardian_aadhaar_num() {
+        return guardian_aadhaar_num;
+    }
+
+    public void setGuardian_aadhaar_num(String guardian_aadhaar_num) {
+        this.guardian_aadhaar_num = guardian_aadhaar_num;
+    }
+
+    public String getNrc_id() {
+        return nrc_id;
+    }
+
+    public void setNrc_id(String nrc_id) {
+        this.nrc_id = nrc_id;
+    }
+
+    public String getRcr_id() {
+        return rcr_id;
+    }
+
+    public void setRcr_id(String rcr_id) {
+        this.rcr_id = rcr_id;
+    }
+
+    public String getOther_symptoms() {
+        return other_symptoms;
+    }
+
+    public void setOther_symptoms(String other_symptoms) {
+        this.other_symptoms = other_symptoms;
     }
 
     public String getPhone() {

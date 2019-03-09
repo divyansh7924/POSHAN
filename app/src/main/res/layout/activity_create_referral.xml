@@ -121,7 +121,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:hint="Symptom" />
+                android:hint="Other Symptom" />
 
             <EditText
                 android:id="@+id/create_referral_et_bloodgp"
@@ -164,8 +164,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:hint="Aadhaar of Guardian"
+                android:hint="Aadhaar Nmber of Guardian"
                 android:inputType="number" />
+
+            <Spinner
+                android:id="@+id/create_referral_spinner_oedema"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:entries="@array/oedema_stages"/>
 
             <EditText
                 android:id="@+id/create_referral_et_aadhaar_child"
@@ -173,7 +179,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:hint="Aadhaar of Child"
+                android:hint="Aadhaar Number of Child"
                 android:inputType="number" />
 
             <EditText

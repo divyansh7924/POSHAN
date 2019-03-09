@@ -73,30 +73,30 @@ public class IMainActivity {
         });
     }
 
-    public void createNewReferral(final Context context, String referral_id, String child_first_name, String child_last_name, String guadian_name, String rcr_id, String ncr_id,
-                                  String guardian_aadhar_num, String child_gender, int day_of_birth, int month_of_birth, int year_of_birth, String symptoms, String blood_group,
-                                  int asha_measure, int height, int weight, String phone, String address, String state, String city, int pincode) {
-
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-        DocumentReference newReferralRef = db.collection("referral").document();
-
-        Referral referral = new Referral(child_first_name, referral_id, child_last_name, guadian_name, ncr_id, rcr_id,
-                guardian_aadhar_num, child_gender, day_of_birth, month_of_birth, year_of_birth, symptoms, blood_group,
-                asha_measure, height, weight, phone, state, city, pincode, address);
-
-        newReferralRef.set(referral).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if (task.isSuccessful()) {
-                    rcrUI(context);
-
-                } else {
-                    Toast.makeText(context.getApplicationContext(), "Registeration Failed", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-    }
+//    public void createNewReferral(final Context context, String referral_id, String child_first_name, String child_last_name, String guadian_name, String rcr_id, String ncr_id,
+//                                  String guardian_aadhar_num, String child_gender, int day_of_birth, int month_of_birth, int year_of_birth, String symptoms, String blood_group,
+//                                  int asha_measure, int height, int weight, String phone, String address, String state, String city, int pincode) {
+//
+//        FirebaseFirestore db = FirebaseFirestore.getInstance();
+//
+//        DocumentReference newReferralRef = db.collection("referral").document();
+//
+//        Referral referral = new Referral(child_first_name, referral_id, child_last_name, guadian_name, ncr_id, rcr_id,
+//                guardian_aadhar_num, child_gender, day_of_birth, month_of_birth, year_of_birth, symptoms, blood_group,
+//                asha_measure, height, weight, phone, state, city, pincode, address);
+//
+//        newReferralRef.set(referral).addOnCompleteListener(new OnCompleteListener<Void>() {
+//            @Override
+//            public void onComplete(@NonNull Task<Void> task) {
+//                if (task.isSuccessful()) {
+//                    rcrUI(context);
+//
+//                } else {
+//                    Toast.makeText(context.getApplicationContext(), "Registeration Failed", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//        });
+//    }
 
     public void verificationDue(Context context) {
         Intent intent = new Intent(context, VerificationDueActivity.class);

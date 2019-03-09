@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">SIHtry2</string>
+    <string-array name="oedema_stages">
+        <item>Selecet Oedema</item>
+        <item>0</item>
+        <item>+</item>
+        <item>++</item>
+        <item>+++</item>
+    </string-array>
 </resources>
