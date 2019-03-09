@@ -55,6 +55,14 @@ public class AgnUpdateReferralActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
+
+        adapter.setOnItemClickListener(new AgnUpdateReferralAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(DocumentSnapshot documentSnapshot, int position) {
+                Referral referral = documentSnapshot.toObject(Referral.class);
+                Toast.makeText(getApplicationContext(), referral.getChild_first_name(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
