@@ -16,6 +16,7 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
@@ -55,6 +56,22 @@ public class AgnUpdateReferralActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
+
+        adapter.setOnItemClickListener(new AgnUpdateReferralAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(DocumentSnapshot documentSnapshot, int position) {
+                Referral referral = documentSnapshot.toObject(Referral.class);
+                DocumentReference reference = documentSnapshot.getReference();
+
+                launchUpdateActivity(reference);
+            }
+        });
+    }
+
+    private void launchUpdateActivity(DocumentReference reference) {
+        Intent intent = new Intent(this, UpdateReferralActivity.class);
+        intent.putExtra("docRef", reference.getPath());
+        startActivity(intent);
     }
 
     @Override
