@@ -97,7 +97,7 @@ public class RCRRegisterActivity extends AppCompatActivity {
             final ProgressDialog progressdialog = new ProgressDialog(this);
             progressdialog.setTitle("Uploading....");
             progressdialog.show();
-            StorageReference regsRef = mStorageRef.child("nrcregpdf/" + et_title.getText());
+            StorageReference regsRef = mStorageRef.child("rcrregpdf/" + et_title.getText());
 
             regsRef.putFile(filepath)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {

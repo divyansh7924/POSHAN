@@ -22,7 +22,7 @@ import com.google.firebase.firestore.Query;
 public class StatesActivity extends AppCompatActivity {
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private CollectionReference stateref = db.collection("nrc");
+    private CollectionReference stateref = db.collection("States");
 
     private StateAdapter adapter;
     String stateselected;
@@ -55,6 +55,7 @@ public class StatesActivity extends AppCompatActivity {
         Query query = stateref.orderBy("state", Query.Direction.ASCENDING);
 
 
+
         FirestoreRecyclerOptions<RCR> options = new FirestoreRecyclerOptions.Builder<RCR>()
                 .setQuery(query, RCR.class)
                 .build();
@@ -82,9 +83,8 @@ public class StatesActivity extends AppCompatActivity {
         adapter.stopListening();
     }
     public void showcities(){
-        Intent intent = new Intent(this, CitiesActivity.class);
+        Intent intent = new Intent(this, NrcListActivity.class);
         intent.putExtra("message", stateselected);
         startActivity(intent);
     }
 }
-

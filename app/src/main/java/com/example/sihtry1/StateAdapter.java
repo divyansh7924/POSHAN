@@ -30,8 +30,6 @@ public class StateAdapter extends FirestoreRecyclerAdapter<RCR, StateAdapter.Sta
     public StateHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item, parent, false);
         return new StateHolder(v);
-
-
     }
 
     class StateHolder extends RecyclerView.ViewHolder{
