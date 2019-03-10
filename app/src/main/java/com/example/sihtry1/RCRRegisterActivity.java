@@ -20,9 +20,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
+
 import java.io.File;
+
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
@@ -37,6 +42,7 @@ public class RCRRegisterActivity extends AppCompatActivity {
     private static final int PICK_PDF_REQUEST = 234;
     private Uri filepath;
     private EditText et_bed_count, et_bed_vacant, et_title, et_address, et_city, et_state, et_pincode, et_phone, et_reg_num;
+    private Uri downloadUri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +59,7 @@ public class RCRRegisterActivity extends AppCompatActivity {
         et_phone = (EditText) findViewById(R.id.rcr_reg_et_phone);
         et_reg_num = (EditText) findViewById(R.id.rcr_reg_et_reg_num);
 
-        browse = (Button)findViewById(R.id.rcr_reg_doc);
+        browse = (Button) findViewById(R.id.rcr_reg_doc);
         browse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -61,32 +67,24 @@ public class RCRRegisterActivity extends AppCompatActivity {
             }
         });
 
-
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.v("NRCREGACT", "aa rha hai");
-                IMainActivity iMainActivity = new IMainActivity();
-                String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                String userEmail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
-                String url = " ";
-                iMainActivity.createNewRCR(getApplicationContext(), userId, et_title.getText().toString(),
-                        url, et_reg_num.getText().toString(), et_address.getText().toString(), et_state.getText().toString(), et_city.getText().toString(), Integer.parseInt(et_pincode.getText().toString()), et_phone.getText().toString(), userEmail, false);
-
                 uploadfile();
             }
         });
     }
-    public void browsefile(){
-        Intent intent= new Intent();
+
+    public void browsefile() {
+        Intent intent = new Intent();
         intent.setType("application/pdf");
         intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent,"Select a PDF"), PICK_PDF_REQUEST);
+        startActivityForResult(Intent.createChooser(intent, "Select a PDF"), PICK_PDF_REQUEST);
     }
 
-    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode==PICK_PDF_REQUEST && resultCode == RESULT_OK && data.getData() != null){
+        if (requestCode == PICK_PDF_REQUEST && resultCode == RESULT_OK && data.getData() != null) {
             filepath = data.getData();
         }
     }
@@ -97,34 +95,33 @@ public class RCRRegisterActivity extends AppCompatActivity {
             final ProgressDialog progressdialog = new ProgressDialog(this);
             progressdialog.setTitle("Uploading....");
             progressdialog.show();
-            StorageReference regsRef = mStorageRef.child("rcrregpdf/" + et_title.getText());
+            final StorageReference regsRef = mStorageRef.child("rcrregpdf/" + FirebaseAuth.getInstance().getCurrentUser().getUid());
 
-            regsRef.putFile(filepath)
-                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            progressdialog.dismiss();
-                            Toast.makeText(getApplicationContext(), "Application uploaded for review", Toast.LENGTH_LONG).show();
-
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception exception) {
-                            progressdialog.dismiss();
-                            Toast.makeText(getApplicationContext(), exception.getMessage(), Toast.LENGTH_LONG).show();
-
-                        }
-                    })
-                    .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                            double progress = (100.0 * taskSnapshot.getBytesTransferred())/taskSnapshot.getTotalByteCount();
-                            progressdialog.setMessage(((int)progress) + " % uploaded...");
-                        }
-                    });
+            regsRef.putFile(filepath).continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+                @Override
+                public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                    if (!task.isSuccessful()) {
+                        throw task.getException();
+                    }
+                    return regsRef.getDownloadUrl();
+                }
+            }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                @Override
+                public void onComplete(@NonNull Task<Uri> task) {
+                    if (task.isSuccessful()) {
+                        downloadUri = task.getResult();
+                        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                        String userEmail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+                        IMainActivity iMainActivity = new IMainActivity();
+                        iMainActivity.createNewRCR(getApplicationContext(), userId, et_title.getText().toString(),
+                                downloadUri.toString(), et_reg_num.getText().toString(), et_address.getText().toString(), et_state.getText().toString(),
+                                et_city.getText().toString(), Integer.parseInt(et_pincode.getText().toString()), et_phone.getText().toString(), userEmail, false);
+                    } else {
+                        Toast.makeText(getApplicationContext(), "upload failed: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
         }
     }
-
 
 }

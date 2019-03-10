@@ -50,27 +50,39 @@ public class UpdateReferralActivity extends AppCompatActivity implements Adapter
 
         oedema_spinner.setOnItemSelectedListener(this);
 
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        final DocumentReference docRef = db.document(pathToDoc);
+
+        Toast.makeText(getApplicationContext(), docRef.getId(), Toast.LENGTH_SHORT).show();
+
+        final Referral[] referral = {null};
+
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    referral[0] = task.getResult().toObject(Referral.class);
+                    if (referral[0] == null) {
+                        Toast.makeText(getApplicationContext(), "is null bro", Toast.LENGTH_SHORT).show();
+                    } else {
+                        et_asha_measure.setText(String.valueOf(referral[0].getAsha_measure()));
+                        et_child_first_name.setText(referral[0].getChild_first_name());
+                        et_child_last_name.setText(referral[0].getChild_last_name());
+                        et_child_height.setText(String.valueOf(referral[0].getHeight()));
+                        et_child_weight.setText(String.valueOf(referral[0].getWeight()));
+                        et_phone.setText(referral[0].getPhone());
+                        oedema_spinner.setSelection(referral[0].getOedema() + 1);
+                        et_child_symptoms.setText(referral[0].getOther_symptoms());
+                    }
+                }
+            }
+        });
+
         btn_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FirebaseFirestore db = FirebaseFirestore.getInstance();
-                final DocumentReference docRef = db.document(pathToDoc);
-
-                Toast.makeText(getApplicationContext(), docRef.getId(), Toast.LENGTH_SHORT).show();
-
-                docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                        if (task.isSuccessful()) {
-                            Referral referral = task.getResult().toObject(Referral.class);
-                            if (referral == null) {
-                                Toast.makeText(getApplicationContext(), "is null bro", Toast.LENGTH_SHORT).show();
-                            }
-                            submit(referral);
-                            docRef.delete();
-                        }
-                    }
-                });
+                submit(referral[0]);
+                docRef.delete();
             }
         });
 
