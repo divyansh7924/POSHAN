@@ -26,7 +26,7 @@ public class CurrentReferralsActivity extends AppCompatActivity {
     private CollectionReference childref = db.collection("referral");
 
     private CurrentReferralAdapter adapter;
-//    String stateselected;
+    String profileselected;
 
 
     @Override
@@ -35,13 +35,25 @@ public class CurrentReferralsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_current_referrals);
 
         setupRecyclerView();
+        adapter.setOnItemClickListener(new CurrentReferralAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(DocumentSnapshot documentSnapshot, int position) {
+                Referral refid = documentSnapshot.toObject(Referral.class);
+                String id = documentSnapshot.getId();
+                profileselected = documentSnapshot.getId();
+//                profileselected = refid.getReferral_id();
+                Toast.makeText(CurrentReferralsActivity.this,"position: " + position + "ID: " + id + profileselected, Toast.LENGTH_SHORT).show();
+                showprofile();
+
+            }
+        });
 
 
     }
 
     public void setupRecyclerView() {
         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        Toast.makeText(CurrentReferralsActivity.this, "userid  " + userId, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(CurrentReferralsActivity.this, "userid  " + userId, Toast.LENGTH_SHORT).show();
 
 
         Query query = childref.whereEqualTo("nrc_id", userId).orderBy("child_first_name",Query.Direction.ASCENDING);
@@ -71,6 +83,11 @@ public class CurrentReferralsActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         adapter.stopListening();
+    }
+    public void showprofile(){
+        Intent intent = new Intent(this, ChildProfileActivity.class);
+        intent.putExtra("docid", profileselected);
+        startActivity(intent);
     }
 }
 

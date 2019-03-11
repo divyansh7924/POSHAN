@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -22,12 +23,16 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 public class CreateReferralActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
@@ -35,12 +40,14 @@ public class CreateReferralActivity extends AppCompatActivity implements Adapter
     private int mYear, mMonth, mDay;
     private Button create_referral_btn_submit;
     private EditText create_referral_et_parent_name, create_referral_et_child_f_name, create_referral_et_child_l_name, create_referral_et_bloodgp,
-            create_referral_et_city, create_referral_et_state, create_referral_et_ashamsmt, create_referral_et_pincode, create_referral_et_height, create_referral_et_symptoms,
+            create_referral_et_city, create_referral_et_ashamsmt, create_referral_et_pincode, create_referral_et_height, create_referral_et_symptoms,
             create_referral_et_weight, create_referral_et_aadhaar_parent, create_referral_et_aadhaar_child, create_referral_et_add, create_referral_et_phone;
     private RadioButton create_referral_rb_child_male, create_referral_rb_child_female, create_referral_rb_child_other;
     private int day_of_birth, month_of_birth, year_of_birth;
     private Spinner spinner_oedema;
-
+    private Spinner sp_state;
+    public FirebaseFirestore db;
+    ArrayList<String> states = new ArrayList<String>(25);
     private int oedema_stage = 0;
 
     @Override
@@ -54,7 +61,7 @@ public class CreateReferralActivity extends AppCompatActivity implements Adapter
         create_referral_et_child_l_name = (EditText) findViewById(R.id.create_referral_et_child_l_name);
         create_referral_et_bloodgp = (EditText) findViewById(R.id.create_referral_et_bloodgp);
         create_referral_et_city = (EditText) findViewById(R.id.create_referral_et_city);
-        create_referral_et_state = (EditText) findViewById(R.id.create_referral_et_state);
+        sp_state = (Spinner) findViewById(R.id.create_referral_et_state);
         create_referral_et_ashamsmt = (EditText) findViewById(R.id.create_referral_et_ashamsmt);
         create_referral_et_pincode = (EditText) findViewById(R.id.create_referral_et_pin);
         create_referral_et_symptoms = (EditText) findViewById(R.id.create_referral_et_symptoms);
@@ -69,6 +76,7 @@ public class CreateReferralActivity extends AppCompatActivity implements Adapter
         create_referral_rb_child_other = (RadioButton) findViewById(R.id.create_referral_rb_child_other);
         spinner_oedema = (Spinner) findViewById(R.id.create_referral_spinner_oedema);
         spinner_oedema.setOnItemSelectedListener(this);
+        db = FirebaseFirestore.getInstance();
 
 
         create_referral_btn_submit.setOnClickListener(new View.OnClickListener() {
@@ -87,6 +95,43 @@ public class CreateReferralActivity extends AppCompatActivity implements Adapter
                 createNewReferral();
             }
         });
+
+        db.collection("States")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task< QuerySnapshot > task) {
+                        if (task.isSuccessful()) {
+                            for (DocumentSnapshot document: task.getResult()) {
+                                Log.v("FIRESTOREEE", document.getId() + " => " + document.get("state"));
+
+
+                                states.add((String) document.get("state"));
+
+
+
+
+
+                            }
+                            final List<String> statesList = new ArrayList<>(states);
+
+                            // Initializing an ArrayAdapter
+                            final ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(CreateReferralActivity.this,R.layout.spinner_item,statesList);
+
+                            spinnerArrayAdapter.setDropDownViewResource(R.layout.spinner_item);
+                            sp_state.setAdapter(spinnerArrayAdapter);
+                        } else {
+                            Log.v("FIRESTOREEE WARNING", "Error getting documents.", task.getException());
+                        }
+                    }
+                });
+//
+//        submit.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                uploadfile();
+//            }
+//        });
 
         final Button pickDate = (Button) findViewById(R.id.pick_date);
         final TextView textView = (TextView) findViewById(R.id.date);
@@ -205,7 +250,7 @@ public class CreateReferralActivity extends AppCompatActivity implements Adapter
 
         referral.setPhone(create_referral_et_phone.getText().toString());
 
-        referral.setState(create_referral_et_state.getText().toString());
+        referral.setState(sp_state.getSelectedItem().toString());
 
         referral.setCity(create_referral_et_city.getText().toString());
 

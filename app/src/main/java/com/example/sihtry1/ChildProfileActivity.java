@@ -1,0 +1,101 @@
+package com.example.sihtry1;
+
+import android.content.Intent;
+import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.util.Log;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.example.sihtry1.models.Referral;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+
+import org.w3c.dom.Text;
+
+public class ChildProfileActivity extends AppCompatActivity {
+
+    private TextView ch_guardian_name,ch_child_name,ch_gender,ch_date_of_birth,ch_blood_group,ch_asha_tape,ch_height,ch_weight,ch_odema,ch_guardian_aadhaar,ch_child_aadhaar,ch_phone,ch_address,ch_city,ch_pin_code,ch_state,ch_aaganwadi,ch_symptoms;
+    private EditText ch_admission_period;
+    private Button ch_admit_child;
+    private String selectedchild;
+    FirebaseFirestore db;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_child_profile);
+        Intent intent = getIntent();
+        selectedchild = intent.getStringExtra("docid");
+        Toast.makeText(ChildProfileActivity.this,selectedchild,Toast.LENGTH_LONG).show();
+        Log.v("llllll",selectedchild);
+
+        ch_guardian_name = (TextView) findViewById(R.id.ch_guardian_name);
+        ch_child_name = (TextView) findViewById(R.id.ch_child_name);
+        ch_gender = (TextView) findViewById(R.id.ch_child_gender);
+        ch_date_of_birth = (TextView) findViewById(R.id.ch_date_of_birth);
+        ch_blood_group = (TextView) findViewById(R.id.ch_blood_group);
+        ch_asha_tape = (TextView)findViewById(R.id.ch_asha_tape);
+        ch_height = (TextView)findViewById(R.id.ch_height);
+        ch_weight = (TextView)findViewById(R.id.ch_weight);
+        ch_odema = (TextView)findViewById(R.id.ch_odema);
+        ch_guardian_aadhaar = (TextView)findViewById(R.id.ch_guardian_aadhaar);
+        ch_child_aadhaar = (TextView)findViewById(R.id.ch_child_aadhaar);
+        ch_phone = (TextView)findViewById(R.id.ch_phone);
+        ch_address = (TextView)findViewById(R.id.ch_address);
+        ch_city = (TextView)findViewById(R.id.ch_city);
+        ch_pin_code = (TextView)findViewById(R.id.ch_pincode);
+        ch_state = (TextView)findViewById(R.id.ch_state);
+        ch_aaganwadi = (TextView)findViewById(R.id.ch_aaganwadi);
+        ch_symptoms = (TextView)findViewById(R.id.ch_symptom);
+
+        db = FirebaseFirestore.getInstance();
+        final DocumentReference docRef = db.collection("referral").document(selectedchild);
+
+//        Toast.makeText(getApplicationContext(), docRef.getId(), Toast.LENGTH_SHORT).show();
+
+        final Referral[] referral = {null};
+
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    referral[0] = task.getResult().toObject(Referral.class);
+                    if (referral[0] == null) {
+//                        Toast.makeText(getApplicationContext(), "null  ", Toast.LENGTH_SHORT).show();
+                    } else {
+                        ch_asha_tape.setText(String.valueOf(referral[0].getAsha_measure()));
+                        ch_child_name.setText(referral[0].getChild_first_name());
+                        ch_height.setText(String.valueOf(referral[0].getHeight()));
+                        ch_weight.setText(String.valueOf(referral[0].getWeight()));
+                        ch_phone.setText(referral[0].getPhone());
+                        ch_odema.setText(String.valueOf(referral[0].getOedema()));
+                        ch_symptoms.setText(referral[0].getOther_symptoms());
+                        ch_guardian_name.setText(referral[0].getGuadian_name());
+                        ch_gender.setText(referral[0].getChild_gender());
+                        ch_date_of_birth.setText(String.valueOf(referral[0].getDay_of_birth()));
+                        ch_blood_group.setText(referral[0].getChild_gender());
+                        ch_guardian_aadhaar.setText(String.valueOf(referral[0].getGuardian_aadhaar_num()));
+                        ch_child_aadhaar.setText(String.valueOf(referral[0].getChild_aadhaar_num()));
+                        ch_address.setText(referral[0].getAddress());
+                        ch_city.setText(referral[0].getCity());
+                        ch_pin_code.setText(String.valueOf(referral[0].getPincode()));
+                        ch_state.setText(referral[0].getState());
+//                        Query query = rcrref.whereEqualTo("rcrid",);
+                        ch_aaganwadi.setText(referral[0].getRcr_id());
+
+                    }
+                }
+            }
+        });
+
+    }
+}
