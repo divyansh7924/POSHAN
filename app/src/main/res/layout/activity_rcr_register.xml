@@ -45,13 +45,12 @@
             android:layout_marginRight="20dp"
             android:hint="City" />
 
-        <EditText
+        <Spinner
             android:id="@+id/rcr_reg_et_state"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:hint="State" />
+            android:layout_marginRight="20dp" />
 
         <EditText
             android:id="@+id/rcr_reg_et_pincode"
