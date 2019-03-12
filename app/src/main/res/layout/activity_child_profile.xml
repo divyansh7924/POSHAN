@@ -313,7 +313,8 @@
         android:id="@+id/ch_admission_period"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter Admission Period" />
+        android:inputType="number"
+        android:hint="Enter Admission Period in weeks" />
 
     <Button
         android:id="@+id/ch_admit_child"

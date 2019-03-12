@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -12,8 +13,10 @@ import android.widget.Toast;
 
 import com.example.sihtry1.models.Referral;
 import com.example.sihtry1.models.RCR;
+import com.example.sihtry1.models.Admits;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -25,6 +28,8 @@ import com.google.firebase.firestore.QuerySnapshot;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 public class ChildProfileActivity extends AppCompatActivity {
 
@@ -35,7 +40,7 @@ public class ChildProfileActivity extends AppCompatActivity {
     FirebaseFirestore db;
     private CollectionReference rcrref;
     private ArrayList<RCR> mrcr = new ArrayList<>();
-    String rcrselected;
+    String rcrselected,referralid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +69,8 @@ public class ChildProfileActivity extends AppCompatActivity {
         ch_state = (TextView)findViewById(R.id.ch_state);
         ch_aaganwadi = (TextView)findViewById(R.id.ch_aaganwadi);
         ch_symptoms = (TextView)findViewById(R.id.ch_symptom);
+        ch_admission_period = (EditText) findViewById(R.id.ch_admission_period);
+        ch_admit_child = (Button) findViewById(R.id.ch_admit_child);
 
         db = FirebaseFirestore.getInstance();
         rcrref = db.collection("rcr");
@@ -72,6 +79,13 @@ public class ChildProfileActivity extends AppCompatActivity {
 //        Toast.makeText(getApplicationContext(), docRef.getId(), Toast.LENGTH_SHORT).show();
 
         final Referral[] referral = {null};
+
+        ch_admit_child.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createNewAdmission();
+            }
+        });
 
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -98,6 +112,7 @@ public class ChildProfileActivity extends AppCompatActivity {
                         ch_city.setText(referral[0].getCity());
                         ch_pin_code.setText(String.valueOf(referral[0].getPincode()));
                         ch_state.setText(referral[0].getState());
+                        referralid = referral[0].getReferral_id();
                         rcrselected = referral[0].getRcr_id();
 //                        ch_aaganwadi.setText(rcrselected);
                         Query query = rcrref.whereEqualTo("user_id",rcrselected);
@@ -120,5 +135,33 @@ public class ChildProfileActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+    private void createNewAdmission(){
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        DocumentReference newAdmit = db.collection("Admit").document();
+        String userid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        int duration= Integer.parseInt(String.valueOf(ch_admission_period.getText()));
+        Date dateofadmission = null;
+        Admits admit = new Admits(userid,referralid,duration,dateofadmission);
+
+        admit.setNrc_id(userid);
+        admit.setReferral_id(referralid);
+        admit.setDuration(duration);
+        admit.setDate_of_admission(dateofadmission);
+
+        newAdmit.set(admit).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                    Toast.makeText(getApplicationContext(),"Admitted",Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getApplicationContext(), NRCActivity.class);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Admission Failed", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+
     }
 }

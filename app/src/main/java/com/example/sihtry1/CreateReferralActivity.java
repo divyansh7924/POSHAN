@@ -267,7 +267,6 @@ public class CreateReferralActivity extends AppCompatActivity implements Adapter
                 if (task.isSuccessful()) {
                     Intent intent = new Intent(getApplicationContext(), RCRActivity.class);
                     startActivity(intent);
-
                 } else {
                     Toast.makeText(getApplicationContext(), "Registeration Failed", Toast.LENGTH_SHORT).show();
                 }
@@ -282,6 +281,5 @@ public class CreateReferralActivity extends AppCompatActivity implements Adapter
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
-
     }
 }
