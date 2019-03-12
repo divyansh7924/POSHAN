@@ -21,12 +21,11 @@ import com.google.firebase.firestore.Query;
 
 public class NrcListActivity extends AppCompatActivity {
 
-    private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private CollectionReference nrcref = db.collection("nrc");
-    String str;
+    private FirebaseFirestore db;
+    private CollectionReference nrcref;
 
     private NrcListAdapter adapter;
-//    String stateselected;
+    String stateselected;
 
 
     @Override
@@ -34,21 +33,22 @@ public class NrcListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nrc_list);
 
+        db = FirebaseFirestore.getInstance();
+        nrcref = db.collection("nrc");
+
         Intent intent = getIntent();
-        str = intent.getStringExtra("message");
-        Toast.makeText(NrcListActivity.this, "str" + str, Toast.LENGTH_LONG).show();
+        stateselected = intent.getStringExtra("message");
+        Toast.makeText(NrcListActivity.this, "str " + stateselected, Toast.LENGTH_LONG).show();
 
         setupRecyclerView();
 
         adapter.setOnItemClickListener(new NrcListAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(DocumentSnapshot documentSnapshot, int position) {
-                NRC Title = documentSnapshot.toObject(NRC.class);
-                String id = documentSnapshot.getId();
-                str = Title.getUser_id();
-                Toast.makeText(NrcListActivity.this,"position: " + position + "ID: " + id + str, Toast.LENGTH_SHORT).show();
-                showsendref();
+                String id = documentSnapshot.toObject(NRC.class).getUser_id();
+                Toast.makeText(getApplicationContext(), id, Toast.LENGTH_SHORT).show();
 
+                sendref(id);
             }
         });
 
@@ -56,19 +56,13 @@ public class NrcListActivity extends AppCompatActivity {
     }
 
     public void setupRecyclerView() {
-        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        Query query = nrcref.whereEqualTo("state", stateselected);
 
-
-        Query query = nrcref.whereEqualTo("city", str).orderBy("title",Query.Direction.ASCENDING);
-
-
-        FirestoreRecyclerOptions<RCR> options = new FirestoreRecyclerOptions.Builder<RCR>()
-                .setQuery(query, RCR.class)
+        FirestoreRecyclerOptions<NRC> options = new FirestoreRecyclerOptions.Builder<NRC>()
+                .setQuery(query, NRC.class)
                 .build();
 
-
         adapter = new NrcListAdapter(options);
-
 
         RecyclerView recyclerView = findViewById(R.id.recyclerviewnrc);
         recyclerView.setHasFixedSize(true);
@@ -87,9 +81,10 @@ public class NrcListActivity extends AppCompatActivity {
         super.onStop();
         adapter.stopListening();
     }
-    public void showsendref(){
+
+    public void sendref(String id) {
         Intent intent = new Intent(this, SendReferralActivity.class);
-        intent.putExtra("message", str);
+        intent.putExtra("NRC_ID", id);
         startActivity(intent);
     }
 }

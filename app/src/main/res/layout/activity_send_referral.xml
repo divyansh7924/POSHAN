@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SendReferralActivity"
+    android:background="@drawable/gradient1"
     android:orientation="vertical"
-    android:background="@drawable/gradient1">
+    tools:context=".SendReferralActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,164 +14,164 @@
         android:orientation="vertical">
 
         <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:layout_marginTop="50dp"
-        android:text="Nutrition Rehabilitation Center"
-        android:textSize="20sp"
-        android:textColor="#000"
-        android:layout_marginLeft="10dp"
-        android:id="@+id/nrc_title"/>
+            android:id="@+id/send_referral_tv_nrc_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="50dp"
+            android:text="Nutrition Rehabilitation Center"
+            android:textColor="#000"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
         <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textStyle="normal"
-        android:text="CHC, Fatehabad"
-        android:textSize="20sp"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="10dp"
-        android:id="@+id/nrc_address"/>
+            android:id="@+id/send_referral_tv_nrc_addresscity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:text="CHC, Fatehabad"
+            android:textSize="20sp"
+            android:textStyle="normal" />
 
         <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textStyle="normal"
-        android:text="Firozabad, 283203"
-        android:textSize="20sp"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="10dp"
-        android:id="@+id/nrc_city"/>
+            android:id="@+id/send_referral_tv_nrc_statepin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:text="Firozabad, 283203"
+            android:textSize="20sp"
+            android:textStyle="normal" />
 
-        <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingVertical="20dp"
-        android:id="@+id/bedavailablecnt"
-        android:layout_marginHorizontal="17dp">
+        <!--<LinearLayout-->
+            <!--android:id="@+id/send_referral_bedavailablecnt"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginHorizontal="17dp"-->
+            <!--android:paddingVertical="20dp">-->
 
-        <android.support.v7.widget.AppCompatImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/bedavailable"
-        android:layout_marginLeft="20dp" />
+            <!--<android.support.v7.widget.AppCompatImageView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginLeft="20dp"-->
+                <!--android:src="@drawable/bedavailable" />-->
 
-        <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginHorizontal="45dp">
-        <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Beds Available"
-        android:textSize="15sp"
-        android:textStyle="bold"
-        android:textColor="#6e57ee"/>
-        <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+            <!--<LinearLayout-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginHorizontal="45dp"-->
+                <!--android:orientation="vertical">-->
 
-        <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="11"
-        android:textSize="15sp"
-        android:textStyle="bold"
-        android:textColor="#6e57ee"
-        android:layout_marginTop="2dp"
-        android:id="@+id/bedvacant"/>
+                <!--<TextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="Beds Available"-->
+                    <!--android:textColor="#6e57ee"-->
+                    <!--android:textSize="15sp"-->
+                    <!--android:textStyle="bold" />-->
 
-        <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=" / "
-        android:textSize="15sp"
-        android:textStyle="bold"
-        android:textColor="#6e57ee"
-        android:layout_marginTop="2dp"/>
+                <!--<LinearLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content">-->
 
-        <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="20"
-        android:textSize="15sp"
-        android:textStyle="bold"
-        android:textColor="#6e57ee"
-        android:layout_marginTop="2dp"
-        android:id="@+id/totalbeds"/>
+                    <!--<TextView-->
+                        <!--android:id="@+id/send_referral_bedvacant"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_marginTop="2dp"-->
+                        <!--android:text="11"-->
+                        <!--android:textColor="#6e57ee"-->
+                        <!--android:textSize="15sp"-->
+                        <!--android:textStyle="bold" />-->
 
-        <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=" Beds"
-        android:textSize="15sp"
-        android:textStyle="bold"
-        android:textColor="#6e57ee"
-        android:layout_marginTop="2dp"/>
+                    <!--<TextView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_marginTop="2dp"-->
+                        <!--android:text=" / "-->
+                        <!--android:textColor="#6e57ee"-->
+                        <!--android:textSize="15sp"-->
+                        <!--android:textStyle="bold" />-->
 
-        </LinearLayout>
+                    <!--<TextView-->
+                        <!--android:id="@+id/send_referral_totalbeds"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_marginTop="2dp"-->
+                        <!--android:text="20"-->
+                        <!--android:textColor="#6e57ee"-->
+                        <!--android:textSize="15sp"-->
+                        <!--android:textStyle="bold" />-->
 
-        <ProgressBar
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        style="@android:style/Widget.ProgressBar.Horizontal"
-        android:minHeight="5dp"
-        android:maxHeight="5dp"
-        android:layout_marginTop="7dp"
-        android:indeterminate="true"
-        android:indeterminateTintMode="src_atop"
-        android:indeterminateTint="@color/colorPrimary"
-        android:progress="55"/>
+                    <!--<TextView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_marginTop="2dp"-->
+                        <!--android:text=" Beds"-->
+                        <!--android:textColor="#6e57ee"-->
+                        <!--android:textSize="15sp"-->
+                        <!--android:textStyle="bold" />-->
 
-        <android.support.v4.widget.ContentLoadingProgressBar
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#6e57ee"
-        android:id="@+id/bedprogress"
-        />
-        </LinearLayout>
-        </LinearLayout>
+                <!--</LinearLayout>-->
 
-        <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="View on maps >"
-        android:textColor="#6e57ee"
-        android:background="@drawable/round"
-        android:id="@+id/viewonmap"
-        android:layout_marginLeft="39dp"/>
+                <!--<ProgressBar-->
+                    <!--style="@android:style/Widget.ProgressBar.Horizontal"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginTop="7dp"-->
+                    <!--android:indeterminate="true"-->
+                    <!--android:indeterminateTint="@color/colorPrimary"-->
+                    <!--android:indeterminateTintMode="src_atop"-->
+                    <!--android:maxHeight="5dp"-->
+                    <!--android:minHeight="5dp"-->
+                    <!--android:progress="55" />-->
+
+                <!--<android.support.v4.widget.ContentLoadingProgressBar-->
+                    <!--android:id="@+id/send_referral_bedprogress"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:background="#6e57ee" />-->
+            <!--</LinearLayout>-->
+
+        <!--</LinearLayout>-->
+
+        <!--<Button-->
+            <!--android:id="@+id/send_referral_viewonmap"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginLeft="39dp"-->
+            <!--android:background="@drawable/round"-->
+            <!--android:text="View on maps >"-->
+            <!--android:textColor="#6e57ee" />-->
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
+            android:layout_marginLeft="10dp"
             android:layout_marginTop="50dp"
             android:text="Select Referrals"
-            android:textSize="20sp"
             android:textColor="#000"
-            android:layout_marginLeft="10dp"/>
-
-
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
 
     </LinearLayout>
 
 
-        <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:tools="http://schemas.android.com/tools"
+    <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerviewsendreferral"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <android.support.v7.widget.RecyclerView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/recyclerviewsendreferral">
+        </android.support.v7.widget.RecyclerView>
 
-            </android.support.v7.widget.RecyclerView>
-
-        </android.support.design.widget.CoordinatorLayout>
+    </android.support.design.widget.CoordinatorLayout>
 
 
 </LinearLayout>

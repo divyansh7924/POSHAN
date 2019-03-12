@@ -8,22 +8,23 @@ import android.view.ViewGroup;
 import android.widget.TextClock;
 import android.widget.TextView;
 
+import com.example.sihtry1.models.NRC;
 import com.example.sihtry1.models.RCR;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.DocumentSnapshot;
 
-public class NrcListAdapter extends FirestoreRecyclerAdapter<RCR, NrcListAdapter.NrcHolder> {
+public class NrcListAdapter extends FirestoreRecyclerAdapter<NRC, NrcListAdapter.NrcHolder> {
     private OnItemClickListener listener;
 
 
-    public NrcListAdapter(@NonNull FirestoreRecyclerOptions<RCR> options) {
+    public NrcListAdapter(@NonNull FirestoreRecyclerOptions<NRC> options) {
         super(options);
     }
 
 
     @Override
-    protected void onBindViewHolder(@NonNull NrcListAdapter.NrcHolder holder, int position, @NonNull RCR model) {
+    protected void onBindViewHolder(@NonNull NrcListAdapter.NrcHolder holder, int position, @NonNull NRC model) {
         holder.textViewnrctitle.setText(model.getTitle());
         holder.textviewaddress.setText(model.getAddress());
     }
