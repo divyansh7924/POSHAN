@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.sihtry1.models.Referral;
+import com.example.sihtry1.models.RCR;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
@@ -18,8 +19,12 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import org.w3c.dom.Text;
+
+import java.util.ArrayList;
 
 public class ChildProfileActivity extends AppCompatActivity {
 
@@ -28,6 +33,9 @@ public class ChildProfileActivity extends AppCompatActivity {
     private Button ch_admit_child;
     private String selectedchild;
     FirebaseFirestore db;
+    private CollectionReference rcrref;
+    private ArrayList<RCR> mrcr = new ArrayList<>();
+    String rcrselected;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +66,7 @@ public class ChildProfileActivity extends AppCompatActivity {
         ch_symptoms = (TextView)findViewById(R.id.ch_symptom);
 
         db = FirebaseFirestore.getInstance();
+        rcrref = db.collection("rcr");
         final DocumentReference docRef = db.collection("referral").document(selectedchild);
 
 //        Toast.makeText(getApplicationContext(), docRef.getId(), Toast.LENGTH_SHORT).show();
@@ -89,13 +98,27 @@ public class ChildProfileActivity extends AppCompatActivity {
                         ch_city.setText(referral[0].getCity());
                         ch_pin_code.setText(String.valueOf(referral[0].getPincode()));
                         ch_state.setText(referral[0].getState());
-//                        Query query = rcrref.whereEqualTo("rcrid",);
-                        ch_aaganwadi.setText(referral[0].getRcr_id());
-
+                        rcrselected = referral[0].getRcr_id();
+//                        ch_aaganwadi.setText(rcrselected);
+                        Query query = rcrref.whereEqualTo("user_id",rcrselected);
+                        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if(task.isSuccessful()) {
+                                    for(QueryDocumentSnapshot documentSnapshot : task.getResult()){
+                                        RCR rcr = documentSnapshot.toObject(RCR.class);
+                                        mrcr.add(rcr);
+                                    }
+                                    ch_aaganwadi.setText(mrcr.get(0).getTitle());
+                                }
+                                else{
+                                    Toast.makeText(getApplicationContext(), "RCR not found", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
                     }
                 }
             }
         });
-
     }
 }
