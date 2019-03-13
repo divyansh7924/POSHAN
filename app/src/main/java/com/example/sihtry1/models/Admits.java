@@ -3,6 +3,8 @@ package com.example.sihtry1.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.firebase.firestore.ServerTimestamp;
+
 import java.util.Date;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -12,7 +14,11 @@ public class Admits implements Parcelable {
     String nrc_id;
     String referral_id;
     int duration;
-    Date date_of_admission;
+    @ServerTimestamp Date date_of_admission;
+
+    public Admits(){
+
+    }
 
     public Admits(String nrc_id, String referral_id, int duration, Date date_of_admission) {
         this.nrc_id = nrc_id;
