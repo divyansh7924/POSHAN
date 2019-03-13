@@ -79,10 +79,22 @@ public class ChildProfileActivity extends AppCompatActivity {
 //        Toast.makeText(getApplicationContext(), docRef.getId(), Toast.LENGTH_SHORT).show();
 
         final Referral[] referral = {null};
-
         ch_admit_child.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            referral[0] = task.getResult().toObject(Referral.class);
+                            if (referral[0] == null) {
+//                        Toast.makeText(getApplicationContext(), "null  ", Toast.LENGTH_SHORT).show();
+                            } else {
+                                referral[0].setStatus("Admitted");
+                            }
+                        }
+                    }
+                });
                 createNewAdmission();
             }
         });
@@ -141,13 +153,11 @@ public class ChildProfileActivity extends AppCompatActivity {
         DocumentReference newAdmit = db.collection("Admit").document();
         String userid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         int duration= Integer.parseInt(String.valueOf(ch_admission_period.getText()));
-        Date dateofadmission = null;
-        Admits admit = new Admits(userid,referralid,duration,dateofadmission);
+        Admits admit = new Admits();
 
         admit.setNrc_id(userid);
         admit.setReferral_id(referralid);
         admit.setDuration(duration);
-        admit.setDate_of_admission(dateofadmission);
 
         newAdmit.set(admit).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
@@ -161,7 +171,6 @@ public class ChildProfileActivity extends AppCompatActivity {
                 }
             }
         });
-
 
     }
 }

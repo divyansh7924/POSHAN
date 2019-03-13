@@ -260,6 +260,8 @@ public class CreateReferralActivity extends AppCompatActivity implements Adapter
 
         referral.setChild_aadhaar_num(create_referral_et_aadhaar_child.getText().toString());
 
+        referral.setStatus("Created");
+
 
         newReferralRef.set(referral).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
