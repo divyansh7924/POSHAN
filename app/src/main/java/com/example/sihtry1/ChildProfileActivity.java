@@ -33,6 +33,7 @@ import java.util.Date;
 
 public class ChildProfileActivity extends AppCompatActivity {
 
+//    "ch stands for child"
     private TextView ch_guardian_name,ch_child_name,ch_gender,ch_date_of_birth,ch_blood_group,ch_asha_tape,ch_height,ch_weight,ch_odema,ch_guardian_aadhaar,ch_child_aadhaar,ch_phone,ch_address,ch_city,ch_pin_code,ch_state,ch_aaganwadi,ch_symptoms;
     private EditText ch_admission_period;
     private Button ch_admit_child;
@@ -76,25 +77,13 @@ public class ChildProfileActivity extends AppCompatActivity {
         rcrref = db.collection("rcr");
         final DocumentReference docRef = db.collection("referral").document(selectedchild);
 
-//        Toast.makeText(getApplicationContext(), docRef.getId(), Toast.LENGTH_SHORT).show();
-
         final Referral[] referral = {null};
         ch_admit_child.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                        if (task.isSuccessful()) {
-                            referral[0] = task.getResult().toObject(Referral.class);
-                            if (referral[0] == null) {
-//                        Toast.makeText(getApplicationContext(), "null  ", Toast.LENGTH_SHORT).show();
-                            } else {
-                                referral[0].setStatus("Admitted");
-                            }
-                        }
-                    }
-                });
+                db.collection("referral").document(selectedchild).update(
+                        "status","Admitted"
+                );
                 createNewAdmission();
             }
         });
@@ -126,7 +115,6 @@ public class ChildProfileActivity extends AppCompatActivity {
                         ch_state.setText(referral[0].getState());
                         referralid = referral[0].getReferral_id();
                         rcrselected = referral[0].getRcr_id();
-//                        ch_aaganwadi.setText(rcrselected);
                         Query query = rcrref.whereEqualTo("user_id",rcrselected);
                         query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                             @Override
