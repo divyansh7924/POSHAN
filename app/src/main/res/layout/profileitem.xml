@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:paddingHorizontal="2dp"
             android:layout_marginLeft="5dp"
-            android:paddingVertical="17dp"
+            android:paddingVertical="10dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Large" />
     </RelativeLayout>
     <TextView
@@ -39,7 +39,7 @@
         android:layout_height="wrap_content"
         android:paddingHorizontal="2dp"
         android:layout_marginRight="5dp"
-        android:paddingVertical="17dp"
+        android:paddingVertical="10dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Small" />
     <View
         android:layout_width="match_parent"
