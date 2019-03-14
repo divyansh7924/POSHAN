@@ -1,10 +1,13 @@
 package com.example.sihtry1;
 
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextClock;
 import android.widget.TextView;
 
@@ -12,6 +15,7 @@ import com.example.sihtry1.models.Referral;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.example.sihtry1.CurrentReferralsActivity;
 
 public class CurrentReferralAdapter extends FirestoreRecyclerAdapter<Referral, CurrentReferralAdapter.CurrentReferralHolder> {
     private OnItemClickListener listener;
@@ -27,6 +31,15 @@ public class CurrentReferralAdapter extends FirestoreRecyclerAdapter<Referral, C
         holder.textViewchildname.setText(model.getChild_first_name());
         holder.textviewdob.setText("DOB: " + model.getDay_of_birth() + "/" + model.getMonth_of_birth() + "/" + model.getYear_of_birth());
         holder.textrcrid.setText("Guardian Name: " + model.getGuadian_name());
+        String stat = model.getStatus();
+        switch (stat) {
+            case ("ReferralACK"):
+                Log.v("Statusw", "yes inside");
+                holder.ritem.setBackgroundColor(Color.parseColor("#E2FBFB"));
+                break;
+            default:
+                System.out.print("not Acknowledged state");
+        }
     }
 
     @NonNull
@@ -37,16 +50,18 @@ public class CurrentReferralAdapter extends FirestoreRecyclerAdapter<Referral, C
     }
 
 
-    class CurrentReferralHolder extends RecyclerView.ViewHolder{
+    class CurrentReferralHolder extends RecyclerView.ViewHolder {
         TextView textViewchildname;
         TextView textviewdob;
         TextView textrcrid;
+        LinearLayout ritem;
 
         public CurrentReferralHolder(@NonNull View itemView) {
             super(itemView);
             textViewchildname = itemView.findViewById(R.id.textviewname);
             textviewdob = itemView.findViewById(R.id.textviewage);
             textrcrid = itemView.findViewById(R.id.textviewguardian);
+            ritem = itemView.findViewById(R.id.ritem);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -59,10 +74,12 @@ public class CurrentReferralAdapter extends FirestoreRecyclerAdapter<Referral, C
             });
         }
     }
-    public interface OnItemClickListener{
+
+    public interface OnItemClickListener {
         void onItemClick(DocumentSnapshot documentSnapshot, int position);
     }
-    public void setOnItemClickListener(OnItemClickListener listener){
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
         this.listener = listener;
     }
 }

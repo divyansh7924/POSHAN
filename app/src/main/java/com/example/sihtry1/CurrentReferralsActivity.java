@@ -20,6 +20,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
+
 public class CurrentReferralsActivity extends AppCompatActivity {
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -27,6 +28,7 @@ public class CurrentReferralsActivity extends AppCompatActivity {
 
     private CurrentReferralAdapter adapter;
     String profileselected;
+    public Boolean ack;
 
 
     @Override
@@ -43,29 +45,24 @@ public class CurrentReferralsActivity extends AppCompatActivity {
                 profileselected = documentSnapshot.getId();
 //                profileselected = refid.getReferral_id();
                 Toast.makeText(CurrentReferralsActivity.this,"position: " + position + "ID: " + id + profileselected, Toast.LENGTH_SHORT).show();
+                db.collection("referral").document(profileselected).update(
+                        "status","ReferralACK"
+                );
                 showprofile();
-
             }
         });
-
-
     }
 
     public void setupRecyclerView() {
         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 //        Toast.makeText(CurrentReferralsActivity.this, "userid  " + userId, Toast.LENGTH_SHORT).show();
 
-
         Query query = childref.whereEqualTo("nrc_id", userId).orderBy("child_first_name",Query.Direction.ASCENDING);
-
-
         FirestoreRecyclerOptions<Referral> options = new FirestoreRecyclerOptions.Builder<Referral>()
                 .setQuery(query, Referral.class)
                 .build();
 
-
         adapter = new CurrentReferralAdapter(options);
-
 
         RecyclerView recyclerView = findViewById(R.id.recyclerviewreferral);
         recyclerView.setHasFixedSize(true);
