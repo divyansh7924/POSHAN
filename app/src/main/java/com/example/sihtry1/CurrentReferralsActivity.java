@@ -61,7 +61,7 @@ public class CurrentReferralsActivity extends AppCompatActivity {
         FirestoreRecyclerOptions<Referral> options = new FirestoreRecyclerOptions.Builder<Referral>()
                 .setQuery(query, Referral.class)
                 .build();
-
+//need a new attribute
         adapter = new CurrentReferralAdapter(options);
 
         RecyclerView recyclerView = findViewById(R.id.recyclerviewreferral);
