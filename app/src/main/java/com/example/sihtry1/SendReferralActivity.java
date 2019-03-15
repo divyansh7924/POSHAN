@@ -80,6 +80,7 @@ public class SendReferralActivity extends AppCompatActivity {
                 Referral referral = documentSnapshot.toObject(Referral.class);
                 referral.setNrc_id(selectedNrcId);
                 referral.setStatus("Referred");
+                referral.setSeen(0);
                 submit(referral);
                 documentSnapshot.getReference().delete();
             }

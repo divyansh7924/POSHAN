@@ -32,14 +32,14 @@ public class Referral {
     String address;
 
     String status;
+    int seen;
 
 
     public Referral() {
     }
 
 
-
-    public Referral(String referral_id, String child_first_name, String child_last_name, String child_gender, String child_aadhaar_num, int day_of_birth, int month_of_birth, int year_of_birth, String blood_group, float asha_measure, float height, float weight, int oedema, String guadian_name, String guardian_aadhaar_num, String nrc_id, String rcr_id, String other_symptoms, String phone, String state, String city, int pincode, String address, String status) {
+    public Referral(String referral_id, String child_first_name, String child_last_name, String child_gender, String child_aadhaar_num, int day_of_birth, int month_of_birth, int year_of_birth, String blood_group, float asha_measure, float height, float weight, int oedema, String guadian_name, String guardian_aadhaar_num, String nrc_id, String rcr_id, String other_symptoms, String phone, String state, String city, int pincode, String address, String status, int seen) {
         this.referral_id = referral_id;
         this.child_first_name = child_first_name;
         this.child_last_name = child_last_name;
@@ -64,6 +64,15 @@ public class Referral {
         this.pincode = pincode;
         this.address = address;
         this.status = status;
+        this.seen = seen;
+    }
+
+    public int getSeen() {
+        return seen;
+    }
+
+    public void setSeen(int seen) {
+        this.seen = seen;
     }
 
     public String getStatus() {

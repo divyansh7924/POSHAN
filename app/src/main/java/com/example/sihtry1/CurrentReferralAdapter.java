@@ -31,9 +31,9 @@ public class CurrentReferralAdapter extends FirestoreRecyclerAdapter<Referral, C
         holder.textViewchildname.setText(model.getChild_first_name());
         holder.textviewdob.setText("DOB: " + model.getDay_of_birth() + "/" + model.getMonth_of_birth() + "/" + model.getYear_of_birth());
         holder.textrcrid.setText("Guardian Name: " + model.getGuadian_name());
-        String stat = model.getStatus();
-        switch (stat) {
-            case ("ReferralACK"):
+        int seen = model.getSeen();
+        switch (seen) {
+            case (1):
                 Log.v("Statusw", "yes inside");
                 holder.ritem.setBackgroundColor(Color.parseColor("#E2FBFB"));
                 break;

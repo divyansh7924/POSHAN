@@ -46,7 +46,7 @@ public class CurrentReferralsActivity extends AppCompatActivity {
 //                profileselected = refid.getReferral_id();
                 Toast.makeText(CurrentReferralsActivity.this,"position: " + position + "ID: " + id + profileselected, Toast.LENGTH_SHORT).show();
                 db.collection("referral").document(profileselected).update(
-                        "status","ReferralACK"
+                        "seen",1
                 );
                 showprofile();
             }
@@ -57,7 +57,7 @@ public class CurrentReferralsActivity extends AppCompatActivity {
         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 //        Toast.makeText(CurrentReferralsActivity.this, "userid  " + userId, Toast.LENGTH_SHORT).show();
 
-        Query query = childref.whereEqualTo("nrc_id", userId).orderBy("child_first_name",Query.Direction.ASCENDING);
+        Query query = childref.whereEqualTo("nrc_id", userId).whereEqualTo("status","Referred").orderBy("child_first_name",Query.Direction.ASCENDING);
         FirestoreRecyclerOptions<Referral> options = new FirestoreRecyclerOptions.Builder<Referral>()
                 .setQuery(query, Referral.class)
                 .build();
