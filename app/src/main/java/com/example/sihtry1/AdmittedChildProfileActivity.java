@@ -16,6 +16,8 @@ import com.example.sihtry1.models.Referral;
 import com.example.sihtry1.models.RCR;
 import com.example.sihtry1.models.Admits;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
@@ -43,6 +45,7 @@ public class AdmittedChildProfileActivity extends AppCompatActivity {
     private ArrayList<RCR> mrcr = new ArrayList<>();
     private ArrayList<Admits> admits = new ArrayList<>();
     String rcrselected,referralid;
+    public String admitdocsnap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,9 +87,6 @@ public class AdmittedChildProfileActivity extends AppCompatActivity {
         admitted_ch_discharge_child.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                db.collection("referral").document(selectedchild).update(
-                        "status","Discharged"
-                );
                 createNewDischarge();
             }
         });
@@ -134,6 +134,7 @@ public class AdmittedChildProfileActivity extends AppCompatActivity {
                                     for(QueryDocumentSnapshot documentSnapshot : task.getResult()){
                                         Admits admit = documentSnapshot.toObject(Admits.class);
                                         admits.add(admit);
+                                        admitdocsnap = documentSnapshot.getId();
                                     }
                                     admitted_ch_date_of_admission.setText(String.valueOf(admits.get(0).getDate_of_admission()));
                                     admitted_ch_admission_period.setText(String.valueOf(admits.get(0).getDuration())+" Weeks");
@@ -178,6 +179,26 @@ public class AdmittedChildProfileActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
+                    FirebaseFirestore db1;
+                    db1 =FirebaseFirestore.getInstance();
+                    db1.collection("referral").document(selectedchild).update(
+                            "status","Discharged"
+                    );
+                    db1.collection("Admit").document(admitdocsnap)
+                            .delete()
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Log.d("deleted admit document ", admitdocsnap);
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.w("error ", admitdocsnap +" ", e);
+                                }
+                            });
+
                     Toast.makeText(getApplicationContext(),"Discharged",Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(getApplicationContext(), NRCActivity.class);
                     startActivity(intent);

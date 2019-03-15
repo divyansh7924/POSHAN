@@ -81,9 +81,6 @@ public class ChildProfileActivity extends AppCompatActivity {
         ch_admit_child.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                db.collection("referral").document(selectedchild).update(
-                        "status","Admitted"
-                );
                 createNewAdmission();
             }
         });
@@ -159,6 +156,11 @@ public class ChildProfileActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
+                    FirebaseFirestore db1;
+                    db1 = FirebaseFirestore.getInstance();
+                    db1.collection("referral").document(selectedchild).update(
+                            "status","Admitted"
+                    );
                     Toast.makeText(getApplicationContext(),"Admitted",Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(getApplicationContext(), NRCActivity.class);
                     startActivity(intent);
