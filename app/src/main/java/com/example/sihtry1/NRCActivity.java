@@ -14,16 +14,24 @@ import com.google.firebase.auth.FirebaseAuth;
 public class NRCActivity extends AppCompatActivity {
 
     private Button nrc_current_referrals;
+    private Button nrc_admitted_children;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nrc);
         nrc_current_referrals = (Button)findViewById(R.id.nrc_current_ref);
+        nrc_admitted_children = (Button) findViewById(R.id.nrc_admitted);
         nrc_current_referrals.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 currentref();
+            }
+        });
+        nrc_admitted_children.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                admittedprofiles();
             }
         });
     }
@@ -53,6 +61,10 @@ public class NRCActivity extends AppCompatActivity {
     }
     public void currentref(){
         Intent intent = new Intent(this, CurrentReferralsActivity.class);
+        startActivity(intent);
+    }
+    public void admittedprofiles(){
+        Intent intent = new Intent(this, AdmittedChildrenActivity.class);
         startActivity(intent);
     }
 }

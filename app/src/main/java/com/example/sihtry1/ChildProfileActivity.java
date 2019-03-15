@@ -101,7 +101,15 @@ public class ChildProfileActivity extends AppCompatActivity {
                         ch_height.setText(String.valueOf(referral[0].getHeight()));
                         ch_weight.setText(String.valueOf(referral[0].getWeight()));
                         ch_phone.setText(referral[0].getPhone());
-                        ch_odema.setText(String.valueOf(referral[0].getOedema()));
+                        int oedema = referral[0].getOedema();
+                        if (oedema == 0)
+                            ch_odema.setText("0");
+                        else if(oedema == 1)
+                            ch_odema.setText("+");
+                        else if(oedema == 2)
+                            ch_odema.setText("++");
+                        else
+                            ch_odema.setText("+++");
                         ch_symptoms.setText(referral[0].getOther_symptoms());
                         ch_guardian_name.setText(referral[0].getGuadian_name());
                         ch_gender.setText(referral[0].getChild_gender());

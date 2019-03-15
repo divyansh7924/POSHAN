@@ -3,6 +3,8 @@ package com.example.sihtry1.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.firebase.firestore.ServerTimestamp;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -10,9 +12,13 @@ import java.util.Date;
 
 public class Followup implements Parcelable {
     String nrc_id;
-    Date date_of_discharge;
+    @ServerTimestamp Date date_of_discharge;
     String referral_id;
     int num_followups;
+
+    public Followup(){
+
+    }
 
     public Followup(String nrc_id, Date date_of_discharge, String referral_id, int num_followups) {
         this.nrc_id = nrc_id;
