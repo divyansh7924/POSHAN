@@ -15,26 +15,26 @@
     android:paddingBottom="15dp">
 
 
-
     <TextView
         android:id="@+id/textviewnrctitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingHorizontal="2dp"
         android:layout_marginLeft="5dp"
+        android:paddingHorizontal="2dp"
         android:paddingVertical="17dp"
+        android:text="Title will be here"
         android:textAppearance="@style/TextAppearance.AppCompat.Large" />
-
 
 
     <TextView
         android:id="@+id/textviewaddress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingHorizontal="2dp"
         android:layout_marginLeft="5dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Small"
-        android:layout_marginRight="5dp" />
+        android:layout_marginRight="5dp"
+        android:paddingHorizontal="2dp"
+        android:text="Address will be here"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
 
     <View
