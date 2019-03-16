@@ -12,6 +12,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".ZScoreActivity"></activity>
+        <activity android:name=".AdmittedChildProfileActivity"></activity>
+        <activity android:name=".AdmittedChildrenActivity" />
         <activity
             android:name=".ChildProfileActivity"
             android:label="Child Profile" />

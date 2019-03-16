@@ -21,12 +21,12 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
 
-public class CurrentReferralsActivity extends AppCompatActivity {
+public class AdmittedChildrenActivity extends AppCompatActivity {
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private CollectionReference childref = db.collection("referral");
 
-    private CurrentReferralAdapter adapter;
+    private AdmittedChildrenAdapter adapter;
     String profileselected;
     public Boolean ack;
 
@@ -34,19 +34,15 @@ public class CurrentReferralsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_current_referrals);
+        setContentView(R.layout.activity_admitted_children);
 
         setupRecyclerView();
-        adapter.setOnItemClickListener(new CurrentReferralAdapter.OnItemClickListener() {
+        adapter.setOnItemClickListener(new AdmittedChildrenAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(DocumentSnapshot documentSnapshot, int position) {
                 Referral refid = documentSnapshot.toObject(Referral.class);
                 String id = documentSnapshot.getId();
                 profileselected = documentSnapshot.getId();
-                Toast.makeText(CurrentReferralsActivity.this,"position: " + position + "ID: " + id + profileselected, Toast.LENGTH_SHORT).show();
-                db.collection("referral").document(profileselected).update(
-                        "seen",1
-                );
                 showprofile();
             }
         });
@@ -55,13 +51,14 @@ public class CurrentReferralsActivity extends AppCompatActivity {
     public void setupRecyclerView() {
         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        Query query = childref.whereEqualTo("nrc_id", userId).whereEqualTo("status","Referred").orderBy("child_first_name",Query.Direction.ASCENDING);
+        Query query = childref.whereEqualTo("nrc_id", userId).whereEqualTo("status","Admitted").orderBy("child_first_name",Query.Direction.ASCENDING);
         FirestoreRecyclerOptions<Referral> options = new FirestoreRecyclerOptions.Builder<Referral>()
                 .setQuery(query, Referral.class)
                 .build();
-        adapter = new CurrentReferralAdapter(options);
 
-        RecyclerView recyclerView = findViewById(R.id.recyclerviewreferral);
+        adapter = new AdmittedChildrenAdapter(options);
+
+        RecyclerView recyclerView = findViewById(R.id.recyclerviewadmittedchildren);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
@@ -79,7 +76,7 @@ public class CurrentReferralsActivity extends AppCompatActivity {
         adapter.stopListening();
     }
     public void showprofile(){
-        Intent intent = new Intent(this, ChildProfileActivity.class);
+        Intent intent = new Intent(this, AdmittedChildProfileActivity.class);
         intent.putExtra("docid", profileselected);
         startActivity(intent);
     }
