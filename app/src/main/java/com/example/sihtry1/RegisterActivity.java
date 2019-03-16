@@ -120,11 +120,4 @@ public class RegisterActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
-//
-//    private void loginUpdateUI(FirebaseUser user) {
-//        Intent intent = new Intent(this, MainActivity.class);
-//        intent.putExtra("userobject", user);
-//        startActivity(intent);
-//        finish();
-//    }
 }

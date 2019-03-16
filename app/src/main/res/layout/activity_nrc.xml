@@ -11,21 +11,28 @@
         android:id="@+id/nrc_current_ref"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="90dp"
+        android:layout_marginTop="10dp"
         android:text="Current Referrals" />
 
     <Button
         android:id="@+id/nrc_admitted"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="90dp"
+        android:layout_marginTop="10dp"
         android:text="Admitted" />
 
     <Button
         android:id="@+id/nrc_followups"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="90dp"
+        android:layout_marginTop="10dp"
         android:text="Followups" />
+
+    <Button
+        android:id="@+id/nrc_past_referrals"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Past Referrals" />
 
 </LinearLayout>
