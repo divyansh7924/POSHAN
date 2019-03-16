@@ -13,9 +13,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class RCRActivity extends AppCompatActivity {
 
-    private Button btn_create_new_referral;
-    private Button btn_ListofNRC;
-    private Button btn_updateref;
+    private Button btn_create_new_referral, btn_updateref, btn_ListofNRC, btn_z_zcore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,9 +21,9 @@ public class RCRActivity extends AppCompatActivity {
         setContentView(R.layout.activity_rcr);
 
         btn_create_new_referral = (Button) findViewById(R.id.rcr_btn_create_new_ref);
-        btn_ListofNRC = (Button)findViewById(R.id.rcr_btn_nrc_list);
-        btn_updateref = (Button)findViewById(R.id.rcr_btn_update_profile);
-
+        btn_ListofNRC = (Button) findViewById(R.id.rcr_btn_nrc_list);
+        btn_updateref = (Button) findViewById(R.id.rcr_btn_update_profile);
+        btn_z_zcore = (Button) findViewById(R.id.rcr_btn_z_score);
 
         btn_ListofNRC.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,6 +43,17 @@ public class RCRActivity extends AppCompatActivity {
                 agnupdateref();
             }
         });
+        btn_z_zcore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                zscoreActivity();
+            }
+        });
+    }
+
+    private void zscoreActivity() {
+        Intent intent = new Intent(this, ZScoreActivity.class);
+        startActivity(intent);
     }
 
     private void registerChild() {
