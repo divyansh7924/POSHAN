@@ -100,23 +100,20 @@ public class CreateReferralActivity extends AppCompatActivity implements Adapter
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
-                    public void onComplete(@NonNull Task< QuerySnapshot > task) {
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
-                            for (DocumentSnapshot document: task.getResult()) {
+                            for (DocumentSnapshot document : task.getResult()) {
                                 Log.v("FIRESTOREEE", document.getId() + " => " + document.get("state"));
 
 
                                 states.add((String) document.get("state"));
 
 
-
-
-
                             }
                             final List<String> statesList = new ArrayList<>(states);
 
                             // Initializing an ArrayAdapter
-                            final ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(CreateReferralActivity.this,R.layout.spinner_item,statesList);
+                            final ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(CreateReferralActivity.this, R.layout.spinner_item, statesList);
 
                             spinnerArrayAdapter.setDropDownViewResource(R.layout.spinner_item);
                             sp_state.setAdapter(spinnerArrayAdapter);
@@ -141,7 +138,6 @@ public class CreateReferralActivity extends AppCompatActivity implements Adapter
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear,
                                   int dayOfMonth) {
-                // TODO Auto-generated method stub
                 myCalendar.set(Calendar.YEAR, year);
                 myCalendar.set(Calendar.MONTH, monthOfYear);
                 myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
@@ -156,7 +152,6 @@ public class CreateReferralActivity extends AppCompatActivity implements Adapter
 
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
                 final Calendar c = Calendar.getInstance();
                 mYear = c.get(Calendar.YEAR);
                 mMonth = c.get(Calendar.MONTH);

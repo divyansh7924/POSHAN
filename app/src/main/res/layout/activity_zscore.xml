@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ZScoreActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Test for SAM"
+        android:textColor="#000"
+        android:textSize="40sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:text="Select Gender" />
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/zscore_rb_male"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Male" />
+
+        <RadioButton
+            android:id="@+id/zscore_rb_female"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Female" />
+    </RadioGroup>
+
+    <EditText
+        android:id="@+id/zscore_et_age"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Age" />
+
+    <EditText
+        android:id="@+id/zscore_et_weight"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Weight" />
+
+    <EditText
+        android:id="@+id/zscore_et_height"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Height" />
+
+    <TextView
+        android:id="@+id/zscore_tv_zscore"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="WH Z:"
+        android:textColor="#000"
+        android:textSize="20sp" />
+
+    <EditText
+        android:id="@+id/zscore_et_muac"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="MUAC" />
+
+    <Spinner
+        android:id="@+id/zscore_spinner_oedema"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:entries="@array/oedema_stages" />
+
+    <Button
+        android:id="@+id/zscore_btn_check_status"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Show child status" />
+
+    <TextView
+        android:id="@+id/zscore_tv_status"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:textSize="20sp"
+        android:visibility="invisible" />
+
+    <Button
+        android:id="@+id/zscore_btn_create_referral"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Create New Referral"
+        android:visibility="invisible" />
+</LinearLayout>

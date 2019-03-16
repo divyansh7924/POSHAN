@@ -11,8 +11,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ChildProfileActivity"
-            android:label="Child Profile"></activity>
+        <activity android:name=".ZScoreActivity"></activity>
+        <activity
+            android:name=".ChildProfileActivity"
+            android:label="Child Profile" />
         <activity android:name=".UpdateReferralActivity" />
         <activity android:name=".AgnUpdateReferralActivity" />
         <activity android:name=".CurrentReferralsActivity" />
