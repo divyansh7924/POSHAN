@@ -26,6 +26,7 @@
             android:layout_marginLeft="5dp"
             android:paddingHorizontal="2dp"
             android:paddingVertical="17dp"
+            android:text="Name will be here"
             android:textAppearance="@style/TextAppearance.AppCompat.Large" />
     </RelativeLayout>
 
@@ -34,6 +35,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
+        android:text="Age will be here"
         android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
     <TextView
@@ -43,6 +45,7 @@
         android:layout_marginRight="5dp"
         android:paddingHorizontal="2dp"
         android:paddingVertical="17dp"
+        android:text="Guardian name will be here"
         android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
     <View
