@@ -7,11 +7,13 @@
     tools:context=".VerificationDueActivity">
 
     <TextView
+        android:id="@+id/verify_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/verify_tv"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:text="Verification is due" />
+        android:text="Verification is due"
+        android:textColor="#000"
+        android:textSize="30dp" />
 
 </RelativeLayout>

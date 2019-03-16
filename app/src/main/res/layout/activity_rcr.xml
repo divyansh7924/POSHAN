@@ -11,27 +11,34 @@
         android:id="@+id/rcr_btn_create_new_ref"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="10dp"
         android:text="Create New Referral" />
 
     <Button
         android:id="@+id/rcr_btn_nrc_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="10dp"
         android:text="List of NRC's" />
 
     <Button
         android:id="@+id/rcr_btn_update_profile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="10dp"
         android:text="Update referral profile" />
 
     <Button
         android:id="@+id/rcr_btn_z_score"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="10dp"
         android:text="Test for SAM" />
+
+    <Button
+        android:id="@+id/rcr_past_referrals"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Past Referrals" />
 </LinearLayout>

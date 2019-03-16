@@ -42,7 +42,7 @@ public class CreateReferralActivity extends AppCompatActivity implements Adapter
     private EditText create_referral_et_parent_name, create_referral_et_child_f_name, create_referral_et_child_l_name, create_referral_et_bloodgp,
             create_referral_et_city, create_referral_et_ashamsmt, create_referral_et_pincode, create_referral_et_height, create_referral_et_symptoms,
             create_referral_et_weight, create_referral_et_aadhaar_parent, create_referral_et_aadhaar_child, create_referral_et_add, create_referral_et_phone;
-    private RadioButton create_referral_rb_child_male, create_referral_rb_child_female, create_referral_rb_child_other;
+    private RadioButton create_referral_rb_child_male, create_referral_rb_child_female;
     private int day_of_birth, month_of_birth, year_of_birth;
     private Spinner spinner_oedema;
     private Spinner sp_state;
@@ -73,7 +73,6 @@ public class CreateReferralActivity extends AppCompatActivity implements Adapter
         create_referral_et_phone = (EditText) findViewById(R.id.create_referral_et_phone);
         create_referral_rb_child_male = (RadioButton) findViewById(R.id.create_referral_rb_child_male);
         create_referral_rb_child_female = (RadioButton) findViewById(R.id.create_referral_rb_child_female);
-        create_referral_rb_child_other = (RadioButton) findViewById(R.id.create_referral_rb_child_other);
         spinner_oedema = (Spinner) findViewById(R.id.create_referral_spinner_oedema);
         spinner_oedema.setOnItemSelectedListener(this);
         db = FirebaseFirestore.getInstance();
@@ -88,7 +87,8 @@ public class CreateReferralActivity extends AppCompatActivity implements Adapter
                 } else if (create_referral_rb_child_female.isChecked()) {
                     gender = "f";
                 } else {
-                    gender = "o";
+                    Toast.makeText(getApplicationContext(), "Select Gender", Toast.LENGTH_SHORT).show();
+                    return;
                 }
 
 
