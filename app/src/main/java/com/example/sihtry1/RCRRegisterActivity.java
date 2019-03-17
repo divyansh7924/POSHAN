@@ -21,6 +21,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
@@ -52,6 +53,7 @@ public class RCRRegisterActivity extends AppCompatActivity {
     private Uri filepath;
     private EditText et_bed_count, et_bed_vacant, et_title, et_address, et_city, et_pincode, et_phone, et_reg_num;
     private Uri downloadUri;
+    private TextView tv_doc_name;
     ArrayList<String> states = new ArrayList<String>(25);
 
 
@@ -63,6 +65,7 @@ public class RCRRegisterActivity extends AppCompatActivity {
         mStorageRef = FirebaseStorage.getInstance().getReference();
         submit = (Button) findViewById(R.id.rcr_reg_submit);
         et_title = (EditText) findViewById(R.id.rcr_reg_et_title);
+        tv_doc_name = findViewById(R.id.rcr_reg_doc_name);
         et_address = (EditText) findViewById(R.id.rcr_reg_et_add);
         et_city = (EditText) findViewById(R.id.rcr_reg_et_city);
         sp_state = (Spinner) findViewById(R.id.rcr_reg_et_state);
@@ -83,23 +86,20 @@ public class RCRRegisterActivity extends AppCompatActivity {
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
-                    public void onComplete(@NonNull Task< QuerySnapshot > task) {
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
-                            for (DocumentSnapshot document: task.getResult()) {
+                            for (DocumentSnapshot document : task.getResult()) {
                                 Log.v("FIRESTOREEE", document.getId() + " => " + document.get("state"));
 
 
                                 states.add((String) document.get("state"));
 
 
-
-
-
                             }
                             final List<String> statesList = new ArrayList<>(states);
 
                             // Initializing an ArrayAdapter
-                            final ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(RCRRegisterActivity.this,R.layout.spinner_item,statesList);
+                            final ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(RCRRegisterActivity.this, R.layout.spinner_item, statesList);
 
                             spinnerArrayAdapter.setDropDownViewResource(R.layout.spinner_item);
                             sp_state.setAdapter(spinnerArrayAdapter);
@@ -128,6 +128,11 @@ public class RCRRegisterActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == PICK_PDF_REQUEST && resultCode == RESULT_OK && data.getData() != null) {
             filepath = data.getData();
+
+            int cut = filepath.toString().lastIndexOf('/');
+            if (cut != -1) {
+                tv_doc_name.setText(filepath.toString().substring(cut + 1));
+            }
         }
     }
 
