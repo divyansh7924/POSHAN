@@ -11,8 +11,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ZScoreActivity"></activity>
-        <activity android:name=".AdmittedChildProfileActivity"></activity>
+        <activity android:name=".FollowupsListActivity"></activity>
+        <activity android:name=".ZScoreActivity" />
+        <activity android:name=".AdmittedChildProfileActivity" />
         <activity android:name=".AdmittedChildrenActivity" />
         <activity
             android:name=".ChildProfileActivity"
