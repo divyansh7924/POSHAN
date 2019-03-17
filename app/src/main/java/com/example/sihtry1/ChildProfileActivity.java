@@ -35,7 +35,7 @@ public class ChildProfileActivity extends AppCompatActivity {
 
     private TextView tv_guardian_name, tv_child_name, tv_gender, tv_date_of_birth, tv_blood_group,
             tv_asha_tape, tv_height, tv_weight, tv_odema, tv_guardian_aadhaar, tv_child_aadhaar, tv_phone,
-            tv_pin_code, tv_state, tv_aaganwadi, tv_symptoms, tv_village, tv_tehsil,
+            tv_pin_code, tv_state, tv_aaganwadi, tv_symptoms, tv_village, tv_tehsil, tv_treated_for,
             tv_district, tv_date_screened;
     private EditText et_admission_period;
     private Button btn_admit_child;
@@ -57,6 +57,7 @@ public class ChildProfileActivity extends AppCompatActivity {
         tv_gender = (TextView) findViewById(R.id.child_profile_tv_child_gender);
         tv_date_of_birth = (TextView) findViewById(R.id.child_profile_tv_date_of_birth);
         tv_blood_group = (TextView) findViewById(R.id.child_profile_tv_blood_group);
+        tv_treated_for = findViewById(R.id.child_profile_tv_treated_for);
         tv_asha_tape = (TextView) findViewById(R.id.child_profile_tv_asha_tape);
         tv_height = (TextView) findViewById(R.id.child_profile_tv_height);
         tv_weight = (TextView) findViewById(R.id.child_profile_tv_weight);
@@ -93,7 +94,7 @@ public class ChildProfileActivity extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     referral[0] = task.getResult().toObject(Referral.class);
                     if (referral[0] == null) {
-//                        Toast.makeText(getApplicationContext(), "null  ", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "null  ", Toast.LENGTH_SHORT).show();
                     } else {
                         tv_asha_tape.setText(String.valueOf(referral[0].getAsha_measure()));
                         tv_child_name.setText(referral[0].getChild_first_name());
@@ -112,8 +113,13 @@ public class ChildProfileActivity extends AppCompatActivity {
                         tv_symptoms.setText(referral[0].getOther_symptoms());
                         tv_guardian_name.setText(referral[0].getGuadian_name());
                         tv_gender.setText(referral[0].getChild_gender());
-                        tv_date_of_birth.setText(String.valueOf(referral[0].getDay_of_birth()));
-                        tv_blood_group.setText(referral[0].getChild_gender());
+
+                        String dateOfBirth = String.valueOf(referral[0].getDay_of_birth()) + ":" +
+                                String.valueOf(referral[0].getMonth_of_birth()) + ":" +
+                                String.valueOf(referral[0].getYear_of_birth());
+                        tv_date_of_birth.setText(dateOfBirth);
+
+                        tv_blood_group.setText(referral[0].getBlood_group());
                         tv_guardian_aadhaar.setText(String.valueOf(referral[0].getGuardian_aadhaar_num()));
                         tv_child_aadhaar.setText(String.valueOf(referral[0].getChild_aadhaar_num()));
                         tv_pin_code.setText(String.valueOf(referral[0].getPincode()));
@@ -122,6 +128,7 @@ public class ChildProfileActivity extends AppCompatActivity {
                         tv_district.setText(referral[0].getDistrict());
                         tv_tehsil.setText(referral[0].getTehsil());
                         tv_date_screened.setText(referral[0].getDate_screened().toString());
+                        tv_treated_for.setText(referral[0].getTreated_for());
 
 
                         referralid = referral[0].getReferral_id();

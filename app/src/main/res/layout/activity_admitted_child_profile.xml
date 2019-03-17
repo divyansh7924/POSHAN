@@ -231,7 +231,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:text="Guardian PHone"
+                android:text="Guardian Phone"
                 android:textColor="#000"
                 android:textSize="22sp"
                 android:textStyle="bold" />
@@ -318,22 +318,6 @@
 
             <TextView
                 android:id="@+id/admitted_child_profile_tv_state"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:textSize="22sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text="Aaganwadi "
-                android:textColor="#000"
-                android:textSize="22sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/admitted_child_profile_tv_aaganwadi"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"

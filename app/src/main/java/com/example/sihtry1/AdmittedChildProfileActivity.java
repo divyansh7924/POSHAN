@@ -38,7 +38,7 @@ public class AdmittedChildProfileActivity extends AppCompatActivity {
 
     private TextView tv_guardian_name, tv_child_name, tv_gender, tv_date_of_birth, tv_blood_group,
             tv_asha_tape, tv_height, tv_weight, tv_odema, tv_guardian_aadhaar, tv_child_aadhaar, tv_phone,
-            tv_pin_code, tv_state, tv_aaganwadi, tv_symptoms, tv_village, tv_tehsil,
+            tv_pin_code, tv_state, tv_symptoms, tv_village, tv_tehsil, tv_treated_for,
             tv_district, tv_date_admit, tv_admit_period, tv_anganwadi;
     private Button btn_discharge;
     private String selectedchild;
@@ -70,7 +70,7 @@ public class AdmittedChildProfileActivity extends AppCompatActivity {
         tv_phone = (TextView) findViewById(R.id.admitted_child_profile_tv_phone);
         tv_pin_code = (TextView) findViewById(R.id.admitted_child_profile_tv_pincode);
         tv_state = (TextView) findViewById(R.id.admitted_child_profile_tv_state);
-        tv_aaganwadi = (TextView) findViewById(R.id.admitted_child_profile_tv_aaganwadi);
+        tv_treated_for = findViewById(R.id.admitted_child_profile_tv_treated_for);
         tv_symptoms = (TextView) findViewById(R.id.admitted_child_profile_tv_symptom);
         tv_village = findViewById(R.id.admitted_child_profile_tv_village);
         tv_district = findViewById(R.id.admitted_child_profile_tv_district);
@@ -119,8 +119,13 @@ public class AdmittedChildProfileActivity extends AppCompatActivity {
                         tv_symptoms.setText(referral[0].getOther_symptoms());
                         tv_guardian_name.setText(referral[0].getGuadian_name());
                         tv_gender.setText(referral[0].getChild_gender());
-                        tv_date_of_birth.setText(String.valueOf(referral[0].getDay_of_birth()));
-                        tv_blood_group.setText(referral[0].getChild_gender());
+
+                        String dateOfBirth = String.valueOf(referral[0].getDay_of_birth()) + ":" +
+                                String.valueOf(referral[0].getMonth_of_birth()) + ":" +
+                                String.valueOf(referral[0].getYear_of_birth());
+                        tv_date_of_birth.setText(dateOfBirth);
+
+                        tv_blood_group.setText(referral[0].getBlood_group());
                         tv_guardian_aadhaar.setText(String.valueOf(referral[0].getGuardian_aadhaar_num()));
                         tv_child_aadhaar.setText(String.valueOf(referral[0].getChild_aadhaar_num()));
                         tv_pin_code.setText(String.valueOf(referral[0].getPincode()));
@@ -128,6 +133,7 @@ public class AdmittedChildProfileActivity extends AppCompatActivity {
                         tv_village.setText(referral[0].getVillage());
                         tv_district.setText(referral[0].getDistrict());
                         tv_tehsil.setText(referral[0].getTehsil());
+                        tv_treated_for.setText(referral[0].getTreated_for());
 
                         referralid = referral[0].getReferral_id();
                         rcrselected = referral[0].getRcr_id();

@@ -75,7 +75,7 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:hint="Weight"
-                android:inputType="number" />
+                android:inputType="numberDecimal" />
 
             <Spinner
                 android:id="@+id/update_referral_spinner_oedema"
