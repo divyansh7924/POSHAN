@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class ZScoreActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     private Spinner oedema_spinner;
@@ -26,24 +27,21 @@ public class ZScoreActivity extends AppCompatActivity implements AdapterView.OnI
     private double weight_z;
     private char gender_pass;
 
-    public ZScoreActivity(){
-    	table_boy= new double[]{1.9, 2.0, 2.1, 2.2, 2.3, 2.4, 2.6, 2.7, 2.9, 3.1, 3.3, 3.6, 3.8, 4.0, 4.3, 4.5, 4.7, 4.9, 5.1, 5.3, 5.5, 5.7, 5.9, 6.1, 6.3, 6.5, 6.6, 6.8, 7.0, 7.2, 7.3, 7.5, 7.6, 7.8, 7.9, 8.1, 8.2, 8.4, 8.6, 8.7, 8.9, 9.1, 9.3, 9.6, 9.8, 10.0, 10.2, 10.4, 10.6, 10.8, 11.0, 11.1, 11.3, 11.5, 11.7, 11.9, 12.1, 12.3, 12.5, 12.7, 13.0, 13.2, 13.4, 13.7, 13.9, 14.1, 14.4, 14.6, 14.9, 15.2, 15.4, 15.7, 16.0, 16.2, 16.5, 16.8, 17.1};
-    	table_girl= new double[]{1.9, 2.0, 2.1, 2.2, 2.3, 2.4, 2.6, 2.8, 2.9, 3.1, 3.3, 3.5, 3.7, 3.9, 4.1, 4.3, 4.5, 4.7, 4.9, 5.1, 5.3, 5.5, 5.6, 5.8, 6.0, 6.1, 6.3, 6.5, 6.6, 6.8, 6.9, 7.1, 7.2, 7.4, 7.5, 7.7, 7.8, 8.0, 8.1, 8.3, 8.5, 8.7, 8.9, 9.2, 9.4, 9.6, 9.8, 10.0, 10.2, 10.4, 10.6, 10.8, 10.9, 11.1, 11.3, 11.5, 11.7, 12.0, 12.2, 12.4, 12.6, 12.9, 13.1, 13.4, 13.7, 13.9, 14.2, 14.5, 14.8, 14.9, 15.1, 15.4, 15.7, 16.0, 16.3, 16.6, 16.9, 17.3};
-    	//hight_z= round_off(Double.parseDouble(et_height.getText().toString()));
-        //weight_z= Double.parseDouble(et_weight.getText().toString());
-        if(et_weight==null)
-        {
-            weight_z=0.0;
-        }else {
-            weight_z= Double.parseDouble(et_weight.getText().toString());
+    public ZScoreActivity() {
+        table_boy = new double[]{1.9, 2.0, 2.1, 2.2, 2.3, 2.4, 2.6, 2.7, 2.9, 3.1, 3.3, 3.6, 3.8, 4.0, 4.3, 4.5, 4.7, 4.9, 5.1, 5.3, 5.5, 5.7, 5.9, 6.1, 6.3, 6.5, 6.6, 6.8, 7.0, 7.2, 7.3, 7.5, 7.6, 7.8, 7.9, 8.1, 8.2, 8.4, 8.6, 8.7, 8.9, 9.1, 9.3, 9.6, 9.8, 10.0, 10.2, 10.4, 10.6, 10.8, 11.0, 11.1, 11.3, 11.5, 11.7, 11.9, 12.1, 12.3, 12.5, 12.7, 13.0, 13.2, 13.4, 13.7, 13.9, 14.1, 14.4, 14.6, 14.9, 15.2, 15.4, 15.7, 16.0, 16.2, 16.5, 16.8, 17.1};
+        table_girl = new double[]{1.9, 2.0, 2.1, 2.2, 2.3, 2.4, 2.6, 2.8, 2.9, 3.1, 3.3, 3.5, 3.7, 3.9, 4.1, 4.3, 4.5, 4.7, 4.9, 5.1, 5.3, 5.5, 5.6, 5.8, 6.0, 6.1, 6.3, 6.5, 6.6, 6.8, 6.9, 7.1, 7.2, 7.4, 7.5, 7.7, 7.8, 8.0, 8.1, 8.3, 8.5, 8.7, 8.9, 9.2, 9.4, 9.6, 9.8, 10.0, 10.2, 10.4, 10.6, 10.8, 10.9, 11.1, 11.3, 11.5, 11.7, 12.0, 12.2, 12.4, 12.6, 12.9, 13.1, 13.4, 13.7, 13.9, 14.2, 14.5, 14.8, 14.9, 15.1, 15.4, 15.7, 16.0, 16.3, 16.6, 16.9, 17.3};
+        if (et_weight == null) {
+            weight_z = 0.0;
+        } else {
+            weight_z = Double.parseDouble(et_weight.getText().toString());
         }
-        if (et_height==null){
-            hight_z= 0;
-        }else {
-            hight_z=round_off(Double.parseDouble(et_height.getText().toString()));
+        if (et_height == null) {
+            hight_z = 0;
+        } else {
+            hight_z = round_off(Double.parseDouble(et_height.getText().toString()));
         }
 
-	    }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +61,21 @@ public class ZScoreActivity extends AppCompatActivity implements AdapterView.OnI
         btn_check_status.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (et_age.getText().toString().trim().length() <= 0) {
+                    Toast.makeText(ZScoreActivity.this, "Please enter age ", Toast.LENGTH_SHORT).show();
+                }
+                if (et_height.getText().toString().trim().length() <= 0) {
+                    Toast.makeText(ZScoreActivity.this, "Please enter hight ", Toast.LENGTH_SHORT).show();
+                }
+                if (et_weight.getText().toString().trim().length() <= 0) {
+                    Toast.makeText(ZScoreActivity.this, "Please enter weight ", Toast.LENGTH_SHORT).show();
+                }
+                if (et_muac.getText().toString().trim().length() <= 0) {
+                    Toast.makeText(ZScoreActivity.this, "Please enter Muac ", Toast.LENGTH_SHORT).show();
+                }
+                //if (et_height.getText().toString().trim().length() <= 0) {
+                  //  Toast.makeText(ZScoreActivity.this, "Please enter hight ", Toast.LENGTH_SHORT).show();
+                //}
                 checkStatus();
             }
         });
@@ -90,11 +103,9 @@ public class ZScoreActivity extends AppCompatActivity implements AdapterView.OnI
             setSAM();
         } else if (age > 6 && muac < 115) {
             setSAM();
-        }
-        else if(zscore(gender_set())==true){
-        	setSAM();
-        }
-        else {
+        } else if (zscore(gender_set()) == true) {
+            setSAM();
+        } else {
             setNotSAM();
         }
     }
@@ -133,8 +144,8 @@ public class ZScoreActivity extends AppCompatActivity implements AdapterView.OnI
     public void onNothingSelected(AdapterView<?> parent) {
     }
 
-	private int round_off(double hight_temp) {
-    	if ((hight_temp - (int) hight_temp) < 0.5) {
+    private int round_off(double hight_temp) {
+        if ((hight_temp - (int) hight_temp) < 0.5) {
             hight_temp = (int) hight_temp;
         } else {
             hight_temp = (int) hight_temp + 1;
@@ -142,48 +153,34 @@ public class ZScoreActivity extends AppCompatActivity implements AdapterView.OnI
         return (int) hight_temp;
     }
 
-    private boolean zscore(char gender)
-    {
-    	int temp = 0;
-    	boolean decider = false;
-        temp =(hight_z- 45);
-        if (gender == 'm')
-        {
-            if (table_boy[temp] >=weight_z)
-            {
-                decider=true;
-            }
-            else if (gender == 'f')
-            {
-                if (table_girl[temp] >=weight_z)
-                {
-                    decider=true;
+    private boolean zscore(char gender) {
+        int temp = 0;
+        boolean decider = false;
+        temp = (hight_z - 45);
+        if (gender == 'm') {
+            if (table_boy[temp] >= weight_z) {
+                decider = true;
+            } else if (gender == 'f') {
+                if (table_girl[temp] >= weight_z) {
+                    decider = true;
                 }
+            } else {
+                decider = false;
             }
-            else
-                {
-               decider= false;
-                }
         }
         return decider;
 
     }
 
-    private char gender_set()
-    {
-    	char gender;
-		if (rb_child_male.isChecked())
-		 {
-		 	gender = 'm';
-            }
-        else if (rb_child_female.isChecked())
-         {
-         gender = 'f';
-         }
-          else
-           {
-          gender = 'o';
-          }
-    return gender;
+    private char gender_set() {
+        char gender = 'o';
+        if (rb_child_male.isChecked()) {
+            gender = 'm';
+        } else if (rb_child_female.isChecked()) {
+            gender = 'f';
+        } else {
+            Toast.makeText(getApplicationContext(), "Select Gender", Toast.LENGTH_SHORT).show();
+        }
+        return gender;
     }
 }
