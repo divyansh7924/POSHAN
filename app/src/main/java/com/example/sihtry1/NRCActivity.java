@@ -15,6 +15,7 @@ public class NRCActivity extends AppCompatActivity {
 
     private Button nrc_current_referrals;
     private Button nrc_admitted_children;
+    private Button nrc_followups;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +23,7 @@ public class NRCActivity extends AppCompatActivity {
         setContentView(R.layout.activity_nrc);
         nrc_current_referrals = (Button)findViewById(R.id.nrc_current_ref);
         nrc_admitted_children = (Button) findViewById(R.id.nrc_admitted);
+        nrc_followups = (Button)findViewById(R.id.nrc_followups);
         nrc_current_referrals.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -34,6 +36,13 @@ public class NRCActivity extends AppCompatActivity {
                 admittedprofiles();
             }
         });
+        nrc_followups.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                show_followups();
+            }
+        });
+
     }
 
     @Override
@@ -65,6 +74,10 @@ public class NRCActivity extends AppCompatActivity {
     }
     public void admittedprofiles(){
         Intent intent = new Intent(this, AdmittedChildrenActivity.class);
+        startActivity(intent);
+    }
+    public void show_followups(){
+        Intent intent = new Intent(this, FollowupsListActivity.class);
         startActivity(intent);
     }
 }

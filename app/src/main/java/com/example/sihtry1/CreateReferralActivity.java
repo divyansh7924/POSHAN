@@ -38,11 +38,11 @@ import java.util.Locale;
 public class CreateReferralActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     private int mYear, mMonth, mDay;
-    private Button create_referral_btn_submit;
-    private EditText create_referral_et_parent_name, create_referral_et_child_f_name, create_referral_et_child_l_name, create_referral_et_bloodgp,
-            create_referral_et_city, create_referral_et_ashamsmt, create_referral_et_pincode, create_referral_et_height, create_referral_et_symptoms,
-            create_referral_et_weight, create_referral_et_aadhaar_parent, create_referral_et_aadhaar_child, create_referral_et_add, create_referral_et_phone;
-    private RadioButton create_referral_rb_child_male, create_referral_rb_child_female;
+    private Button btn_submit;
+    private EditText et_parent_name, et_child_f_name, et_child_l_name, et_bloodgp,
+            et_ashamsmt, et_pincode, et_height, et_symptoms,
+            et_weight, et_aadhaar_parent, et_aadhaar_child, et_phone, et_village, et_tehsil, et_district, et_treatedFor;
+    private RadioButton rb_child_male, rb_child_female;
     private int day_of_birth, month_of_birth, year_of_birth;
     private Spinner spinner_oedema;
     private Spinner sp_state;
@@ -55,36 +55,39 @@ public class CreateReferralActivity extends AppCompatActivity implements Adapter
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_referral);
 
-        create_referral_btn_submit = (Button) findViewById(R.id.create_referral_btn_submit);
-        create_referral_et_parent_name = (EditText) findViewById(R.id.create_referral_et_parent_name);
-        create_referral_et_child_f_name = (EditText) findViewById(R.id.create_referral_et_child_f_name);
-        create_referral_et_child_l_name = (EditText) findViewById(R.id.create_referral_et_child_l_name);
-        create_referral_et_bloodgp = (EditText) findViewById(R.id.create_referral_et_bloodgp);
-        create_referral_et_city = (EditText) findViewById(R.id.create_referral_et_city);
+        btn_submit = (Button) findViewById(R.id.create_referral_btn_submit);
+        et_parent_name = (EditText) findViewById(R.id.create_referral_et_parent_name);
+        et_child_f_name = (EditText) findViewById(R.id.create_referral_et_child_f_name);
+        et_child_l_name = (EditText) findViewById(R.id.create_referral_et_child_l_name);
+        et_bloodgp = (EditText) findViewById(R.id.create_referral_et_bloodgp);
         sp_state = (Spinner) findViewById(R.id.create_referral_et_state);
-        create_referral_et_ashamsmt = (EditText) findViewById(R.id.create_referral_et_ashamsmt);
-        create_referral_et_pincode = (EditText) findViewById(R.id.create_referral_et_pin);
-        create_referral_et_symptoms = (EditText) findViewById(R.id.create_referral_et_symptoms);
-        create_referral_et_height = (EditText) findViewById(R.id.create_referral_et_height);
-        create_referral_et_weight = (EditText) findViewById(R.id.create_referral_et_weight);
-        create_referral_et_aadhaar_parent = (EditText) findViewById(R.id.create_referral_et_aadhaar_parent);
-        create_referral_et_aadhaar_child = (EditText) findViewById(R.id.create_referral_et_aadhaar_child);
-        create_referral_et_add = (EditText) findViewById(R.id.create_referral_et_add);
-        create_referral_et_phone = (EditText) findViewById(R.id.create_referral_et_phone);
-        create_referral_rb_child_male = (RadioButton) findViewById(R.id.create_referral_rb_child_male);
-        create_referral_rb_child_female = (RadioButton) findViewById(R.id.create_referral_rb_child_female);
+        et_ashamsmt = (EditText) findViewById(R.id.create_referral_et_ashamsmt);
+        et_pincode = (EditText) findViewById(R.id.create_referral_et_pin);
+        et_symptoms = (EditText) findViewById(R.id.create_referral_et_symptoms);
+        et_height = (EditText) findViewById(R.id.create_referral_et_height);
+        et_weight = (EditText) findViewById(R.id.create_referral_et_weight);
+        et_aadhaar_parent = (EditText) findViewById(R.id.create_referral_et_aadhaar_parent);
+        et_aadhaar_child = (EditText) findViewById(R.id.create_referral_et_aadhaar_child);
+        et_phone = (EditText) findViewById(R.id.create_referral_et_phone);
+        rb_child_male = (RadioButton) findViewById(R.id.create_referral_rb_child_male);
+        rb_child_female = (RadioButton) findViewById(R.id.create_referral_rb_child_female);
         spinner_oedema = (Spinner) findViewById(R.id.create_referral_spinner_oedema);
+        et_tehsil = findViewById(R.id.create_referral_et_tehsil);
+        et_village = findViewById(R.id.create_referral_et_village);
+        et_district = findViewById(R.id.create_referral_et_district);
+        et_treatedFor = findViewById(R.id.create_referral_et_treatedfor);
+
         spinner_oedema.setOnItemSelectedListener(this);
         db = FirebaseFirestore.getInstance();
 
 
-        create_referral_btn_submit.setOnClickListener(new View.OnClickListener() {
+        btn_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String gender = null;
-                if (create_referral_rb_child_male.isChecked()) {
+                if (rb_child_male.isChecked()) {
                     gender = "m";
-                } else if (create_referral_rb_child_female.isChecked()) {
+                } else if (rb_child_female.isChecked()) {
                     gender = "f";
                 } else {
                     Toast.makeText(getApplicationContext(), "Select Gender", Toast.LENGTH_SHORT).show();
@@ -205,13 +208,13 @@ public class CreateReferralActivity extends AppCompatActivity implements Adapter
         String referralid = dateFormat.format(date);
         referral.setReferral_id(referralid);
 
-        referral.setChild_first_name(create_referral_et_child_f_name.getText().toString());
+        referral.setChild_first_name(et_child_f_name.getText().toString());
 
-        referral.setChild_last_name(create_referral_et_child_l_name.getText().toString());
+        referral.setChild_last_name(et_child_l_name.getText().toString());
 
-        if (create_referral_rb_child_male.isChecked()) {
+        if (rb_child_male.isChecked()) {
             referral.setChild_gender("m");
-        } else if (create_referral_rb_child_female.isChecked()) {
+        } else if (rb_child_female.isChecked()) {
             referral.setChild_gender("f");
         } else {
             referral.setChild_gender("o");
@@ -223,37 +226,41 @@ public class CreateReferralActivity extends AppCompatActivity implements Adapter
 
         referral.setYear_of_birth(year_of_birth);
 
-        referral.setBlood_group(create_referral_et_bloodgp.getText().toString());
+        referral.setBlood_group(et_bloodgp.getText().toString());
 
-        referral.setAsha_measure(Float.parseFloat(create_referral_et_ashamsmt.getText().toString()));
+        referral.setAsha_measure(Float.parseFloat(et_ashamsmt.getText().toString()));
 
-        referral.setHeight(Float.parseFloat(create_referral_et_height.getText().toString()));
+        referral.setHeight(Float.parseFloat(et_height.getText().toString()));
 
-        referral.setWeight(Float.parseFloat(create_referral_et_weight.getText().toString()));
+        referral.setWeight(Float.parseFloat(et_weight.getText().toString()));
 
         referral.setOedema(oedema_stage);
 
-        referral.setGuadian_name(create_referral_et_parent_name.getText().toString());
+        referral.setGuadian_name(et_parent_name.getText().toString());
 
-        referral.setGuardian_aadhaar_num(create_referral_et_aadhaar_parent.getText().toString());
+        referral.setGuardian_aadhaar_num(et_aadhaar_parent.getText().toString());
 
         referral.setNrc_id(null);
 
         referral.setRcr_id(userid);
 
-        referral.setOther_symptoms(create_referral_et_symptoms.getText().toString());
+        referral.setOther_symptoms(et_symptoms.getText().toString());
 
-        referral.setPhone(create_referral_et_phone.getText().toString());
+        referral.setPhone(et_phone.getText().toString());
 
         referral.setState(sp_state.getSelectedItem().toString());
 
-        referral.setCity(create_referral_et_city.getText().toString());
+        referral.setDistrict(et_district.getText().toString());
 
-        referral.setPincode(Integer.parseInt(create_referral_et_pincode.getText().toString()));
+        referral.setVillage(et_village.getText().toString());
 
-        referral.setAddress(create_referral_et_add.getText().toString());
+        referral.setTehsil(et_tehsil.getText().toString());
 
-        referral.setChild_aadhaar_num(create_referral_et_aadhaar_child.getText().toString());
+        referral.setTreated_for(et_treatedFor.getText().toString());
+
+        referral.setPincode(Integer.parseInt(et_pincode.getText().toString()));
+
+        referral.setChild_aadhaar_num(et_aadhaar_child.getText().toString());
 
         referral.setStatus("Created");
 

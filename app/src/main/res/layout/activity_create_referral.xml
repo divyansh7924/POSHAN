@@ -117,6 +117,14 @@
                 android:hint="Other Symptom" />
 
             <EditText
+                android:id="@+id/create_referral_et_treatedfor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:hint="Treated For" />
+
+            <EditText
                 android:id="@+id/create_referral_et_bloodgp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -130,8 +138,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:hint="Asha Tape Measurement"
-                android:inputType="number" />
+                android:hint="MUAC in millimetre" />
 
             <EditText
                 android:id="@+id/create_referral_et_height"
@@ -149,7 +156,7 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:hint="Weight"
-                android:inputType="number" />
+                android:inputType="numberDecimal" />
 
             <EditText
                 android:id="@+id/create_referral_et_aadhaar_parent"
@@ -164,7 +171,7 @@
                 android:id="@+id/create_referral_spinner_oedema"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:entries="@array/oedema_stages"/>
+                android:entries="@array/oedema_stages" />
 
             <EditText
                 android:id="@+id/create_referral_et_aadhaar_child"
@@ -176,20 +183,35 @@
                 android:inputType="number" />
 
             <EditText
-                android:id="@+id/create_referral_et_add"
+                android:id="@+id/create_referral_et_village"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:hint="Address" />
+                android:hint="Village" />
 
             <EditText
-                android:id="@+id/create_referral_et_city"
+                android:id="@+id/create_referral_et_tehsil"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:hint="City" />
+                android:hint="Tehsil" />
+
+            <EditText
+                android:id="@+id/create_referral_et_district"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:hint="District" />
+
+            <Spinner
+                android:id="@+id/create_referral_et_state"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp" />
 
             <EditText
                 android:id="@+id/create_referral_et_pin"
@@ -199,13 +221,6 @@
                 android:layout_marginRight="20dp"
                 android:hint="Pincode"
                 android:inputType="number" />
-
-            <Spinner
-                android:id="@+id/create_referral_et_state"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp" />
 
             <EditText
                 android:id="@+id/create_referral_et_phone"
