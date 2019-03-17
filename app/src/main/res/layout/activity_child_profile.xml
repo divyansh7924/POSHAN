@@ -23,13 +23,29 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
+                android:text="Date Screened"
+                android:textColor="#000"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/child_profile_tv_date_screened"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:textSize="22sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
                 android:text="Guardian Name"
                 android:textColor="#000"
                 android:textSize="22sp"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/ch_guardian_name"
+                android:id="@+id/child_profile_tv_guardian_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -45,7 +61,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/ch_child_name"
+                android:id="@+id/child_profile_tv_child_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -61,7 +77,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/ch_child_gender"
+                android:id="@+id/child_profile_tv_child_gender"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -77,7 +93,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/ch_date_of_birth"
+                android:id="@+id/child_profile_tv_date_of_birth"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -93,7 +109,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/ch_blood_group"
+                android:id="@+id/child_profile_tv_blood_group"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -103,13 +119,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:text="Asha Tape"
+                android:text="MUAC"
                 android:textColor="#000"
                 android:textSize="22sp"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/ch_asha_tape"
+                android:id="@+id/child_profile_tv_asha_tape"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -125,7 +141,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/ch_height"
+                android:id="@+id/child_profile_tv_height"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -141,7 +157,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/ch_weight"
+                android:id="@+id/child_profile_tv_weight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -157,7 +173,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/ch_odema"
+                android:id="@+id/child_profile_tv_odema"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -173,7 +189,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/ch_guardian_aadhaar"
+                android:id="@+id/child_profile_tv_guardian_aadhaar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -189,7 +205,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/ch_child_aadhaar"
+                android:id="@+id/child_profile_tv_child_aadhaar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -199,13 +215,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:text="Contact"
+                android:text="Guardian PHone"
                 android:textColor="#000"
                 android:textSize="22sp"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/ch_phone"
+                android:id="@+id/child_profile_tv_phone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -215,13 +231,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:text="Address"
+                android:text="Tehsil"
                 android:textColor="#000"
                 android:textSize="22sp"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/ch_address"
+                android:id="@+id/child_profile_tv_tehsil"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -231,13 +247,29 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:text="City         "
+                android:text="Village"
                 android:textColor="#000"
                 android:textSize="22sp"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/ch_city"
+                android:id="@+id/child_profile_tv_village"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:textSize="22sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="District"
+                android:textColor="#000"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/child_profile_tv_district"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -253,7 +285,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/ch_pincode"
+                android:id="@+id/child_profile_tv_pincode"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -269,7 +301,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/ch_state"
+                android:id="@+id/child_profile_tv_state"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -285,7 +317,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/ch_aaganwadi"
+                android:id="@+id/child_profile_tv_aaganwadi"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -295,13 +327,29 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:text="Symptoms"
+                android:text="Other Symptoms"
                 android:textColor="#000"
                 android:textSize="22sp"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/ch_symptom"
+                android:id="@+id/child_profile_tv_symptom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:textSize="22sp" />
+
+            <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="Treated for"
+            android:textColor="#000"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/child_profile_tv_treated_for"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -310,14 +358,14 @@
     </ScrollView>
 
     <EditText
-        android:id="@+id/ch_admission_period"
+        android:id="@+id/child_profile_et_admission_period"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="number"
         android:hint="Enter Admission Period in weeks" />
 
     <Button
-        android:id="@+id/ch_admit_child"
+        android:id="@+id/child_profile_btn_admit_child"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Admit Child" />
