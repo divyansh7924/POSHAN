@@ -1,9 +1,15 @@
 package com.example.sihtry1.models;
 
 import com.google.firebase.database.IgnoreExtraProperties;
+import com.google.firebase.firestore.ServerTimestamp;
+
+import java.util.Date;
 
 @IgnoreExtraProperties
 public class Referral {
+    @ServerTimestamp
+    Date date_screened;
+
     String referral_id;
     String child_first_name;
     String child_last_name;
@@ -25,11 +31,14 @@ public class Referral {
     String rcr_id;
 
     String other_symptoms;
+    String treated_for;
+
     String phone;
+    String village;
     String state;
-    String city;
+    String tehsil;
+    String district;
     int pincode;
-    String address;
 
     String status;
     int seen;
@@ -38,8 +47,8 @@ public class Referral {
     public Referral() {
     }
 
-
-    public Referral(String referral_id, String child_first_name, String child_last_name, String child_gender, String child_aadhaar_num, int day_of_birth, int month_of_birth, int year_of_birth, String blood_group, float asha_measure, float height, float weight, int oedema, String guadian_name, String guardian_aadhaar_num, String nrc_id, String rcr_id, String other_symptoms, String phone, String state, String city, int pincode, String address, String status, int seen) {
+    public Referral(Date date_screened, String referral_id, String child_first_name, String child_last_name, String child_gender, String child_aadhaar_num, int day_of_birth, int month_of_birth, int year_of_birth, String blood_group, float asha_measure, float height, float weight, int oedema, String guadian_name, String guardian_aadhaar_num, String nrc_id, String rcr_id, String other_symptoms, String treated_for, String phone, String village, String state, String tehsil, String district, int pincode, String status, int seen) {
+        this.date_screened = date_screened;
         this.referral_id = referral_id;
         this.child_first_name = child_first_name;
         this.child_last_name = child_last_name;
@@ -58,29 +67,23 @@ public class Referral {
         this.nrc_id = nrc_id;
         this.rcr_id = rcr_id;
         this.other_symptoms = other_symptoms;
+        this.treated_for = treated_for;
         this.phone = phone;
+        this.village = village;
         this.state = state;
-        this.city = city;
+        this.tehsil = tehsil;
+        this.district = district;
         this.pincode = pincode;
-        this.address = address;
         this.status = status;
         this.seen = seen;
     }
 
-    public int getSeen() {
-        return seen;
+    public Date getDate_screened() {
+        return date_screened;
     }
 
-    public void setSeen(int seen) {
-        this.seen = seen;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
+    public void setDate_screened(Date date_screened) {
+        this.date_screened = date_screened;
     }
 
     public String getReferral_id() {
@@ -227,12 +230,28 @@ public class Referral {
         this.other_symptoms = other_symptoms;
     }
 
+    public String getTreated_for() {
+        return treated_for;
+    }
+
+    public void setTreated_for(String treated_for) {
+        this.treated_for = treated_for;
+    }
+
     public String getPhone() {
         return phone;
     }
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getVillage() {
+        return village;
+    }
+
+    public void setVillage(String village) {
+        this.village = village;
     }
 
     public String getState() {
@@ -243,12 +262,20 @@ public class Referral {
         this.state = state;
     }
 
-    public String getCity() {
-        return city;
+    public String getTehsil() {
+        return tehsil;
     }
 
-    public void setCity(String city) {
-        this.city = city;
+    public void setTehsil(String tehsil) {
+        this.tehsil = tehsil;
+    }
+
+    public String getDistrict() {
+        return district;
+    }
+
+    public void setDistrict(String district) {
+        this.district = district;
     }
 
     public int getPincode() {
@@ -259,11 +286,19 @@ public class Referral {
         this.pincode = pincode;
     }
 
-    public String getAddress() {
-        return address;
+    public String getStatus() {
+        return status;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public int getSeen() {
+        return seen;
+    }
+
+    public void setSeen(int seen) {
+        this.seen = seen;
     }
 }

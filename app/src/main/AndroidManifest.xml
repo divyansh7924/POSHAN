@@ -22,7 +22,6 @@
         <activity android:name=".CurrentReferralsActivity" />
         <activity android:name=".SendReferralActivity" />
         <activity android:name=".NrcListActivity" />
-        <activity android:name=".ManageProfilesActivity" />
         <activity android:name=".CitiesActivity" />
         <activity android:name=".StatesActivity" />
         <activity android:name=".CreateReferralActivity" />
