@@ -45,19 +45,22 @@
         android:id="@+id/zscore_et_age"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Age" />
+        android:hint="Age"
+        android:inputType="number"/>
 
     <EditText
         android:id="@+id/zscore_et_weight"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Weight" />
+        android:hint="Weight"
+        android:inputType="numberDecimal"/>
 
     <EditText
         android:id="@+id/zscore_et_height"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Height" />
+        android:hint="Height"
+        android:inputType="numberDecimal"/>
 
     <TextView
         android:id="@+id/zscore_tv_zscore"
