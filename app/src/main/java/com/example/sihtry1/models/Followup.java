@@ -10,7 +10,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Followup implements Parcelable {
+public class Followup {
     String nrc_id;
     @ServerTimestamp Date date_of_discharge;
     String referral_id;
@@ -57,49 +57,5 @@ public class Followup implements Parcelable {
 
     public void setNum_followups(int num_followups) {
         this.num_followups = num_followups;
-    }
-
-    private Date stringToDate(String dateString) {
-        String pattern = "E M d H:m:s z y";
-        DateFormat df = new SimpleDateFormat(pattern);
-        Date date = new Date();
-        try {
-            date = df.parse(dateString);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return date;
-    }
-
-    protected Followup(Parcel in) {
-        nrc_id = in.readString();
-        date_of_discharge = stringToDate(in.readString());
-        referral_id = in.readString();
-        num_followups = in.readInt();
-    }
-
-    public static final Creator<Followup> CREATOR = new Creator<Followup>() {
-        @Override
-        public Followup createFromParcel(Parcel in) {
-            return new Followup(in);
-        }
-
-        @Override
-        public Followup[] newArray(int size) {
-            return new Followup[size];
-        }
-    };
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel parcel, int flags) {
-        parcel.writeString(nrc_id);
-        parcel.writeString(date_of_discharge.toString());
-        parcel.writeString(referral_id);
-        parcel.writeInt(num_followups);
     }
 }
