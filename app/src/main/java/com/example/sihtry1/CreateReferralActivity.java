@@ -252,15 +252,11 @@ public class CreateReferralActivity extends AppCompatActivity implements Adapter
 
         referral.setDistrict(et_district.getText().toString());
 
-        referral.setVillage(et_district.getText().toString());
+        referral.setVillage(et_village.getText().toString());
 
         referral.setTehsil(et_tehsil.getText().toString());
 
         referral.setTreated_for(et_treatedFor.getText().toString());
-
-        referral.setDistrict(et_district.getText().toString());
-
-        referral.setDistrict(et_district.getText().toString());
 
         referral.setPincode(Integer.parseInt(et_pincode.getText().toString()));
 
