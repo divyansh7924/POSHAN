@@ -1,6 +1,7 @@
 package com.example.sihtry1;
 
 import android.content.Intent;
+import android.icu.util.IndianCalendar;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -27,12 +28,15 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.ServerTimestamp;
 
 import org.w3c.dom.Text;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 public class AdmittedChildProfileActivity extends AppCompatActivity {
 
@@ -45,7 +49,7 @@ public class AdmittedChildProfileActivity extends AppCompatActivity {
     private CollectionReference rcrref, admitdetails;
     FirebaseFirestore db;
     private ArrayList<RCR> mrcr = new ArrayList<>();
-    String rcrselected, referralid;
+    String rcrselected, referralid,child_first_name,child_last_name,guardian_name;
     private ArrayList<Admits> admits = new ArrayList<>();
     String admitdocsnap;
 
@@ -134,7 +138,9 @@ public class AdmittedChildProfileActivity extends AppCompatActivity {
                         tv_district.setText(referral[0].getDistrict());
                         tv_tehsil.setText(referral[0].getTehsil());
                         tv_treated_for.setText(referral[0].getTreated_for());
-
+                        child_first_name = referral[0].getChild_first_name();
+                        child_last_name = referral[0].getChild_last_name();
+                        guardian_name = referral[0].getGuadian_name();
                         referralid = referral[0].getReferral_id();
                         rcrselected = referral[0].getRcr_id();
 
@@ -183,8 +189,19 @@ public class AdmittedChildProfileActivity extends AppCompatActivity {
         Followup followup = new Followup();
 
         followup.setNrc_id(userid);
-        followup.setNum_followups(3);
+        followup.setTotal_followups(4);
+        followup.setFollowups_done(0);
+        Calendar cal = GregorianCalendar.getInstance();
+        cal.setTime(new Date());
+        cal.add(Calendar.DAY_OF_YEAR, 15);
+        Date next_date = cal.getTime();
+
+        followup.setNext_date(next_date);
         followup.setReferral_id(referralid);
+        followup.setNrc_id(userid);
+        followup.setChild_first_name(child_first_name);
+        followup.setChild_last_name(child_last_name);
+        followup.setGuardian_name(guardian_name);
 
         newFollowup.set(followup).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override

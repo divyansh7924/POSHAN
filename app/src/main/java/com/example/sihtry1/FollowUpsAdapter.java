@@ -7,25 +7,30 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.sihtry1.models.Referral;
+import com.example.sihtry1.models.Followup;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.DocumentSnapshot;
 
-public class FollowUpsAdapter extends FirestoreRecyclerAdapter<Referral, FollowUpsAdapter.FollowUpsHolder> {
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
+public class FollowUpsAdapter extends FirestoreRecyclerAdapter<Followup, FollowUpsAdapter.FollowUpsHolder> {
     private OnItemClickListener listener;
 
 
-    public FollowUpsAdapter(FirestoreRecyclerOptions<Referral> options) {
+    public FollowUpsAdapter(FirestoreRecyclerOptions<Followup> options) {
         super(options);
     }
 
 
     @Override
-    protected void onBindViewHolder(@NonNull FollowUpsAdapter.FollowUpsHolder holder, int position, @NonNull Referral model) {
-        holder.textViewchildname.setText(model.getChild_first_name());
-        holder.textviewdob.setText("DOB: " + model.getDay_of_birth() + "/" + model.getMonth_of_birth() + "/" + model.getYear_of_birth());
-        holder.textrcrid.setText("Guardian Name: " + model.getGuadian_name());
+    protected void onBindViewHolder(@NonNull FollowUpsAdapter.FollowUpsHolder holder, int position, @NonNull Followup model) {
+        holder.textViewchildname.setText("Child Name: "+model.getChild_first_name()+" "+model.getChild_last_name());
+        holder.textviewdob.setText("Next Followup on: " + model.getNext_date());
+        holder.textrcrid.setText("Guardian Name: " + model.getGuardian_name());
     }
 
     @NonNull
