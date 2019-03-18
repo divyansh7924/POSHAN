@@ -32,13 +32,10 @@ public class CurrentReferralAdapter extends FirestoreRecyclerAdapter<Referral, C
         holder.textviewdob.setText("DOB: " + model.getDay_of_birth() + "/" + model.getMonth_of_birth() + "/" + model.getYear_of_birth());
         holder.textrcrid.setText("Guardian Name: " + model.getGuadian_name());
         int seen = model.getSeen();
-        switch (seen) {
-            case (1):
-                Log.v("Statusw", "yes inside");
-                holder.ritem.setBackgroundColor(Color.parseColor("#E2FBFB"));
-                break;
-            default:
-                System.out.print("not Acknowledged state");
+
+        if (seen != 1) {
+            Log.v("Statusw", "yes inside");
+            holder.ritem.setBackgroundColor(Color.parseColor("#49FF55"));
         }
     }
 

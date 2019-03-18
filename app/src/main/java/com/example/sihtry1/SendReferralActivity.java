@@ -1,5 +1,7 @@
 package com.example.sihtry1;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -36,6 +38,7 @@ public class SendReferralActivity extends AppCompatActivity {
     private String selectedNrcId;
     private ArrayList<NRC> mNrc = new ArrayList<>();
     private TextView tv_nrc_title, tv_nrc_statepin, tv_nrc_addresscity;
+    private AlertDialog.Builder alertBuilder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +48,8 @@ public class SendReferralActivity extends AppCompatActivity {
         tv_nrc_addresscity = (TextView) findViewById(R.id.send_referral_tv_nrc_addresscity);
         tv_nrc_statepin = (TextView) findViewById(R.id.send_referral_tv_nrc_statepin);
         tv_nrc_title = (TextView) findViewById(R.id.send_referral_tv_nrc_title);
+
+        alertBuilder = new AlertDialog.Builder(this);
 
         db = FirebaseFirestore.getInstance();
         childref = db.collection("referral");
@@ -76,16 +81,39 @@ public class SendReferralActivity extends AppCompatActivity {
 
         adapter.setOnItemClickListener(new SendReferralAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(DocumentSnapshot documentSnapshot, int position) {
-                Referral referral = documentSnapshot.toObject(Referral.class);
-                referral.setNrc_id(selectedNrcId);
-                referral.setStatus("Referred");
-                referral.setSeen(0);
-                submit(referral);
-                documentSnapshot.getReference().delete();
+            public void onItemClick(final DocumentSnapshot documentSnapshot, int position) {
+
+                alertBuilder.setMessage("Sent referral to this NRC?").setCancelable(false)
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                sendReferral(documentSnapshot);
+                            }
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                            }
+                        });
+
+                AlertDialog alert = alertBuilder.create();
+                alert.setTitle("Send Referral");
+                alert.show();
+
             }
         });
     }
+
+    private void sendReferral(DocumentSnapshot documentSnapshot) {
+        Referral referral = documentSnapshot.toObject(Referral.class);
+        referral.setNrc_id(selectedNrcId);
+        referral.setStatus("Referred");
+        referral.setSeen(0);
+        submit(referral);
+        documentSnapshot.getReference().delete();
+    }
+
 
     private void submit(Referral referral) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
