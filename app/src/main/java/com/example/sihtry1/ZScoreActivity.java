@@ -1,5 +1,6 @@
 package com.example.sihtry1;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
@@ -53,10 +54,10 @@ public class ZScoreActivity extends AppCompatActivity implements AdapterView.OnI
             @Override
             public void onClick(View v) {
                 try {
-
-                    int ag = (et_age.getText().toString().trim().length());
+                    Double ag = Double.parseDouble(et_age.getText().toString());
                 } catch (Exception e) {
                     Toast.makeText(ZScoreActivity.this, "Please enter valid age ", Toast.LENGTH_SHORT).show();
+                    recreate();
                     sema = 1;
                 }
                 try {
@@ -114,7 +115,10 @@ public class ZScoreActivity extends AppCompatActivity implements AdapterView.OnI
         {
             setSAM();
         }
-        else if (age > 6 && muac < 115)
+        else if(age<6){
+            Toast.makeText(ZScoreActivity.this, "Age can't be less then 6 months ", Toast.LENGTH_SHORT).show();
+        }
+        else if (age >= 6 && muac < 115)
         {
             setSAM();
         }
