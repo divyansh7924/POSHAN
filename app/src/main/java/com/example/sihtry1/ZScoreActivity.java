@@ -197,14 +197,20 @@ public class ZScoreActivity extends AppCompatActivity implements AdapterView.OnI
     private boolean zscore(char gender) {
         boolean decider = false;
         int temp = (hight_z - 45);
-        if (gender == 'm') {
-                if (table_boy[temp] >= weight_z) {
+        if (gender == 'm')
+        {
+                if (table_boy[temp] >= weight_z)
+                {
                     decider = true;
-                } else if (gender == 'f') {
-                    if (table_girl[temp] >= weight_z) {
+                }
+                else if (gender == 'f')
+                {
+                    if (table_girl[temp] >= weight_z)
+                    {
                         decider = true;
                     }
-                } else {
+                } else
+                    {
                     decider = false;
                 }
         }
@@ -214,11 +220,16 @@ public class ZScoreActivity extends AppCompatActivity implements AdapterView.OnI
 
     private char gender_set() {
         char gender = 'o';
-        if (rb_child_male.isChecked()) {
+        if (rb_child_male.isChecked())
+        {
             gender = 'm';
-        } else if (rb_child_female.isChecked()) {
+        }
+        else if (rb_child_female.isChecked())
+        {
             gender = 'f';
-        } else {
+        }
+        else
+            {
             Toast.makeText(getApplicationContext(), "Select Gender", Toast.LENGTH_SHORT).show();
         }
         return gender;
