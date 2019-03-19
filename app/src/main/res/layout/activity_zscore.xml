@@ -45,21 +45,21 @@
         android:id="@+id/zscore_et_age"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Age"
+        android:hint="Age in months "
         android:inputType="number"/>
 
     <EditText
         android:id="@+id/zscore_et_weight"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Weight"
+        android:hint="Weight in Kgs"
         android:inputType="numberDecimal"/>
 
     <EditText
         android:id="@+id/zscore_et_height"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Height"
+        android:hint="Height in CM"
         android:inputType="numberDecimal"/>
 
     <TextView

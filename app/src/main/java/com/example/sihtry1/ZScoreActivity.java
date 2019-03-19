@@ -53,6 +53,7 @@ public class ZScoreActivity extends AppCompatActivity implements AdapterView.OnI
             @Override
             public void onClick(View v) {
                 try {
+
                     int ag = (et_age.getText().toString().trim().length());
                 } catch (Exception e) {
                     Toast.makeText(ZScoreActivity.this, "Please enter valid age ", Toast.LENGTH_SHORT).show();
