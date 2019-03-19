@@ -88,6 +88,15 @@ public class ZScoreActivity extends AppCompatActivity implements AdapterView.OnI
                     Toast.makeText(ZScoreActivity.this, "Invalid hight or weight ", Toast.LENGTH_SHORT).show();
                     sema = 1;
                 }
+                try
+                {
+                    addListenerOnSpinner();
+                }
+                catch (Exception e)
+                {
+                    Toast.makeText(ZScoreActivity.this, "Invalid hight or weight ", Toast.LENGTH_SHORT).show();
+                    sema = 1;
+                }
                 if (sema == 0) {
                     checkStatus();
                 }
@@ -114,6 +123,9 @@ public class ZScoreActivity extends AppCompatActivity implements AdapterView.OnI
         if (oedema_stage > 0)
         {
             setSAM();
+        }
+        else if(oedema_stage<0){
+            Toast.makeText(ZScoreActivity.this, "Please select oedema stage", Toast.LENGTH_SHORT).show();
         }
         else if(age<6){
             Toast.makeText(ZScoreActivity.this, "Age can't be less then 6 months ", Toast.LENGTH_SHORT).show();
