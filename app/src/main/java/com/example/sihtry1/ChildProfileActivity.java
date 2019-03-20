@@ -11,10 +11,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.sihtry1.models.NRC;
 import com.example.sihtry1.models.Referral;
 import com.example.sihtry1.models.RCR;
 import com.example.sihtry1.models.Admits;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
@@ -172,10 +175,9 @@ public class ChildProfileActivity extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     FirebaseFirestore db1;
                     db1 = FirebaseFirestore.getInstance();
-                    db1.collection("referral").document(selectedchild).update(
-                            "status", "Admitted"
-                    );
+                    db1.collection("referral").document(selectedchild).update("status", "Admitted");
                     Toast.makeText(getApplicationContext(), "Admitted", Toast.LENGTH_SHORT).show();
+                    bedOccupied();
                     Intent intent = new Intent(getApplicationContext(), NRCActivity.class);
                     startActivity(intent);
                 } else {
@@ -184,5 +186,45 @@ public class ChildProfileActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void bedOccupied() {
+        CollectionReference nrcRef = db.collection("nrc");
+
+        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        Query query = nrcRef.whereEqualTo("user_id", userId);
+
+        final ArrayList<NRC> mNrc = new ArrayList<>();
+        final DocumentReference[] documentReference = new DocumentReference[1];
+
+        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
+                        NRC nrc = documentSnapshot.toObject(NRC.class);
+                        mNrc.add(nrc);
+                        documentReference[0] = documentSnapshot.getReference();
+                    }
+
+                    documentReference[0].update("bed_vacant", mNrc.get(0).getBed_vacant() - 1)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Toast.makeText(getApplicationContext(), "Bed Vacant changed", Toast.LENGTH_SHORT).show();
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText(getApplicationContext(), "Bed Vacant couldn't change", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                } else {
+                    Toast.makeText(getApplicationContext(), "NRC not found", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 }
