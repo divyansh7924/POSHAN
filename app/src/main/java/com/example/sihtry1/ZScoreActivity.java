@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.method.Touch;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -79,21 +80,15 @@ public class ZScoreActivity extends AppCompatActivity implements AdapterView.OnI
                     Toast.makeText(ZScoreActivity.this, "Please enter Muac ", Toast.LENGTH_SHORT).show();
                     sema = 1;
                 }
-                try
-                {
-                    zscore=zscore(gender_set());
-                }
-                catch (Exception e)
-                {
+                try {
+                    zscore = zscore(gender_set());
+                } catch (Exception e) {
                     Toast.makeText(ZScoreActivity.this, "Invalid hight or weight ", Toast.LENGTH_SHORT).show();
                     sema = 1;
                 }
-                try
-                {
+                try {
                     addListenerOnSpinner();
-                }
-                catch (Exception e)
-                {
+                } catch (Exception e) {
                     Toast.makeText(ZScoreActivity.this, "Invalid hight or weight ", Toast.LENGTH_SHORT).show();
                     sema = 1;
                 }
@@ -120,28 +115,21 @@ public class ZScoreActivity extends AppCompatActivity implements AdapterView.OnI
         age = Integer.parseInt(et_age.getText().toString());
         muac = Float.parseFloat(et_muac.getText().toString());
 
-        if (oedema_stage > 0)
-        {
+        if (oedema_stage > 0) {
             setSAM();
-        }
-        else if(oedema_stage<0){
+        } else if (oedema_stage < 0) {
             Toast.makeText(ZScoreActivity.this, "Please select oedema stage", Toast.LENGTH_SHORT).show();
-        }
-        else if(age<6){
+        } else if (age < 6) {
             Toast.makeText(ZScoreActivity.this, "Age can't be less then 6 months ", Toast.LENGTH_SHORT).show();
-        }
-        else if (age >= 6 && muac < 115)
-        {
+        } else if (age >= 6 && muac < 115) {
             setSAM();
-        }
-        else if (zscore==true )
-        {
+        } else if (zscore == true) {
+            Log.d("ADebugTag", "Value: " + Integer.toString(hight_z));
             setSAM();
-        }
-        else
-            {
+        } else {
+            Log.d("ADebugTag", "Value: " + Integer.toString(hight_z));
             setNotSAM();
-            }
+        }
     }
 
 
@@ -197,22 +185,16 @@ public class ZScoreActivity extends AppCompatActivity implements AdapterView.OnI
     private boolean zscore(char gender) {
         boolean decider = false;
         int temp = (hight_z - 45);
-        if (gender == 'm')
-        {
-                if (table_boy[temp] >= weight_z)
-                {
-                    decider = true;
-                }
-                else if (gender == 'f')
-                {
-                    if (table_girl[temp] >= weight_z)
-                    {
-                        decider = true;
-                    }
-                } else
-                    {
-                    decider = false;
-                }
+        if (gender == 'm') {
+            if (table_boy[temp] >= weight_z) {
+                decider = true;
+            }
+        } else if (gender == 'f') {
+            if (table_girl[temp] >= weight_z) {
+                decider = true;
+            }
+        } else {
+            decider = false;
         }
         return decider;
 
@@ -220,16 +202,11 @@ public class ZScoreActivity extends AppCompatActivity implements AdapterView.OnI
 
     private char gender_set() {
         char gender = 'o';
-        if (rb_child_male.isChecked())
-        {
+        if (rb_child_male.isChecked()) {
             gender = 'm';
-        }
-        else if (rb_child_female.isChecked())
-        {
+        } else if (rb_child_female.isChecked()) {
             gender = 'f';
-        }
-        else
-            {
+        } else {
             Toast.makeText(getApplicationContext(), "Select Gender", Toast.LENGTH_SHORT).show();
         }
         return gender;
