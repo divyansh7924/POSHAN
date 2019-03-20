@@ -6,7 +6,6 @@ import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.method.Touch;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -54,6 +53,7 @@ public class ZScoreActivity extends AppCompatActivity implements AdapterView.OnI
         btn_check_status.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Error message display block
                 try {
                     Double ag = Double.parseDouble(et_age.getText().toString());
                 } catch (Exception e) {
@@ -75,9 +75,10 @@ public class ZScoreActivity extends AppCompatActivity implements AdapterView.OnI
                     sema = 1;
                 }
                 try {
-                    et_muac.getText().toString().trim().length();
+                    Double mu= Double.parseDouble(et_muac.getText().toString());
                 } catch (Exception e) {
-                    Toast.makeText(ZScoreActivity.this, "Please enter Muac ", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ZScoreActivity.this, "Please enter a valid Muac ", Toast.LENGTH_SHORT).show();
+                    recreate();
                     sema = 1;
                 }
                 try {
