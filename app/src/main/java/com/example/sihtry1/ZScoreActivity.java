@@ -124,10 +124,8 @@ public class ZScoreActivity extends AppCompatActivity implements AdapterView.OnI
         } else if (age >= 6 && muac < 115) {
             setSAM();
         } else if (zscore == true) {
-            Log.d("ADebugTag", "Value: " + Integer.toString(hight_z));
-            setSAM();
+         setSAM();
         } else {
-            Log.d("ADebugTag", "Value: " + Integer.toString(hight_z));
             setNotSAM();
         }
     }
