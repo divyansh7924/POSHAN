@@ -3,52 +3,49 @@ package com.example.sihtry1.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.firebase.firestore.ServerTimestamp;
+
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Date;
 
-public class PastReferrals implements Parcelable {
-    String child_first_name;
+public class PastReferrals {
+    //deleted data of admit and followup and health will be added here
+    int admit_dur;
+    Date date_admission;
+    ArrayList<Date> followup_dates;
+    int num_of_followups;
+    // health related stuff
+
+    Date date_screened;
+
     String referral_id;
+    String child_first_name;
     String child_last_name;
-    String parent_name;
-    String ncr_id;
+    String child_gender;
+    String child_aadhaar_num;
+    int day_of_birth;
+    int month_of_birth;
+    int year_of_birth;
+    String blood_group;
+    float asha_measure; // array
+    float height; // array
+    float weight; // array
+    int oedema; // array
+
+    String guardian_name;
+    String guardian_aadhaar_num;
+
+    String nrc_id;
     String rcr_id;
-    Double aadhar_num;
-    char gender;
-    URL child_pic;
-    Date dob;
-    String symptoms;
-    int asha_measure;
-    int height;
-    int weight;
-    double phone;
+
+    String other_symptoms; // array
+    String treated_for; // array
+
+    String phone;
+    String village;
     String state;
-    String city;
+    String tehsil;
+    String district;
     int pincode;
-    String address;
-
-
-    protected PastReferrals(Parcel in) {
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    public static final Creator<PastReferrals> CREATOR = new Creator<PastReferrals>() {
-        @Override
-        public PastReferrals createFromParcel(Parcel in) {
-            return new PastReferrals(in);
-        }
-
-        @Override
-        public PastReferrals[] newArray(int size) {
-            return new PastReferrals[size];
-        }
-    };
 }
