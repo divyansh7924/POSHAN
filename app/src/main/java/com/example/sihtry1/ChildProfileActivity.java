@@ -206,21 +206,21 @@ public class ChildProfileActivity extends AppCompatActivity {
                         NRC nrc = documentSnapshot.toObject(NRC.class);
                         mNrc.add(nrc);
                         documentReference[0] = documentSnapshot.getReference();
-
-                        documentReference[0].update("bed_vacant", mNrc.get(0).getBed_vacant() - 1)
-                                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void aVoid) {
-                                        Toast.makeText(getApplicationContext(), "Bed Vacant changed", Toast.LENGTH_SHORT).show();
-                                    }
-                                })
-                                .addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        Toast.makeText(getApplicationContext(), "Bed Vacant couldn't change", Toast.LENGTH_SHORT).show();
-                                    }
-                                });
                     }
+
+                    documentReference[0].update("bed_vacant", mNrc.get(0).getBed_vacant() - 1)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Toast.makeText(getApplicationContext(), "Bed Vacant changed", Toast.LENGTH_SHORT).show();
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText(getApplicationContext(), "Bed Vacant couldn't change", Toast.LENGTH_SHORT).show();
+                                }
+                            });
                 } else {
                     Toast.makeText(getApplicationContext(), "NRC not found", Toast.LENGTH_SHORT).show();
                 }

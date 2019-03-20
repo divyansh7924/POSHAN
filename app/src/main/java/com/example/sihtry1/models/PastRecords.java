@@ -9,7 +9,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class PastReferrals {
+public class PastRecords {
     //deleted data of admit and followup and health will be added here
     int admit_dur;
     Date date_admission;
