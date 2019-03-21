@@ -21,27 +21,26 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
-public class AgnUpdateReferralActivity extends AppCompatActivity {
+public class RcrPastRecordsActivity extends AppCompatActivity {
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private CollectionReference childref = db.collection("referral");
-    private AgnUpdateReferralAdapter adapter;
+    private RcrPastRecordsAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_agn_update_referral);
-
+        setContentView(R.layout.activity_rcr_past_records);
         setupRecyclerView();
 
     }
 
     public void setupRecyclerView() {
         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        Toast.makeText(AgnUpdateReferralActivity.this, "userid" + userId, Toast.LENGTH_SHORT).show();
+        Toast.makeText(RcrPastRecordsActivity.this, "userid" + userId, Toast.LENGTH_SHORT).show();
 
 
-        Query query = childref.whereEqualTo("rcr_id", userId).whereEqualTo("status","Created").orderBy("child_first_name", Query.Direction.ASCENDING);
+        Query query = childref.whereEqualTo("rcr_id", userId).orderBy("child_first_name", Query.Direction.ASCENDING);
 
 
         FirestoreRecyclerOptions<Referral> options = new FirestoreRecyclerOptions.Builder<Referral>()
@@ -49,29 +48,21 @@ public class AgnUpdateReferralActivity extends AppCompatActivity {
                 .build();
 
 
-        adapter = new AgnUpdateReferralAdapter(options);
+        adapter = new RcrPastRecordsAdapter(options);
 
 
-        RecyclerView recyclerView = findViewById(R.id.recyclerviewagnupdatereferral);
+        RecyclerView recyclerView = findViewById(R.id.recyclerviewrcrpastrecords);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
 
-        adapter.setOnItemClickListener(new AgnUpdateReferralAdapter.OnItemClickListener() {
+        adapter.setOnItemClickListener(new RcrPastRecordsAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(DocumentSnapshot documentSnapshot, int position) {
                 Referral referral = documentSnapshot.toObject(Referral.class);
                 DocumentReference reference = documentSnapshot.getReference();
-
-                launchUpdateActivity(reference);
             }
         });
-    }
-
-    private void launchUpdateActivity(DocumentReference reference) {
-        Intent intent = new Intent(this, UpdateReferralActivity.class);
-        intent.putExtra("docRef", reference.getPath());
-        startActivity(intent);
     }
 
     @Override
