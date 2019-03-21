@@ -21,23 +21,30 @@ public class NRC {
     String phone;
     boolean verified;
 
-    public NRC() {}
+    double lat, lon;
+
+    public NRC() {
+    }
 
 
-    public NRC(String user_id, int bed_count, int bed_vacant, String title, String reg_certi, String reg_num, String address, String state, String city, int pincode, String phone, String email, boolean verified) {
+    public NRC(String user_id, int bed_count, String email, int bed_vacant, String title,
+               String reg_certi, String reg_num, String address, String state, String city,
+               int pincode, String phone, boolean verified, double lat, double lon) {
         this.user_id = user_id;
         this.bed_count = bed_count;
+        this.email = email;
         this.bed_vacant = bed_vacant;
         this.title = title;
         this.reg_certi = reg_certi;
+        this.reg_num = reg_num;
         this.address = address;
         this.state = state;
         this.city = city;
-        this.reg_num = reg_num;
         this.pincode = pincode;
         this.phone = phone;
-        this.email = email;
         this.verified = verified;
+        this.lat = lat;
+        this.lon = lon;
     }
 
     public String getUser_id() {
@@ -54,6 +61,14 @@ public class NRC {
 
     public void setBed_count(int bed_count) {
         this.bed_count = bed_count;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public int getBed_vacant() {
@@ -78,6 +93,14 @@ public class NRC {
 
     public void setReg_certi(String reg_certi) {
         this.reg_certi = reg_certi;
+    }
+
+    public String getReg_num() {
+        return reg_num;
+    }
+
+    public void setReg_num(String reg_num) {
+        this.reg_num = reg_num;
     }
 
     public String getAddress() {
@@ -128,11 +151,19 @@ public class NRC {
         this.verified = verified;
     }
 
-    public String getreg_num() {
-        return reg_num;
+    public double getLat() {
+        return lat;
     }
 
-    public void setreg_num(String reg_num) {
-        this.reg_num = reg_num;
+    public void setLat(double lat) {
+        this.lat = lat;
+    }
+
+    public double getLon() {
+        return lon;
+    }
+
+    public void setLon(double lon) {
+        this.lon = lon;
     }
 }

@@ -13,22 +13,42 @@ public class RCR {
     String email;
     boolean verified;
 
+    double lat, lon;
+
     public RCR() {
 
     }
 
-    public RCR(String user_id, String reg_certi, String reg_num, String title, String address, String state, String city, int pincode, String phone, String email, boolean verified) {
+    public RCR(String user_id, String reg_certi, String title, String address, String state, String reg_num, String city, int pincode, String phone, String email, boolean verified, double lat, double lon) {
         this.user_id = user_id;
         this.reg_certi = reg_certi;
-        this.reg_num = reg_num;
         this.title = title;
         this.address = address;
         this.state = state;
+        this.reg_num = reg_num;
         this.city = city;
         this.pincode = pincode;
         this.phone = phone;
         this.email = email;
         this.verified = verified;
+        this.lat = lat;
+        this.lon = lon;
+    }
+
+    public double getLat() {
+        return lat;
+    }
+
+    public void setLat(double lat) {
+        this.lat = lat;
+    }
+
+    public double getLon() {
+        return lon;
+    }
+
+    public void setLon(double lon) {
+        this.lon = lon;
     }
 
     public String getUser_id() {

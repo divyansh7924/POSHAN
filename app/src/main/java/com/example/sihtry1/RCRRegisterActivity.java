@@ -1,6 +1,14 @@
 package com.example.sihtry1;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.os.Build;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -42,7 +50,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class RCRRegisterActivity extends AppCompatActivity {
+public class RCRRegisterActivity extends AppCompatActivity implements LocationListener {
 
     private Button submit;
     private Button browse;
@@ -55,6 +63,10 @@ public class RCRRegisterActivity extends AppCompatActivity {
     private Uri downloadUri;
     private TextView tv_doc_name;
     ArrayList<String> states = new ArrayList<String>(25);
+
+    private static final int LOCATION_PERMISSION_REQUEST_CODE = 694;
+    protected LocationManager locationManager;
+    private double lat, lon;
 
 
     @Override
@@ -72,6 +84,15 @@ public class RCRRegisterActivity extends AppCompatActivity {
         et_pincode = (EditText) findViewById(R.id.rcr_reg_et_pincode);
         et_phone = (EditText) findViewById(R.id.rcr_reg_et_phone);
         et_reg_num = (EditText) findViewById(R.id.rcr_reg_et_reg_num);
+
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            if (Build.VERSION.SDK_INT >= 23) { // Marshmallow
+                ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_PERMISSION_REQUEST_CODE);
+            }
+        } else {
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this);
+        }
 
         browse = (Button) findViewById(R.id.rcr_reg_doc);
         db = FirebaseFirestore.getInstance();
@@ -162,12 +183,50 @@ public class RCRRegisterActivity extends AppCompatActivity {
                         IMainActivity iMainActivity = new IMainActivity();
                         iMainActivity.createNewRCR(getApplicationContext(), userId, et_title.getText().toString(),
                                 downloadUri.toString(), et_reg_num.getText().toString(), et_address.getText().toString(), sp_state.getSelectedItem().toString(),
-                                et_city.getText().toString(), Integer.parseInt(et_pincode.getText().toString()), et_phone.getText().toString(), userEmail, false);
+                                et_city.getText().toString(), Integer.parseInt(et_pincode.getText().toString()), et_phone.getText().toString(), userEmail, false, lat, lon);
                     } else {
                         Toast.makeText(getApplicationContext(), "upload failed: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }
             });
+        }
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        lat = location.getLatitude();
+        lon = location.getLongitude();
+        Toast.makeText(this, "Location Gathered", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
+        Log.d("Latitude", "disable");
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+        Log.d("Latitude", "enable");
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+        Log.d("Latitude", "status");
+    }
+
+    @SuppressLint("MissingPermission")
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+
+        if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
+
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this);
+
+            } else {
+                ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_PERMISSION_REQUEST_CODE);
+            }
         }
     }
 }
