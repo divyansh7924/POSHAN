@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.sihtry1.models.Followup;
+import com.example.sihtry1.models.NRC;
 import com.example.sihtry1.models.Referral;
 import com.example.sihtry1.models.RCR;
 import com.example.sihtry1.models.Admits;
@@ -94,6 +95,7 @@ public class AdmittedChildProfileActivity extends AppCompatActivity {
         btn_discharge.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                bedWithdraw();
                 createNewDischarge();
             }
         });
@@ -177,6 +179,46 @@ public class AdmittedChildProfileActivity extends AppCompatActivity {
                             }
                         });
                     }
+                }
+            }
+        });
+    }
+
+    private void bedWithdraw() {
+        CollectionReference nrcRef = db.collection("nrc");
+
+        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        Query query = nrcRef.whereEqualTo("user_id", userId);
+
+        final ArrayList<NRC> mNrc = new ArrayList<>();
+        final DocumentReference[] documentReference = new DocumentReference[1];
+
+        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
+                        NRC nrc = documentSnapshot.toObject(NRC.class);
+                        mNrc.add(nrc);
+                        documentReference[0] = documentSnapshot.getReference();
+
+                        documentReference[0].update("bed_vacant", mNrc.get(0).getBed_vacant() + 1)
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        Toast.makeText(getApplicationContext(), "Bed Vacant changed", Toast.LENGTH_SHORT).show();
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Toast.makeText(getApplicationContext(), "Bed Vacant couldn't change", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                    }
+                } else {
+                    Toast.makeText(getApplicationContext(), "NRC not found", Toast.LENGTH_SHORT).show();
                 }
             }
         });
