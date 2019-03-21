@@ -7,32 +7,44 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.sihtry1.models.RCR;
+import com.example.sihtry1.models.State;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.DocumentSnapshot;
 
-public class StateAdapter extends FirestoreRecyclerAdapter<RCR, StateAdapter.StateHolder> {
+public class StateAdapter extends FirestoreRecyclerAdapter<State, StateAdapter.StateHolder> {
     private OnItemClickListener listener;
+    String searchStr;
 
 
-    public StateAdapter(@NonNull FirestoreRecyclerOptions<RCR> options) {
+    public StateAdapter(@NonNull FirestoreRecyclerOptions<State> options, String searchStr) {
         super(options);
+        this.searchStr = searchStr;
+    }
+
+    public void updateData(String searchStr) {
+        this.searchStr = searchStr;
+        notifyDataSetChanged();
     }
 
     @Override
-    protected void onBindViewHolder(@NonNull StateHolder holder, int position, @NonNull RCR model) {
-        holder.textViewtitle.setText(model.getState());
+    protected void onBindViewHolder(@NonNull StateHolder holder, int position, @NonNull State model) {
+        if (model.getState().contains(searchStr)) {
+            holder.textViewtitle.setText(model.getState());
+            holder.itemView.getLayoutParams().height = 140;
+        } else {
+            holder.itemView.getLayoutParams().height = 0;
+        }
     }
 
     @NonNull
     @Override
     public StateHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.state_item, parent, false);
         return new StateHolder(v);
     }
 
-    class StateHolder extends RecyclerView.ViewHolder{
+    class StateHolder extends RecyclerView.ViewHolder {
         TextView textViewtitle;
 
         public StateHolder(@NonNull View itemView) {
@@ -50,10 +62,12 @@ public class StateAdapter extends FirestoreRecyclerAdapter<RCR, StateAdapter.Sta
             });
         }
     }
-    public interface OnItemClickListener{
+
+    public interface OnItemClickListener {
         void onItemClick(DocumentSnapshot documentSnapshot, int position);
     }
-    public void setOnItemClickListener(OnItemClickListener listener){
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
         this.listener = listener;
     }
 }
