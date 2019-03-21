@@ -1,12 +1,20 @@
 package com.example.sihtry1;
 
+import android.Manifest;
 import android.R.layout;
 import android.accounts.AccountManagerFuture;
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.net.Uri;
+import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -43,7 +51,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class NRCRegisterActivity extends AppCompatActivity {
+public class NRCRegisterActivity extends AppCompatActivity implements LocationListener {
 
     private Button submit;
     public FirebaseFirestore db;
@@ -56,6 +64,10 @@ public class NRCRegisterActivity extends AppCompatActivity {
     private static final int PICK_PDF_REQUEST = 234;
     private Uri filepath;
     private Uri downloadUri;
+
+    private static final int LOCATION_PERMISSION_REQUEST_CODE = 694;
+    protected LocationManager locationManager;
+    private double lat, lon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +87,15 @@ public class NRCRegisterActivity extends AppCompatActivity {
         et_reg_num = (EditText) findViewById(R.id.nrc_reg_et_reg_num);
         btn_browse = (Button) findViewById(R.id.nrc_reg_doc);
         tv_reg_doc_name = (TextView) findViewById(R.id.nrc_reg_doc_name);
+
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            if (Build.VERSION.SDK_INT >= 23) { // Marshmallow
+                ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_PERMISSION_REQUEST_CODE);
+            }
+        } else {
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this);
+        }
 
         db = FirebaseFirestore.getInstance();
         btn_browse.setOnClickListener(new View.OnClickListener() {
@@ -140,13 +161,6 @@ public class NRCRegisterActivity extends AppCompatActivity {
         });
     }
 
-    private void getStates() {
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        CollectionReference statecollectionref = db.collection("States");
-        Query statequery = statecollectionref.orderBy("state", Query.Direction.ASCENDING);
-        Log.v("lll", "data aa gya" + statequery);
-    }
-
     public void browsefile() {
         Intent intent = new Intent();
         intent.setType("application/pdf");
@@ -194,12 +208,50 @@ public class NRCRegisterActivity extends AppCompatActivity {
                                 Integer.valueOf(et_bed_vacant.getText().toString()), et_title.getText().toString(),
                                 downloadUri.toString(), et_reg_num.getText().toString(), et_address.getText().toString(), sp_state.getSelectedItem().toString(), et_city.getText().toString(),
                                 Integer.valueOf(et_pincode.getText().toString()), et_phone.getText().toString(),
-                                userEmail, false);
+                                userEmail, false, lat, lon);
                     } else {
                         Toast.makeText(getApplicationContext(), "upload failed: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }
             });
+        }
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        lat = location.getLatitude();
+        lon = location.getLongitude();
+        Toast.makeText(this, "Location Gathered", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
+        Log.d("Latitude", "disable");
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+        Log.d("Latitude", "enable");
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+        Log.d("Latitude", "status");
+    }
+
+    @SuppressLint("MissingPermission")
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+
+        if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
+
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this);
+
+            } else {
+                ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_PERMISSION_REQUEST_CODE);
+            }
         }
     }
 }

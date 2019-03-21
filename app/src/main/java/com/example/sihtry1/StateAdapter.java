@@ -15,6 +15,8 @@ import com.google.firebase.firestore.DocumentSnapshot;
 public class StateAdapter extends FirestoreRecyclerAdapter<State, StateAdapter.StateHolder> {
     private OnItemClickListener listener;
     String searchStr;
+    int count = 0;
+    int height;
 
 
     public StateAdapter(@NonNull FirestoreRecyclerOptions<State> options, String searchStr) {
@@ -29,9 +31,14 @@ public class StateAdapter extends FirestoreRecyclerAdapter<State, StateAdapter.S
 
     @Override
     protected void onBindViewHolder(@NonNull StateHolder holder, int position, @NonNull State model) {
+        if (count == 0) {
+            height = holder.itemView.getLayoutParams().height;
+            count++;
+        }
+
         if (model.getState().contains(searchStr)) {
             holder.textViewtitle.setText(model.getState());
-            holder.itemView.getLayoutParams().height = 140;
+            holder.itemView.getLayoutParams().height = height;
         } else {
             holder.itemView.getLayoutParams().height = 0;
         }
