@@ -166,7 +166,7 @@ public class CreateReferralActivity extends AppCompatActivity implements Adapter
 
                             @Override
                             public void onDateSet(DatePicker view, int year,
-                                                  int monthOfYear, int dayOfMonth) {
+                                                  int  monthOfYear, int dayOfMonth) {
                                 // Display Selected date in textbox
 
                                 if (year < mYear)
