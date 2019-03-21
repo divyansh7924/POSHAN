@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.example.sihtry1.models.Admits;
 import com.example.sihtry1.models.Followup;
+import com.example.sihtry1.models.NRC;
 import com.example.sihtry1.models.Referral;
 import com.example.sihtry1.models.RCR;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -48,7 +49,9 @@ public class FollowupChildActivity extends AppCompatActivity {
     FirebaseFirestore db;
     private ArrayList<Referral> mref = new ArrayList<>();
     private ArrayList<RCR> rcr = new ArrayList<>();
-    String referraldocid,followupdocsnap;
+    private ArrayList<NRC> mNrc = new ArrayList<>();
+    String referraldocid,followupdocsnap, NrcId;
+    int bed_vacant;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -152,6 +155,30 @@ public class FollowupChildActivity extends AppCompatActivity {
                             }
                         });
                     }
+                }
+            }
+        });
+        CollectionReference nrcRef = db.collection("nrc");
+        NrcId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        Query query = nrcRef.whereEqualTo("user_id", NrcId);
+
+        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
+                        NRC nrc = documentSnapshot.toObject(NRC.class);
+                        mNrc.add(nrc);
+                    }
+                    bed_vacant = mNrc.get(0).getBed_vacant();
+                    if(bed_vacant == 0)
+                    {
+                        btn_readmit.setVisibility(View.INVISIBLE);
+                        et_readmit_period.setFocusable(false);
+                        et_readmit_period.setText("Beds Full can't admit more until any Discharge");
+                    }
+                } else {
+                    Toast.makeText(getApplicationContext(), "NRC not found", Toast.LENGTH_SHORT).show();
                 }
             }
         });

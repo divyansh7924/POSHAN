@@ -23,6 +23,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -41,11 +42,13 @@ public class ChildProfileActivity extends AppCompatActivity {
             tv_pin_code, tv_state, tv_aaganwadi, tv_symptoms, tv_village, tv_tehsil, tv_treated_for,
             tv_district, tv_date_screened;
     private EditText et_admission_period;
-    private Button btn_admit_child;
-    private String selectedchild;
+    private Button btn_admit_child, btn_reject_ref;
+    private String selectedchild, NrcId;
+    int bed_vacant;
     FirebaseFirestore db;
     private CollectionReference rcrref;
     private ArrayList<RCR> mrcr = new ArrayList<>();
+    private ArrayList<NRC> mNrc = new ArrayList<>();
     String rcrselected, referralid;
 
     @Override
@@ -73,21 +76,57 @@ public class ChildProfileActivity extends AppCompatActivity {
         tv_aaganwadi = (TextView) findViewById(R.id.child_profile_tv_aaganwadi);
         tv_symptoms = (TextView) findViewById(R.id.child_profile_tv_symptom);
         et_admission_period = (EditText) findViewById(R.id.child_profile_et_admission_period);
-        btn_admit_child = (Button) findViewById(R.id.child_profile_btn_admit_child);
         tv_village = findViewById(R.id.child_profile_tv_village);
         tv_district = findViewById(R.id.child_profile_tv_district);
         tv_tehsil = findViewById(R.id.child_profile_tv_tehsil);
         tv_date_screened = findViewById(R.id.child_profile_tv_date_screened);
 
+        btn_admit_child = (Button) findViewById(R.id.child_profile_btn_admit_child);
+        btn_reject_ref = (Button) findViewById(R.id.child_profile_btn_reject_ref);
+
         db = FirebaseFirestore.getInstance();
         rcrref = db.collection("rcr");
+        CollectionReference nrcRef = db.collection("nrc");
+        NrcId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
         final DocumentReference docRef = db.collection("referral").document(selectedchild);
+
+        Query query = nrcRef.whereEqualTo("user_id", NrcId);
+
+        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
+                        NRC nrc = documentSnapshot.toObject(NRC.class);
+                        mNrc.add(nrc);
+                    }
+                    bed_vacant = mNrc.get(0).getBed_vacant();
+                    if(bed_vacant == 0)
+                    {
+                        btn_admit_child.setVisibility(View.INVISIBLE);
+                        et_admission_period.setFocusable(false);
+                        et_admission_period.setText("Beds Full can't admit more until any Discharge");
+                    }
+                } else {
+                    Toast.makeText(getApplicationContext(), "NRC not found", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
 
         final Referral[] referral = {null};
         btn_admit_child.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 createNewAdmission();
+            }
+        });
+
+        btn_reject_ref.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                reject_ref();
             }
         });
 
@@ -226,5 +265,14 @@ public class ChildProfileActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+    private void reject_ref(){
+        FirebaseFirestore db1;
+        db1 = FirebaseFirestore.getInstance();
+        db1.collection("referral").document(selectedchild).update("status", "Created");
+        db1.collection("referral").document(selectedchild).update("nrc_id", FieldValue.delete());
+        Toast.makeText(getApplicationContext(), "Referral Rejected", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(getApplicationContext(), NRCActivity.class);
+        startActivity(intent);
     }
 }

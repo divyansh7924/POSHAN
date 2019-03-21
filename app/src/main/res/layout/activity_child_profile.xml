@@ -370,4 +370,10 @@
         android:layout_height="wrap_content"
         android:text="Admit Child" />
 
+    <Button
+        android:id="@+id/child_profile_btn_reject_ref"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Reject Referral" />
+
 </LinearLayout>
