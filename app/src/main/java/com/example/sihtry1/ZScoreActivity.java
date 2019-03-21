@@ -109,24 +109,32 @@ public class ZScoreActivity extends AppCompatActivity implements AdapterView.OnI
         addListenerOnSpinner();
     }
 
-    private void checkStatus() {
+    private void checkStatus()
+    {
         int age;
         float muac;
 
         age = Integer.parseInt(et_age.getText().toString());
         muac = Float.parseFloat(et_muac.getText().toString());
 
-        if (oedema_stage > 0) {
+        if (oedema_stage > 0)
+        {
             setSAM();
-        } else if (oedema_stage < 0) {
+        }
+        else if (oedema_stage < 0)
+        {
             Toast.makeText(ZScoreActivity.this, "Please select oedema stage", Toast.LENGTH_SHORT).show();
-        } else if (age < 6) {
-            Toast.makeText(ZScoreActivity.this, "Age can't be less then 6 months ", Toast.LENGTH_SHORT).show();
-        } else if (age >= 6 && muac < 115) {
+        }
+        else if (age >= 6 && muac < 115)
+        {
             setSAM();
-        } else if (zscore == true) {
+        }
+        else if (zscore == true)
+        {
          setSAM();
-        } else {
+        }
+        else
+        {
             setNotSAM();
         }
     }
