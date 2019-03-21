@@ -150,7 +150,7 @@ public class ZScoreActivity extends AppCompatActivity implements AdapterView.OnI
 
                                 if (dom < cday && yr == cyear && mth == cmonth)
                                     view.updateDate(cyear, cmonth, cday);
-                                //textView1.setText(dom + "-" + mth + "-" + yr);
+                                textView1.setText(dom + "-" + mth + "-" + yr);
                                 et_age = (12 * (cyear - yr) + (cmonth - mth));
                                 //textView1.setText(et_age);
 
