@@ -28,7 +28,7 @@ public class CityAdapter extends FirestoreRecyclerAdapter<RCR, CityAdapter.CityH
     @NonNull
     @Override
     public CityHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.state_item, parent, false);
         return new CityHolder(v);
 
 
