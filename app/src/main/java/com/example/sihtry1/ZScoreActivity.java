@@ -98,7 +98,7 @@ public class ZScoreActivity extends AppCompatActivity implements AdapterView.OnI
                 } catch (Exception e) {
                     Toast.makeText(ZScoreActivity.this, "Invalid hight or weight ", Toast.LENGTH_SHORT).show();
                     sema = 1;
-                    }
+                }
                 if (et_age<=0)
                 {
                     Toast.makeText(ZScoreActivity.this, "Please enter valid age ", Toast.LENGTH_SHORT).show();
