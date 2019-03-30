@@ -19,6 +19,8 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
+import java.util.Collection;
+
 public class NrcListActivity extends AppCompatActivity {
 
     private FirebaseFirestore db;
