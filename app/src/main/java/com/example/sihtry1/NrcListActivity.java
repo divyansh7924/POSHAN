@@ -43,6 +43,7 @@ public class NrcListActivity extends AppCompatActivity {
         Toast.makeText(NrcListActivity.this, "str " + stateselected, Toast.LENGTH_LONG).show();
 
         setupRecyclerView();
+        Log.v("items", String.valueOf(adapter.getItemCount()));
 
         adapter.setOnItemClickListener(new NrcListAdapter.OnItemClickListener() {
             @Override
@@ -56,6 +57,8 @@ public class NrcListActivity extends AppCompatActivity {
 
 
     }
+
+
 
     public void setupRecyclerView() {
         Query query = nrcref.whereEqualTo("state", stateselected);

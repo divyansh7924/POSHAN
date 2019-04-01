@@ -1,8 +1,11 @@
 package com.example.sihtry1;
 
 import android.location.Location;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.transition.TransitionManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +15,7 @@ import android.widget.Toast;
 
 import com.example.sihtry1.models.NRC;
 import com.example.sihtry1.models.RCR;
+import com.firebase.ui.auth.ui.phone.CountryListSpinner;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -78,6 +82,17 @@ public class NrcListAdapter extends FirestoreRecyclerAdapter<NRC, NrcListAdapter
         });
     }
 
+    @Override
+    public int getItemCount() {
+        return super.getItemCount();
+    }
+
+    @Override
+    public void onDataChanged() {
+        super.onDataChanged();
+    }
+
+
     @NonNull
     @Override
     public NrcHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
@@ -118,4 +133,5 @@ public class NrcListAdapter extends FirestoreRecyclerAdapter<NRC, NrcListAdapter
     public void setOnItemClickListener(OnItemClickListener listener) {
         this.listener = listener;
     }
+
 }
