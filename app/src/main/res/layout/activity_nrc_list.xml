@@ -7,14 +7,14 @@
     tools:context=".NrcListActivity">
 
     <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerviewnrc"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/recyclerviewnrc">
-    </android.support.v7.widget.RecyclerView>
+        android:layout_height="match_parent" />
+
     <TextView
+        android:id="@+id/nrclist_empty"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:id="@+id/nrclist_empty"/>
+        android:layout_gravity="center" />
 
 </android.support.design.widget.CoordinatorLayout>

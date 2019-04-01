@@ -38,7 +38,7 @@ public class ZScoreActivity extends AppCompatActivity implements AdapterView.OnI
         table_boy = new double[]{1.9, 2.0, 2.1, 2.2, 2.3, 2.4, 2.6, 2.7, 2.9, 3.1, 3.3, 3.6, 3.8, 4.0, 4.3, 4.5, 4.7, 4.9, 5.1, 5.3, 5.5, 5.7, 5.9, 6.1, 6.3, 6.5, 6.6, 6.8, 7.0, 7.2, 7.3, 7.5, 7.6, 7.8, 7.9, 8.1, 8.2, 8.4, 8.6, 8.7, 8.9, 9.1, 9.3, 9.6, 9.8, 10.0, 10.2, 10.4, 10.6, 10.8, 11.0, 11.1, 11.3, 11.5, 11.7, 11.9, 12.1, 12.3, 12.5, 12.7, 13.0, 13.2, 13.4, 13.7, 13.9, 14.1, 14.4, 14.6, 14.9, 15.2, 15.4, 15.7, 16.0, 16.2, 16.5, 16.8, 17.1};
         table_girl = new double[]{1.9, 2.0, 2.1, 2.2, 2.3, 2.4, 2.6, 2.8, 2.9, 3.1, 3.3, 3.5, 3.7, 3.9, 4.1, 4.3, 4.5, 4.7, 4.9, 5.1, 5.3, 5.5, 5.6, 5.8, 6.0, 6.1, 6.3, 6.5, 6.6, 6.8, 6.9, 7.1, 7.2, 7.4, 7.5, 7.7, 7.8, 8.0, 8.1, 8.3, 8.5, 8.7, 8.9, 9.2, 9.4, 9.6, 9.8, 10.0, 10.2, 10.4, 10.6, 10.8, 10.9, 11.1, 11.3, 11.5, 11.7, 12.0, 12.2, 12.4, 12.6, 12.9, 13.1, 13.4, 13.7, 13.9, 14.2, 14.5, 14.8, 14.9, 15.1, 15.4, 15.7, 16.0, 16.3, 16.6, 16.9, 17.3};
         sema = 0;
-        et_age=0;
+        et_age = 0;
     }
 
     @Override
@@ -98,9 +98,8 @@ public class ZScoreActivity extends AppCompatActivity implements AdapterView.OnI
                 } catch (Exception e) {
                     Toast.makeText(ZScoreActivity.this, "Invalid hight or weight ", Toast.LENGTH_SHORT).show();
                     sema = 1;
-                    }
-                if (et_age<=0)
-                {
+                }
+                if (et_age <= 0) {
                     Toast.makeText(ZScoreActivity.this, "Please enter valid age ", Toast.LENGTH_SHORT).show();
                     recreate();
                     sema = 1;
@@ -155,7 +154,7 @@ public class ZScoreActivity extends AppCompatActivity implements AdapterView.OnI
                                 //textView1.setText(et_age);
 
                             }
-                        },cyear,cmonth,cday);
+                        }, cyear, cmonth, cday);
                 datepicker.getDatePicker().setMinDate(1999);
                 datepicker.show();
             }

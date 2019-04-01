@@ -30,7 +30,7 @@ public class RCRActivity extends AppCompatActivity {
         btn_ListofNRC.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listofnrc();
+                listnrc();
             }
         });
         btn_records.setOnClickListener(new View.OnClickListener() {
@@ -75,8 +75,8 @@ public class RCRActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void listofnrc() {
-        Intent intent = new Intent(this, StatesActivity.class);
+    private void listnrc() {
+        Intent intent = new Intent(this, NrcListActivity.class);
         startActivity(intent);
     }
 

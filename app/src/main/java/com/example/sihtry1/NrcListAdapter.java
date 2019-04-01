@@ -49,8 +49,8 @@ public class NrcListAdapter extends FirestoreRecyclerAdapter<NRC, NrcListAdapter
     protected void onBindViewHolder(@NonNull final NrcListAdapter.NrcHolder holder, int position, @NonNull NRC model) {
         holder.textViewnrctitle.setText(model.getTitle());
         holder.textviewaddress.setText(model.getAddress());
-        final Double lon = model.getLon();
-        final Double lat = model.getLat();
+        final double lon = model.getLon();
+        final double lat = model.getLat();
         db = FirebaseFirestore.getInstance();
         rcrRef = db.collection("rcr");
         userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -64,8 +64,8 @@ public class NrcListAdapter extends FirestoreRecyclerAdapter<NRC, NrcListAdapter
                         rcr = documentSnapshot.toObject(RCR.class);
                         docRef = documentSnapshot.getReference();
                     }
-                    Double lata = rcr.getLat();
-                    Double lona = rcr.getLon();
+                    double lata = rcr.getLat();
+                    double lona = rcr.getLon();
                     Location loc1 = new Location("");
                     loc1.setLatitude(lata);
                     loc1.setLongitude(lona);
@@ -74,7 +74,7 @@ public class NrcListAdapter extends FirestoreRecyclerAdapter<NRC, NrcListAdapter
                     loc2.setLatitude(lat);
                     loc2.setLongitude(lon);
                     float distanceInMeters = loc1.distanceTo(loc2) / 1000;
-                    holder.textviewdistance.setText(String.valueOf(distanceInMeters)+" Km");
+                    holder.textviewdistance.setText(String.valueOf(distanceInMeters) + " Km");
                 } else {
 //                    Toast.makeText(getApplicationContext(), "NRC not found", Toast.LENGTH_SHORT).show();
                 }
@@ -82,24 +82,11 @@ public class NrcListAdapter extends FirestoreRecyclerAdapter<NRC, NrcListAdapter
         });
     }
 
-    @Override
-    public int getItemCount() {
-        return super.getItemCount();
-    }
-
-    @Override
-    public void onDataChanged() {
-        super.onDataChanged();
-    }
-
-
     @NonNull
     @Override
     public NrcHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.nrclistitem, parent, false);
         return new NrcHolder(v);
-
-
     }
 
 
