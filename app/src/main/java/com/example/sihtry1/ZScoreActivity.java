@@ -49,7 +49,6 @@ public class ZScoreActivity extends AppCompatActivity implements AdapterView.OnI
         btn_create_referral = findViewById(R.id.zscore_btn_create_referral);
         btn_check_status = findViewById(R.id.zscore_btn_check_status);
         tv_zscore = findViewById(R.id.zscore_tv_zscore);
-        //et_age = findViewById(R.id.zscore_et_age);
         tv_status = findViewById(R.id.zscore_tv_status);
         et_weight = findViewById(R.id.zscore_et_weight);
         et_height = findViewById(R.id.zscore_et_height);
@@ -59,14 +58,6 @@ public class ZScoreActivity extends AppCompatActivity implements AdapterView.OnI
         btn_check_status.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Error message display block
-                /*try {
-                    Double ag = Double.parseDouble(et_age.getText().toString());
-                } catch (Exception e) {
-                    Toast.makeText(ZScoreActivity.this, "Please enter valid age ", Toast.LENGTH_SHORT).show();
-                    recreate();
-                    sema = 1;
-                }*/
                 try {
                     weight_z = Double.parseDouble(et_weight.getText().toString());
                 } catch (Exception e) {
@@ -203,12 +194,12 @@ public class ZScoreActivity extends AppCompatActivity implements AdapterView.OnI
         btn_create_referral.setVisibility(View.VISIBLE);
     }
 
-    private void error() {
+   /* private void error() {
         tv_status.setVisibility(View.VISIBLE);
         tv_status.setText("Please enter vlaid details");
         tv_status.setTextColor(Color.RED);
         btn_create_referral.setVisibility(View.INVISIBLE);
-    }
+    }*/
 
     private void setNotSAM() {
         tv_status.setVisibility(View.VISIBLE);

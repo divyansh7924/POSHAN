@@ -37,18 +37,15 @@ import java.util.Locale;
 
 public class CreateReferralActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
-    private int mYear, mMonth, mDay;
+    private int mYear, mMonth, mDay, age, oedema_stage = 0, day_of_birth, month_of_birth, year_of_birth,bloodgrp,controll=0,controll_1=0;
     private Button btn_submit;
-    private EditText et_parent_name, et_child_f_name, et_child_l_name, et_bloodgp,
+    private EditText et_parent_name, et_child_f_name, et_child_l_name,
             et_ashamsmt, et_pincode, et_height, et_symptoms,
             et_weight, et_aadhaar_parent, et_aadhaar_child, et_phone, et_village, et_tehsil, et_district, et_treatedFor;
     private RadioButton rb_child_male, rb_child_female;
-    private int day_of_birth, month_of_birth, year_of_birth;
-    private Spinner spinner_oedema;
-    private Spinner sp_state;
+    private Spinner spinner_oedema, Blood_group, sp_state;
     public FirebaseFirestore db;
     ArrayList<String> states = new ArrayList<String>(25);
-    private int oedema_stage = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +56,7 @@ public class CreateReferralActivity extends AppCompatActivity implements Adapter
         et_parent_name = (EditText) findViewById(R.id.create_referral_et_parent_name);
         et_child_f_name = (EditText) findViewById(R.id.create_referral_et_child_f_name);
         et_child_l_name = (EditText) findViewById(R.id.create_referral_et_child_l_name);
-        et_bloodgp = (EditText) findViewById(R.id.create_referral_et_bloodgp);
+       // et_bloodgp = (EditText) findViewById(R.id.create_referral_et_bloodgp);
         sp_state = (Spinner) findViewById(R.id.create_referral_et_state);
         et_ashamsmt = (EditText) findViewById(R.id.create_referral_et_ashamsmt);
         et_pincode = (EditText) findViewById(R.id.create_referral_et_pin);
@@ -84,6 +81,135 @@ public class CreateReferralActivity extends AppCompatActivity implements Adapter
         btn_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                int sema = 0;
+                try {
+                    String name = et_parent_name.getText().toString();
+                } catch (Exception e) {
+                    Toast.makeText(CreateReferralActivity.this, "Please enter valid name for guardian ", Toast.LENGTH_SHORT).show();
+                    sema = 1;
+                }
+                try {
+                    String name = et_child_f_name.getText().toString();
+                } catch (Exception e) {
+                    Toast.makeText(CreateReferralActivity.this, "Please enter a valid first name for child ", Toast.LENGTH_SHORT).show();
+                    sema = 1;
+                }
+                try {
+                    String name = et_child_l_name.getText().toString();
+                } catch (Exception e) {
+                    Toast.makeText(CreateReferralActivity.this, "Please enter a valid last name for child ", Toast.LENGTH_SHORT).show();
+                    sema = 1;
+                }
+                /*try {
+                    String name = et_child_l_name.getText().toString();
+                } catch (Exception e) {
+                    Toast.makeText(CreateReferralActivity.this, "Please enter a valid last name for child ", Toast.LENGTH_SHORT).show();
+                    sema = 1;
+                }*/
+
+                try {
+                    Float name = Float.parseFloat(et_ashamsmt.getText().toString());
+                } catch (Exception e) {
+                    Toast.makeText(CreateReferralActivity.this, "Please enter a valid asha tape measurement for child ", Toast.LENGTH_SHORT).show();
+                    sema = 1;
+                }
+
+                try {
+                    Integer pin = Integer.parseInt(et_pincode.getText().toString());
+                } catch (Exception e) {
+                    Toast.makeText(CreateReferralActivity.this, "Please enter a valid pincode", Toast.LENGTH_SHORT).show();
+                    sema = 1;
+                }
+                try {
+                    String name = et_symptoms.getText().toString();
+                } catch (Exception e) {
+                    controll = 1;
+                }
+                try {
+                    Float pin = Float.parseFloat(et_height.getText().toString());
+                } catch (Exception e) {
+                    Toast.makeText(CreateReferralActivity.this, "Please enter a valid height ", Toast.LENGTH_SHORT).show();
+                    sema = 1;
+                }
+
+                try {
+                    Float pin = Float.parseFloat(et_weight.getText().toString());
+                } catch (Exception e) {
+                    Toast.makeText(CreateReferralActivity.this, "Please enter a valid weight ", Toast.LENGTH_SHORT).show();
+                    sema = 1;
+                }
+
+                try {
+                    String name = et_aadhaar_parent.getText().toString();
+                    if(name.length()<11)
+                        throw new ArithmeticException();
+                } catch (Exception e) {
+                    Toast.makeText(CreateReferralActivity.this, "Please enter a valid aadhar number for parent ", Toast.LENGTH_SHORT).show();
+                    sema = 1;
+                }
+
+                try {
+                    String name = et_aadhaar_child.getText().toString();
+                    if(name.length()<11)
+                        throw new ArithmeticException();
+                } catch (Exception e) {
+                    Toast.makeText(CreateReferralActivity.this, "Please enter a valid aadhar number for child ", Toast.LENGTH_SHORT).show();
+                    sema = 1;
+                }
+
+                try {
+                    String name = et_tehsil.getText().toString();
+                } catch (Exception e) {
+                    Toast.makeText(CreateReferralActivity.this, "Please enter a valid tehsil ", Toast.LENGTH_SHORT).show();
+                    sema = 1;
+                }
+
+                try {
+                    String name = et_village.getText().toString();
+                } catch (Exception e) {
+                    controll_1 = 1;
+                }
+
+                try {
+                    String name = et_district.getText().toString();
+                } catch (Exception e) {
+                    Toast.makeText(CreateReferralActivity.this, "Please enter a valid district ", Toast.LENGTH_SHORT).show();
+                    sema = 1;
+                }
+
+                try {
+                    String name = et_treatedFor.getText().toString();
+                } catch (Exception e) {
+                    Toast.makeText(CreateReferralActivity.this, "Please enter a valid treatment required ", Toast.LENGTH_SHORT).show();
+                    sema = 1;
+                }
+
+                try {
+                    String name = et_phone.getText().toString();
+                    if(name.length()<9)
+                        throw new ArithmeticException();
+                } catch (Exception e) {
+                    Toast.makeText(CreateReferralActivity.this, "Please enter a valid phone number ", Toast.LENGTH_SHORT).show();
+                    sema = 1;
+                }
+
+
+
+                if(bloodgrp<0)
+                {
+                    Toast.makeText(CreateReferralActivity.this, "Please enter a Blood Group ", Toast.LENGTH_SHORT).show();
+                    sema = 1;
+                }
+                if(oedema_stage<0)
+                {
+                    Toast.makeText(CreateReferralActivity.this, "Please enter a Blood Group ", Toast.LENGTH_SHORT).show();
+                    sema = 1;
+                }
+                if (age <= 0) {
+                    Toast.makeText(CreateReferralActivity.this, "Please enter a valid age for child ", Toast.LENGTH_SHORT).show();
+                    sema = 1;
+                }
+
                 String gender = null;
                 if (rb_child_male.isChecked()) {
                     gender = "m";
@@ -91,11 +217,14 @@ public class CreateReferralActivity extends AppCompatActivity implements Adapter
                     gender = "f";
                 } else {
                     Toast.makeText(getApplicationContext(), "Select Gender", Toast.LENGTH_SHORT).show();
+                    sema=1;
                     return;
                 }
 
 
-                createNewReferral();
+                if(sema==0) {
+                    createNewReferral();
+                }
             }
         });
 
@@ -166,7 +295,7 @@ public class CreateReferralActivity extends AppCompatActivity implements Adapter
 
                             @Override
                             public void onDateSet(DatePicker view, int year,
-                                                  int  monthOfYear, int dayOfMonth) {
+                                                  int monthOfYear, int dayOfMonth) {
                                 // Display Selected date in textbox
 
                                 if (year < mYear)
@@ -180,6 +309,7 @@ public class CreateReferralActivity extends AppCompatActivity implements Adapter
 
                                 textView.setText(dayOfMonth + "-"
                                         + (monthOfYear + 1) + "-" + year);
+                                age = (12 * (mYear - year) + (mMonth - monthOfYear));
                                 day_of_birth = dayOfMonth;
                                 month_of_birth = monthOfYear;
                                 year_of_birth = year;
@@ -194,6 +324,7 @@ public class CreateReferralActivity extends AppCompatActivity implements Adapter
 
             }
         });
+        Listnerforbloodgroup();
     }
 
     private void createNewReferral() {
@@ -219,6 +350,22 @@ public class CreateReferralActivity extends AppCompatActivity implements Adapter
         } else {
             referral.setChild_gender("o");
         }
+        if(bloodgrp==0)
+            referral.setBlood_group("A+");
+        else if(bloodgrp==1)
+            referral.setBlood_group("A-");
+        else if(bloodgrp==2)
+            referral.setBlood_group("B+");
+        else if(bloodgrp==3)
+            referral.setBlood_group("B-");
+        else if(bloodgrp==4)
+            referral.setBlood_group("AB+");
+        else if(bloodgrp==5)
+            referral.setBlood_group("AB-");
+        else if(bloodgrp==6)
+            referral.setBlood_group("O+");
+        else if(bloodgrp==7)
+            referral.setBlood_group("O-");
 
         referral.setDay_of_birth(day_of_birth);
 
@@ -226,7 +373,7 @@ public class CreateReferralActivity extends AppCompatActivity implements Adapter
 
         referral.setYear_of_birth(year_of_birth);
 
-        referral.setBlood_group(et_bloodgp.getText().toString());
+        //referral.setBlood_group(et_bloodgp.getText().toString());
 
         referral.setAsha_measure(Float.parseFloat(et_ashamsmt.getText().toString()));
 
@@ -244,7 +391,10 @@ public class CreateReferralActivity extends AppCompatActivity implements Adapter
 
         referral.setRcr_id(userid);
 
+        if(controll==0)
         referral.setOther_symptoms(et_symptoms.getText().toString());
+        else if(controll==1)
+            referral.setOther_symptoms("Null");
 
         referral.setPhone(et_phone.getText().toString());
 
@@ -252,7 +402,10 @@ public class CreateReferralActivity extends AppCompatActivity implements Adapter
 
         referral.setDistrict(et_district.getText().toString());
 
+        if(controll_1==0)
         referral.setVillage(et_village.getText().toString());
+        else if(controll_1==1)
+            referral.setVillage("Null");
 
         referral.setTehsil(et_tehsil.getText().toString());
 
@@ -281,7 +434,19 @@ public class CreateReferralActivity extends AppCompatActivity implements Adapter
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         oedema_stage = position - 1;
+        bloodgrp = position -1;
     }
+    private void Listnerforbloodgroup()
+    {
+        Blood_group = findViewById(R.id.create_referral_blood_group);
+        Blood_group.setOnItemSelectedListener(this);
+
+    }
+    /*@Override
+    public void Onblood(AdapterView<?> parent, View view, int position, long id) {
+        bloodgrp = position - 1;
+    }*/
+
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {

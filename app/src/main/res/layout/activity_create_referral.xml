@@ -124,13 +124,19 @@
                 android:layout_marginRight="20dp"
                 android:hint="Treated For" />
 
-            <EditText
+           <!-- <EditText
                 android:id="@+id/create_referral_et_bloodgp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:hint="Blood Group" />
+                android:hint="Blood Group" />-->
+            <Spinner
+                android:id="@+id/create_referral_blood_group"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginHorizontal="20dp"
+                android:entries="@array/Blood_Group" />
 
             <EditText
                 android:id="@+id/create_referral_et_ashamsmt"
