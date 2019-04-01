@@ -3,6 +3,9 @@ package com.example.sihtry1.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.android.gms.common.internal.HideFirstParty;
+import com.google.firebase.firestore.Exclude;
+
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -20,8 +23,9 @@ public class NRC {
     int pincode;
     String phone;
     boolean verified;
-
     double lat, lon;
+
+    @Exclude double distance;
 
     public NRC() {
     }
@@ -165,5 +169,13 @@ public class NRC {
 
     public void setLon(double lon) {
         this.lon = lon;
+    }
+
+    public double getDistance() {
+        return distance;
+    }
+
+    public void setDistance(double distance) {
+        this.distance = distance;
     }
 }
