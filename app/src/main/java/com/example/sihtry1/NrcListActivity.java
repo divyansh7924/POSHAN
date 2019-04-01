@@ -25,10 +25,7 @@ public class NrcListActivity extends AppCompatActivity {
 
     private FirebaseFirestore db;
     private CollectionReference nrcref;
-
     private NrcListAdapter adapter;
-    String stateselected;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,10 +34,6 @@ public class NrcListActivity extends AppCompatActivity {
 
         db = FirebaseFirestore.getInstance();
         nrcref = db.collection("nrc");
-
-        Intent intent = getIntent();
-        stateselected = intent.getStringExtra("message");
-        Toast.makeText(NrcListActivity.this, "str " + stateselected, Toast.LENGTH_LONG).show();
 
         setupRecyclerView();
         Log.v("items", String.valueOf(adapter.getItemCount()));
@@ -59,9 +52,8 @@ public class NrcListActivity extends AppCompatActivity {
     }
 
 
-
     public void setupRecyclerView() {
-        Query query = nrcref.whereEqualTo("state", stateselected);
+        Query query = nrcref.whereEqualTo("verified", true);
 
         FirestoreRecyclerOptions<NRC> options = new FirestoreRecyclerOptions.Builder<NRC>()
                 .setQuery(query, NRC.class)
