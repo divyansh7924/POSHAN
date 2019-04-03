@@ -15,13 +15,13 @@ import com.example.sihtry1.models.NRC;
 
 import java.util.ArrayList;
 
-public class NrcListAdapter2 extends RecyclerView.Adapter<NrcListAdapter2.ViewHolder> {
+public class NrcListAdapter extends RecyclerView.Adapter<NrcListAdapter.ViewHolder> {
 
-    private static final String TAG = "NrcListAdapter2";
+    private static final String TAG = "NrcListAdapter";
     private ArrayList<NRC> nrcArrayList = new ArrayList<>();
     private Context context;
 
-    public NrcListAdapter2(Context context, ArrayList<NRC> nrcArrayList) {
+    public NrcListAdapter(Context context, ArrayList<NRC> nrcArrayList) {
         this.nrcArrayList = nrcArrayList;
         this.context = context;
     }
