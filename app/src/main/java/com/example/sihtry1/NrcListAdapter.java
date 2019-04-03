@@ -2,6 +2,7 @@ package com.example.sihtry1;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -44,14 +45,15 @@ public class NrcListAdapter extends RecyclerView.Adapter<NrcListAdapter.ViewHold
         viewHolder.parentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sendref(nrcArrayList.get(i).getUser_id());
+                sendref(nrcArrayList.get(i).getUser_id(), i);
             }
         });
     }
 
-    public void sendref(String id) {
+    public void sendref(String id, int i) {
         Intent intent = new Intent(context, SendReferralActivity.class);
         intent.putExtra("NRC_ID", id);
+        intent.putExtra("NRCobj", nrcArrayList.get(i));
         context.startActivity(intent);
     }
 

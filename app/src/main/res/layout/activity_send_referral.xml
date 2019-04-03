@@ -17,7 +17,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="50dp"
             android:text="Nutrition Rehabilitation Center"
             android:textColor="#000"
             android:textSize="20sp"
@@ -43,106 +42,23 @@
             android:textSize="20sp"
             android:textStyle="normal" />
 
-        <!--<LinearLayout-->
-            <!--android:id="@+id/send_referral_bedavailablecnt"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginHorizontal="17dp"-->
-            <!--android:paddingVertical="20dp">-->
+        <TextView
+            android:id="@+id/send_referral_tv_bed_avl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:text="Bed Availability"
+            android:textSize="20sp"
+            android:textStyle="normal" />
 
-            <!--<android.support.v7.widget.AppCompatImageView-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginLeft="20dp"-->
-                <!--android:src="@drawable/bedavailable" />-->
-
-            <!--<LinearLayout-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginHorizontal="45dp"-->
-                <!--android:orientation="vertical">-->
-
-                <!--<TextView-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:text="Beds Available"-->
-                    <!--android:textColor="#6e57ee"-->
-                    <!--android:textSize="15sp"-->
-                    <!--android:textStyle="bold" />-->
-
-                <!--<LinearLayout-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content">-->
-
-                    <!--<TextView-->
-                        <!--android:id="@+id/send_referral_bedvacant"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_marginTop="2dp"-->
-                        <!--android:text="11"-->
-                        <!--android:textColor="#6e57ee"-->
-                        <!--android:textSize="15sp"-->
-                        <!--android:textStyle="bold" />-->
-
-                    <!--<TextView-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_marginTop="2dp"-->
-                        <!--android:text=" / "-->
-                        <!--android:textColor="#6e57ee"-->
-                        <!--android:textSize="15sp"-->
-                        <!--android:textStyle="bold" />-->
-
-                    <!--<TextView-->
-                        <!--android:id="@+id/send_referral_totalbeds"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_marginTop="2dp"-->
-                        <!--android:text="20"-->
-                        <!--android:textColor="#6e57ee"-->
-                        <!--android:textSize="15sp"-->
-                        <!--android:textStyle="bold" />-->
-
-                    <!--<TextView-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_marginTop="2dp"-->
-                        <!--android:text=" Beds"-->
-                        <!--android:textColor="#6e57ee"-->
-                        <!--android:textSize="15sp"-->
-                        <!--android:textStyle="bold" />-->
-
-                <!--</LinearLayout>-->
-
-                <!--<ProgressBar-->
-                    <!--style="@android:style/Widget.ProgressBar.Horizontal"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_marginTop="7dp"-->
-                    <!--android:indeterminate="true"-->
-                    <!--android:indeterminateTint="@color/colorPrimary"-->
-                    <!--android:indeterminateTintMode="src_atop"-->
-                    <!--android:maxHeight="5dp"-->
-                    <!--android:minHeight="5dp"-->
-                    <!--android:progress="55" />-->
-
-                <!--<android.support.v4.widget.ContentLoadingProgressBar-->
-                    <!--android:id="@+id/send_referral_bedprogress"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:background="#6e57ee" />-->
-            <!--</LinearLayout>-->
-
-        <!--</LinearLayout>-->
-
-        <!--<Button-->
-            <!--android:id="@+id/send_referral_viewonmap"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginLeft="39dp"-->
-            <!--android:background="@drawable/round"-->
-            <!--android:text="View on maps >"-->
-            <!--android:textColor="#6e57ee" />-->
+        <Button
+            android:id="@+id/send_referral_btn_locate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:text="Locate on Maps" />
 
         <TextView
             android:layout_width="match_parent"
