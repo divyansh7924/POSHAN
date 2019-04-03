@@ -2,17 +2,17 @@
 
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/nrclist_parent_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="?android:attr/selectableItemBackground"
     android:clickable="true"
     android:focusable="true"
     android:orientation="vertical"
-    android:id="@+id/nrclist_parent_layout"
     android:padding="2dp"
-    android:paddingLeft="15dp"
+    android:paddingStart="15dp"
     android:paddingTop="16dp"
-    android:paddingRight="16dp"
+    android:paddingEnd="16dp"
     android:paddingBottom="15dp">
 
 
@@ -20,9 +20,11 @@
         android:id="@+id/textviewnrctitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:paddingHorizontal="2dp"
-        android:paddingVertical="17dp"
+        android:layout_marginStart="5dp"
+        android:paddingStart="2dp"
+        android:paddingTop="17dp"
+        android:paddingEnd="2dp"
+        android:paddingBottom="17dp"
         android:text="Title will be here"
         android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
@@ -37,7 +39,8 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
-            android:paddingHorizontal="2dp"
+            android:paddingStart="2dp"
+            android:paddingEnd="2dp"
             android:text="Address will be here"
             android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
@@ -45,10 +48,11 @@
             android:id="@+id/textviewdistance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
-            android:paddingHorizontal="2dp"
+            android:paddingStart="2dp"
+            android:paddingEnd="2dp"
             android:text="Distance"
             android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
@@ -58,7 +62,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        android:background="#000"></View>
+        android:background="#000" />
 
 
 </LinearLayout>
