@@ -3,12 +3,15 @@ package com.example.sihtry1;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,25 +32,32 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class SendReferralActivity extends AppCompatActivity {
+
+    private static final String TAG = "SendReferralActivity";
 
     private FirebaseFirestore db;
     private CollectionReference childref;
     private SendReferralAdapter adapter;
     private String selectedNrcId;
     private ArrayList<NRC> mNrc = new ArrayList<>();
-    private TextView tv_nrc_title, tv_nrc_statepin, tv_nrc_addresscity;
+    private TextView tv_nrc_title, tv_nrc_statepin, tv_nrc_addresscity, tv_bed_avl;
+    private Button btn_locate;
     private AlertDialog.Builder alertBuilder;
+    private NRC nrc = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_send_referral);
 
-        tv_nrc_addresscity = (TextView) findViewById(R.id.send_referral_tv_nrc_addresscity);
-        tv_nrc_statepin = (TextView) findViewById(R.id.send_referral_tv_nrc_statepin);
-        tv_nrc_title = (TextView) findViewById(R.id.send_referral_tv_nrc_title);
+        tv_nrc_addresscity = findViewById(R.id.send_referral_tv_nrc_addresscity);
+        tv_nrc_statepin = findViewById(R.id.send_referral_tv_nrc_statepin);
+        tv_nrc_title = findViewById(R.id.send_referral_tv_nrc_title);
+        tv_bed_avl = findViewById(R.id.send_referral_tv_bed_avl);
+        btn_locate = findViewById(R.id.send_referral_btn_locate);
 
         alertBuilder = new AlertDialog.Builder(this);
 
@@ -58,24 +68,26 @@ public class SendReferralActivity extends AppCompatActivity {
         setupRecyclerView();
         Intent intent = getIntent();
         selectedNrcId = intent.getStringExtra("NRC_ID");
+        nrc = (NRC) intent.getSerializableExtra("NRCobj");
 
-        Query query = nrcRef.whereEqualTo("user_id", selectedNrcId);
+        tv_nrc_title.setText(nrc.getTitle());
+        tv_nrc_addresscity.setText(nrc.getAddress() + ", " + nrc.getCity());
+        tv_nrc_statepin.setText(nrc.getState() + ", " + nrc.getPincode());
+        tv_bed_avl.setText(nrc.getBed_vacant() + " / " + nrc.getBed_count());
 
-        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        btn_locate.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
-                        NRC nrc = documentSnapshot.toObject(NRC.class);
-                        mNrc.add(nrc);
-                    }
-
-                    tv_nrc_title.setText(mNrc.get(0).getTitle());
-                    tv_nrc_addresscity.setText(mNrc.get(0).getAddress() + ", " + mNrc.get(0).getCity());
-                    tv_nrc_statepin.setText(mNrc.get(0).getState() + ", " + mNrc.get(0).getPincode());
-                } else {
-                    Toast.makeText(getApplicationContext(), "NRC not found", Toast.LENGTH_SHORT).show();
-                }
+            public void onClick(View v) {
+                double latitude = nrc.getLat();
+                double longitude = nrc.getLon();
+                String label = nrc.getTitle();
+                String uriBegin = "geo:" + latitude + "," + longitude;
+                String query = latitude + "," + longitude + "(" + label + ")";
+                String encodedQuery = Uri.encode(query);
+                String uriString = uriBegin + "?q=" + encodedQuery + "&z=16";
+                Uri uri = Uri.parse(uriString);
+                Intent intent = new Intent(android.content.Intent.ACTION_VIEW, uri);
+                startActivity(intent);
             }
         });
 

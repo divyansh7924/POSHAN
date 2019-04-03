@@ -6,10 +6,11 @@ import android.os.Parcelable;
 import com.google.android.gms.common.internal.HideFirstParty;
 import com.google.firebase.firestore.Exclude;
 
+import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class NRC {
+public class NRC implements Serializable {
     String user_id;
     int bed_count;
     String email;
