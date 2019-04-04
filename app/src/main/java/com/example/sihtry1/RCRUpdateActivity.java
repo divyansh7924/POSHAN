@@ -1,5 +1,6 @@
 package com.example.sihtry1;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -75,6 +76,7 @@ public class RCRUpdateActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Toast.makeText(getApplicationContext(), "Updated", Toast.LENGTH_SHORT).show();
+                        RCRPanel();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -83,5 +85,11 @@ public class RCRUpdateActivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), "Cannot Update", Toast.LENGTH_SHORT).show();
                     }
                 });
+    }
+
+    private void RCRPanel() {
+        Intent intent = new Intent(this, RCRActivity.class);
+        startActivity(intent);
+        finish();
     }
 }

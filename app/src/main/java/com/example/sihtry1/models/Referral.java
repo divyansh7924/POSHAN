@@ -3,10 +3,11 @@ package com.example.sihtry1.models;
 import com.google.firebase.database.IgnoreExtraProperties;
 import com.google.firebase.firestore.ServerTimestamp;
 
+import java.io.Serializable;
 import java.util.Date;
 
 @IgnoreExtraProperties
-public class Referral {
+public class Referral implements Serializable {
     @ServerTimestamp
     Date date_screened;
 
@@ -19,8 +20,8 @@ public class Referral {
     int month_of_birth;
     int year_of_birth;
     String blood_group;
-    float asha_measure;
-    float height;
+    int asha_measure;
+    int height;
     float weight;
     int oedema;
 
@@ -47,7 +48,13 @@ public class Referral {
     public Referral() {
     }
 
-    public Referral(Date date_screened, String referral_id, String child_first_name, String child_last_name, String child_gender, String child_aadhaar_num, int day_of_birth, int month_of_birth, int year_of_birth, String blood_group, float asha_measure, float height, float weight, int oedema, String guadian_name, String guardian_aadhaar_num, String nrc_id, String rcr_id, String other_symptoms, String treated_for, String phone, String village, String state, String tehsil, String district, int pincode, String status, int seen) {
+    public Referral(Date date_screened, String referral_id, String child_first_name,
+                    String child_last_name, String child_gender, String child_aadhaar_num,
+                    int day_of_birth, int month_of_birth, int year_of_birth, String blood_group,
+                    int asha_measure, int height, float weight, int oedema, String guadian_name,
+                    String guardian_aadhaar_num, String nrc_id, String rcr_id, String other_symptoms,
+                    String treated_for, String phone, String village, String state, String tehsil,
+                    String district, int pincode, String status, int seen) {
         this.date_screened = date_screened;
         this.referral_id = referral_id;
         this.child_first_name = child_first_name;
@@ -158,19 +165,19 @@ public class Referral {
         this.blood_group = blood_group;
     }
 
-    public float getAsha_measure() {
+    public int getAsha_measure() {
         return asha_measure;
     }
 
-    public void setAsha_measure(float asha_measure) {
+    public void setAsha_measure(int asha_measure) {
         this.asha_measure = asha_measure;
     }
 
-    public float getHeight() {
+    public int getHeight() {
         return height;
     }
 
-    public void setHeight(float height) {
+    public void setHeight(int height) {
         this.height = height;
     }
 

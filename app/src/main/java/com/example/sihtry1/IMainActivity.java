@@ -77,34 +77,4 @@ public class IMainActivity {
         Intent intent = new Intent(context, VerificationDueActivity.class);
         context.startActivity(intent);
     }
-
-    public void rcrUI(Context context) {
-        Intent intent = new Intent(context, RCRActivity.class);
-        context.startActivity(intent);
-    }
-
-    public ArrayList<NRC> getNRCs() {
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        CollectionReference nrcCollecRef = db.collection("nrc");
-
-        Query nrcQuery = nrcCollecRef.whereEqualTo("city", "delhinew");
-
-        final ArrayList<NRC> nrcList = new ArrayList<>();
-        nrcCollecRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-
-                if (task.isSuccessful()) {
-                    for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
-                        Log.v("IMainActivity", "hello");
-                        nrcList.add(documentSnapshot.toObject(NRC.class));
-                    }
-                } else {
-                    Log.v("IMainAcitivity", "Task Not Completed");
-                }
-            }
-        });
-
-        return nrcList;
-    }
 }

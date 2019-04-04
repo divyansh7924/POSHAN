@@ -36,6 +36,7 @@ import java.util.List;
 import java.util.Locale;
 
 public class CreateReferralActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+    private static final String TAG = "CreateReferralActivity";
 
     private int mYear, mMonth, mDay;
     private Button btn_submit;
@@ -47,35 +48,61 @@ public class CreateReferralActivity extends AppCompatActivity implements Adapter
     private Spinner spinner_oedema;
     private Spinner sp_state;
     public FirebaseFirestore db;
-    ArrayList<String> states = new ArrayList<String>(25);
-    private int oedema_stage = 0;
+    ArrayList<String> states = new ArrayList<>();
+    private int oedema_stage = -1;
+    Referral referral = null;
+    private Button btn_pickDate;
+    private TextView tv_dob;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_referral);
 
-        btn_submit = (Button) findViewById(R.id.create_referral_btn_submit);
-        et_parent_name = (EditText) findViewById(R.id.create_referral_et_parent_name);
-        et_child_f_name = (EditText) findViewById(R.id.create_referral_et_child_f_name);
-        et_child_l_name = (EditText) findViewById(R.id.create_referral_et_child_l_name);
-        et_bloodgp = (EditText) findViewById(R.id.create_referral_et_bloodgp);
-        sp_state = (Spinner) findViewById(R.id.create_referral_et_state);
-        et_ashamsmt = (EditText) findViewById(R.id.create_referral_et_ashamsmt);
-        et_pincode = (EditText) findViewById(R.id.create_referral_et_pin);
-        et_symptoms = (EditText) findViewById(R.id.create_referral_et_symptoms);
-        et_height = (EditText) findViewById(R.id.create_referral_et_height);
-        et_weight = (EditText) findViewById(R.id.create_referral_et_weight);
-        et_aadhaar_parent = (EditText) findViewById(R.id.create_referral_et_aadhaar_parent);
-        et_aadhaar_child = (EditText) findViewById(R.id.create_referral_et_aadhaar_child);
-        et_phone = (EditText) findViewById(R.id.create_referral_et_phone);
-        rb_child_male = (RadioButton) findViewById(R.id.create_referral_rb_child_male);
-        rb_child_female = (RadioButton) findViewById(R.id.create_referral_rb_child_female);
-        spinner_oedema = (Spinner) findViewById(R.id.create_referral_spinner_oedema);
+        btn_submit = findViewById(R.id.create_referral_btn_submit);
+        et_parent_name = findViewById(R.id.create_referral_et_parent_name);
+        et_child_f_name = findViewById(R.id.create_referral_et_child_f_name);
+        et_child_l_name = findViewById(R.id.create_referral_et_child_l_name);
+        et_bloodgp = findViewById(R.id.create_referral_et_bloodgp);
+        sp_state = findViewById(R.id.create_referral_et_state);
+        et_ashamsmt = findViewById(R.id.create_referral_et_ashamsmt);
+        et_pincode = findViewById(R.id.create_referral_et_pin);
+        et_symptoms = findViewById(R.id.create_referral_et_symptoms);
+        et_height = findViewById(R.id.create_referral_et_height);
+        et_weight = findViewById(R.id.create_referral_et_weight);
+        et_aadhaar_parent = findViewById(R.id.create_referral_et_aadhaar_parent);
+        et_aadhaar_child = findViewById(R.id.create_referral_et_aadhaar_child);
+        et_phone = findViewById(R.id.create_referral_et_phone);
+        rb_child_male = findViewById(R.id.create_referral_rb_child_male);
+        rb_child_female = findViewById(R.id.create_referral_rb_child_female);
+        spinner_oedema = findViewById(R.id.create_referral_spinner_oedema);
         et_tehsil = findViewById(R.id.create_referral_et_tehsil);
         et_village = findViewById(R.id.create_referral_et_village);
         et_district = findViewById(R.id.create_referral_et_district);
         et_treatedFor = findViewById(R.id.create_referral_et_treatedfor);
+        btn_pickDate = findViewById(R.id.pick_date);
+        tv_dob = findViewById(R.id.date);
+
+        referral = (Referral) getIntent().getSerializableExtra("referral");
+        if (referral != null) {
+            et_height.setText(String.valueOf((int) referral.getHeight()));
+            et_weight.setText(String.valueOf(referral.getWeight()));
+            et_ashamsmt.setText(String.valueOf((int) referral.getAsha_measure()));
+            month_of_birth = referral.getMonth_of_birth();
+            day_of_birth = referral.getDay_of_birth();
+            year_of_birth = referral.getYear_of_birth();
+            tv_dob.setText(day_of_birth + "-" + month_of_birth + "-" + year_of_birth);
+            oedema_stage = referral.getOedema();
+            spinner_oedema.setSelection(oedema_stage + 1);
+
+            if (referral.getChild_gender().equals("f")) {
+                rb_child_female.toggle();
+            } else {
+                rb_child_male.toggle();
+            }
+        } else {
+            referral = new Referral();
+        }
 
         spinner_oedema.setOnItemSelectedListener(this);
         db = FirebaseFirestore.getInstance();
@@ -125,16 +152,6 @@ public class CreateReferralActivity extends AppCompatActivity implements Adapter
                         }
                     }
                 });
-//
-//        submit.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                uploadfile();
-//            }
-//        });
-
-        final Button pickDate = (Button) findViewById(R.id.pick_date);
-        final TextView textView = (TextView) findViewById(R.id.date);
 
         final Calendar myCalendar = Calendar.getInstance();
         final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
@@ -147,11 +164,11 @@ public class CreateReferralActivity extends AppCompatActivity implements Adapter
                 // myCalendar.add(Calendar.DATE, 0);
                 String myFormat = "yyyy-MM-dd"; //In which you need put here
                 SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
-                textView.setText(sdf.format(myCalendar.getTime()));
+                tv_dob.setText(sdf.format(myCalendar.getTime()));
             }
         };
 
-        pickDate.setOnClickListener(new View.OnClickListener() {
+        btn_pickDate.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -165,8 +182,7 @@ public class CreateReferralActivity extends AppCompatActivity implements Adapter
                         new DatePickerDialog.OnDateSetListener() {
 
                             @Override
-                            public void onDateSet(DatePicker view, int year,
-                                                  int  monthOfYear, int dayOfMonth) {
+                            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                                 // Display Selected date in textbox
 
                                 if (year < mYear)
@@ -178,7 +194,7 @@ public class CreateReferralActivity extends AppCompatActivity implements Adapter
                                 if (dayOfMonth < mDay && year == mYear && monthOfYear == mMonth)
                                     view.updateDate(mYear, mMonth, mDay);
 
-                                textView.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
+                                tv_dob.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
                                 day_of_birth = dayOfMonth + 1;
                                 month_of_birth = monthOfYear;
                                 year_of_birth = year;
@@ -198,7 +214,6 @@ public class CreateReferralActivity extends AppCompatActivity implements Adapter
     private void createNewReferral() {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         DocumentReference newReferralRef = db.collection("referral").document();
-        Referral referral = new Referral();
         String userid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
 
@@ -227,9 +242,9 @@ public class CreateReferralActivity extends AppCompatActivity implements Adapter
 
         referral.setBlood_group(et_bloodgp.getText().toString());
 
-        referral.setAsha_measure(Float.parseFloat(et_ashamsmt.getText().toString()));
+        referral.setAsha_measure(Integer.parseInt(et_ashamsmt.getText().toString()));
 
-        referral.setHeight(Float.parseFloat(et_height.getText().toString()));
+        referral.setHeight(Integer.parseInt(et_height.getText().toString()));
 
         referral.setWeight(Float.parseFloat(et_weight.getText().toString()));
 
@@ -268,8 +283,9 @@ public class CreateReferralActivity extends AppCompatActivity implements Adapter
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
-                    Intent intent = new Intent(getApplicationContext(), RCRActivity.class);
+                    Intent intent = new Intent(CreateReferralActivity.this, RCRActivity.class);
                     startActivity(intent);
+                    finish();
                 } else {
                     Toast.makeText(getApplicationContext(), "Registeration Failed", Toast.LENGTH_SHORT).show();
                 }

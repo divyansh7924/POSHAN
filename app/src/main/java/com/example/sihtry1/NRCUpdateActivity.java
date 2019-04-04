@@ -1,5 +1,6 @@
 package com.example.sihtry1;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -77,17 +78,24 @@ public class NRCUpdateActivity extends AppCompatActivity {
     private void submit() {
         docRef.update("phone", et_phone.getText().toString(), "bed_count", Integer.parseInt(et_totelBed.getText().toString()),
                 "bed_vacant", Integer.parseInt(et_bedVacant.getText().toString()))
-                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                Toast.makeText(getApplicationContext(), "Updated", Toast.LENGTH_SHORT).show();
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(getApplicationContext(), "Cannot Update", Toast.LENGTH_SHORT).show();
-                            }
-                        });
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(getApplicationContext(), "Updated", Toast.LENGTH_SHORT).show();
+                        NRCPanel();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(getApplicationContext(), "Cannot Update", Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    private void NRCPanel() {
+        Intent intent = new Intent(this, NRCActivity.class);
+        startActivity(intent);
+        finish();
     }
 }
