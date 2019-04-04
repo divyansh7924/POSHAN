@@ -242,9 +242,9 @@ public class CreateReferralActivity extends AppCompatActivity implements Adapter
 
         referral.setBlood_group(et_bloodgp.getText().toString());
 
-        referral.setAsha_measure(Float.parseFloat(et_ashamsmt.getText().toString()));
+        referral.setAsha_measure(Integer.parseInt(et_ashamsmt.getText().toString()));
 
-        referral.setHeight(Float.parseFloat(et_height.getText().toString()));
+        referral.setHeight(Integer.parseInt(et_height.getText().toString()));
 
         referral.setWeight(Float.parseFloat(et_weight.getText().toString()));
 

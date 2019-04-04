@@ -91,8 +91,8 @@ public class UpdateReferralActivity extends AppCompatActivity implements Adapter
     private void submit(Referral referral) {
         referral.setChild_first_name(et_child_first_name.getText().toString());
         referral.setChild_last_name(et_child_last_name.getText().toString());
-        referral.setAsha_measure(Float.parseFloat(et_asha_measure.getText().toString()));
-        referral.setHeight(Float.parseFloat(et_child_height.getText().toString()));
+        referral.setAsha_measure(Integer.parseInt(et_asha_measure.getText().toString()));
+        referral.setHeight(Integer.parseInt(et_child_height.getText().toString()));
         referral.setWeight(Float.parseFloat(et_child_weight.getText().toString()));
         referral.setPhone(et_phone.getText().toString());
         referral.setOther_symptoms(et_child_symptoms.getText().toString());
