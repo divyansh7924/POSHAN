@@ -5,7 +5,8 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".CreateReferralActivity">
+    tools:context=".CreateReferralActivity"
+    android:background="#fff">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -25,38 +26,83 @@
                 android:text="Create Child Profile"
                 android:textSize="25sp" />
 
-            <EditText
-                android:id="@+id/create_referral_et_parent_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:backgroundTint="#000"
-                android:hint="Guardian Name" />
 
-            <EditText
-                android:id="@+id/create_referral_et_child_f_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:backgroundTint="#000"
-                android:hint="Child First name" />
 
-            <EditText
-                android:id="@+id/create_referral_et_child_l_name"
+            <android.support.design.widget.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:background="#fff"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:hint="Child Last name" />
+                >
+                <EditText
+                    android:id="@+id/create_referral_et_parent_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:backgroundTint="#000"
+                    android:baselineAligned="false"
+                    android:hint="Parent name" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:background="#fff"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                >
+
+                <EditText
+                    android:id="@+id/create_referral_et_child_f_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:backgroundTint="#000"
+                    android:baselineAligned="false"
+                    android:hint="Child First name" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:background="#fff"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                >
+
+                <EditText
+                    android:id="@+id/create_referral_et_child_l_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:hint="Child Last name" />
+
+            </android.support.design.widget.TextInputLayout>
+
+
+
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
+                android:layout_marginLeft="43dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
                 android:text="Gender"
+                android:textSize="17sp"
                 android:textStyle="bold" />
 
             <RadioGroup
@@ -65,8 +111,9 @@
 
                 android:layout_height="wrap_content"
 
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
+                android:layout_marginLeft="43dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginTop="15px"
                 android:orientation="horizontal"
                 android:textAlignment="center">
 
@@ -90,56 +137,119 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
+                android:layout_marginLeft="43dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginTop="20px"
                 android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="DOB" />
+                    android:text="Date Of Birth"
+                    android:layout_marginTop="15px"/>
 
                 <Button
                     android:id="@+id/pick_date"
-                    android:layout_width="wrap_content"
+                    android:layout_width="159dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="50dp"
+                    android:layout_marginLeft="90dp"
                     android:text="Pick date" />
             </LinearLayout>
 
-            <EditText
-                android:id="@+id/create_referral_et_symptoms"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:hint="Other Symptom" />
 
-            <EditText
-                android:id="@+id/create_referral_et_treatedfor"
+            <android.support.design.widget.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:background="#fff"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:hint="Treated For" />
+                >
 
-            <EditText
-                android:id="@+id/create_referral_et_bloodgp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:hint="Blood Group" />
+                <EditText
+                    android:id="@+id/create_referral_et_symptoms"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:hint="Other Symptom" />
 
-            <EditText
-                android:id="@+id/create_referral_et_ashamsmt"
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:background="#fff"
                 android:layout_marginLeft="20dp"
-                android:inputType="number"
                 android:layout_marginRight="20dp"
-                android:hint="MUAC in millimetre" />
+                >
+
+                <EditText
+                    android:id="@+id/create_referral_et_treatedfor"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:hint="Treated For" />
+
+            </android.support.design.widget.TextInputLayout>
+
+
+            <android.support.design.widget.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:background="#fff"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                >
+
+                <EditText
+                    android:id="@+id/create_referral_et_bloodgp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:hint="Blood Group" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:background="#fff"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                >
+
+                <EditText
+                    android:id="@+id/create_referral_et_ashamsmt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:hint="MUAC in millimetre"
+                    android:inputType="number" />
+
+            </android.support.design.widget.TextInputLayout>
+
+
+            <android.support.design.widget.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:background="#fff"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                >
 
             <EditText
                 android:id="@+id/create_referral_et_height"
@@ -149,6 +259,18 @@
                 android:layout_marginRight="20dp"
                 android:hint="Height"
                 android:inputType="number" />
+            </android.support.design.widget.TextInputLayout>
+
+
+            <android.support.design.widget.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:background="#fff"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                >
 
             <EditText
                 android:id="@+id/create_referral_et_weight"
@@ -158,6 +280,18 @@
                 android:layout_marginRight="20dp"
                 android:hint="Weight"
                 android:inputType="numberDecimal" />
+            </android.support.design.widget.TextInputLayout>
+
+
+            <android.support.design.widget.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:background="#fff"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                >
 
             <EditText
                 android:id="@+id/create_referral_et_aadhaar_parent"
@@ -167,12 +301,29 @@
                 android:layout_marginRight="20dp"
                 android:hint="Aadhaar Nmber of Guardian"
                 android:inputType="number" />
+            </android.support.design.widget.TextInputLayout>
+
 
             <Spinner
                 android:id="@+id/create_referral_spinner_oedema"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="20px"
                 android:entries="@array/oedema_stages" />
+
+
+            <android.support.design.widget.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:background="#fff"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                >
+
 
             <EditText
                 android:id="@+id/create_referral_et_aadhaar_child"
@@ -183,6 +334,19 @@
                 android:hint="Aadhaar Number of Child"
                 android:inputType="number" />
 
+            </android.support.design.widget.TextInputLayout>
+
+
+            <android.support.design.widget.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:background="#fff"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                >
+
             <EditText
                 android:id="@+id/create_referral_et_village"
                 android:layout_width="match_parent"
@@ -190,6 +354,17 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:hint="Village" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:background="#fff"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                >
 
             <EditText
                 android:id="@+id/create_referral_et_tehsil"
@@ -198,6 +373,17 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:hint="Tehsil" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:background="#fff"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                >
 
             <EditText
                 android:id="@+id/create_referral_et_district"
@@ -206,13 +392,27 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:hint="District" />
+            </android.support.design.widget.TextInputLayout>
+
 
             <Spinner
                 android:id="@+id/create_referral_et_state"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp" />
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="40dp" />
+
+
+    <android.support.design.widget.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:background="#fff"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        >
 
             <EditText
                 android:id="@+id/create_referral_et_pin"
@@ -222,6 +422,17 @@
                 android:layout_marginRight="20dp"
                 android:hint="Pincode"
                 android:inputType="number" />
+    </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:background="#fff"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                >
 
             <EditText
                 android:id="@+id/create_referral_et_phone"
@@ -231,6 +442,8 @@
                 android:layout_marginRight="20dp"
                 android:hint="Phone"
                 android:inputType="number" />
+            </android.support.design.widget.TextInputLayout>
+
 
             <Button
                 android:id="@+id/create_referral_btn_submit"
