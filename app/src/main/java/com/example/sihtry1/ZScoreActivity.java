@@ -19,6 +19,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.sihtry1.models.Referral;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
@@ -36,6 +38,7 @@ public class ZScoreActivity extends AppCompatActivity implements AdapterView.OnI
     int child_age = 0;
     int current_age = 0;
     float weight;
+    private int day_of_birth, month_of_birth, year_of_birth;
 
     private static final String TAG = "ZScoreActivity";
 
@@ -121,23 +124,27 @@ public class ZScoreActivity extends AppCompatActivity implements AdapterView.OnI
                         new DatePickerDialog.OnDateSetListener() {
 
                             @Override
-                            public void onDateSet(DatePicker view, int yr, int mth, int dom) {
+                            public void onDateSet(DatePicker view, int year, int month, int day) {
 
 
-                                if (yr < cyear)
+                                if (year < cyear)
                                     view.updateDate(cyear, cmonth, cday);
 
-                                if (mth < cmonth && yr == cyear)
+                                if (month < cmonth && year == cyear)
                                     view.updateDate(cyear, cmonth, cday);
 
-                                if (dom < cday && yr == cyear && mth == cmonth)
+                                if (day < cday && year == cyear && month == cmonth)
                                     view.updateDate(cyear, cmonth, cday);
 
-                                tv_date.setText(dom + "-" + (mth + 1) + "-" + yr);
+                                tv_date.setText(day + "-" + (month + 1) + "-" + year);
 
-                                child_age = ((365 * yr) + (yr / 4) - (yr / 100) + (yr / 400) + dom + (((153 * mth) + 8) / 5));
+                                child_age = ((365 * year) + (year / 4) - (year / 100) + (year / 400) + day + (((153 * month) + 8) / 5));
                                 current_age = ((365 * cyear) + (cyear / 4) - (cyear / 100) + (cyear / 400) + cday + (((153 * cmonth) + 8) / 5));
                                 age = (int) ((current_age - child_age) / 30.5);
+
+                                day_of_birth = day;
+                                month_of_birth = month + 1;
+                                year_of_birth = year;
 
                             }
                         }, cyear, cmonth, cday);
@@ -183,7 +190,18 @@ public class ZScoreActivity extends AppCompatActivity implements AdapterView.OnI
     }
 
     private void registerChild() {
+        Referral referral = new Referral();
+        referral.setWeight(weight);
+        referral.setHeight(height);
+        referral.setOedema(oedema_stage);
+        referral.setAsha_measure(muac);
+        referral.setChild_gender(gender + "");
+        referral.setDay_of_birth(day_of_birth);
+        referral.setMonth_of_birth(month_of_birth);
+        referral.setYear_of_birth(year_of_birth);
+
         Intent intent = new Intent(this, CreateReferralActivity.class);
+        intent.putExtra("referral", referral);
         startActivity(intent);
     }
 

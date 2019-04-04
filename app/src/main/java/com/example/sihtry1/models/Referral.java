@@ -3,10 +3,11 @@ package com.example.sihtry1.models;
 import com.google.firebase.database.IgnoreExtraProperties;
 import com.google.firebase.firestore.ServerTimestamp;
 
+import java.io.Serializable;
 import java.util.Date;
 
 @IgnoreExtraProperties
-public class Referral {
+public class Referral implements Serializable {
     @ServerTimestamp
     Date date_screened;
 
@@ -19,8 +20,8 @@ public class Referral {
     int month_of_birth;
     int year_of_birth;
     String blood_group;
-    float asha_measure;
-    float height;
+    float asha_measure; // should be int
+    float height; // should be int
     float weight;
     int oedema;
 
