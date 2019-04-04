@@ -7,18 +7,22 @@
     android:orientation="vertical"
     tools:context=".RCRActivity">
 
+
     <Button
         android:id="@+id/rcr_btn_create_new_ref"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="Create New Referral" />
+        android:layout_marginHorizontal="50dp"
+        android:text="Create New Referral"
+        />
 
     <Button
         android:id="@+id/rcr_btn_nrc_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:layout_marginHorizontal="50dp"
         android:text="List of NRC's" />
 
     <Button
@@ -26,6 +30,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:layout_marginHorizontal="50dp"
         android:text="Update referral profile" />
 
     <Button
@@ -33,12 +38,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:layout_marginHorizontal="50dp"
         android:text="Test for SAM" />
 
     <Button
         android:id="@+id/rcr_past_records"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="50dp"
         android:layout_marginTop="10dp"
         android:text="Past Records" />
 
@@ -46,6 +53,7 @@
         android:id="@+id/rcr_settings"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="50dp"
         android:layout_marginTop="10dp"
         android:text="Settings" />
 

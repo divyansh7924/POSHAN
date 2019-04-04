@@ -24,7 +24,9 @@
             android:hint="Email"
             android:inputType="textEmailAddress"
             android:paddingVertical="20dp" />
+
     </android.support.design.widget.TextInputLayout>
+
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -48,7 +50,7 @@
         android:id="@+id/login_btn_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20sp"
+        android:layout_marginHorizontal="50sp"
         android:layout_marginTop="50dp"
         android:text="Login" />
 
