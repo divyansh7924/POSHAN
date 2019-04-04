@@ -178,9 +178,8 @@ public class CreateReferralActivity extends AppCompatActivity implements Adapter
                                 if (dayOfMonth < mDay && year == mYear && monthOfYear == mMonth)
                                     view.updateDate(mYear, mMonth, mDay);
 
-                                textView.setText(dayOfMonth + "-"
-                                        + (monthOfYear + 1) + "-" + year);
-                                day_of_birth = dayOfMonth;
+                                textView.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
+                                day_of_birth = dayOfMonth + 1;
                                 month_of_birth = monthOfYear;
                                 year_of_birth = year;
                                 Log.v("CreateReferralActivity", String.valueOf(day_of_birth));
