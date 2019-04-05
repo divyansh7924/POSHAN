@@ -27,7 +27,7 @@ public class AdmittedChildrenActivity extends AppCompatActivity {
     private CollectionReference childref = db.collection("referral");
 
     private AdmittedChildrenAdapter adapter;
-    String profileselected;
+    Referral selectedRef = null;
     public Boolean ack;
 
 
@@ -40,9 +40,7 @@ public class AdmittedChildrenActivity extends AppCompatActivity {
         adapter.setOnItemClickListener(new AdmittedChildrenAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(DocumentSnapshot documentSnapshot, int position) {
-                Referral refid = documentSnapshot.toObject(Referral.class);
-                String id = documentSnapshot.getId();
-                profileselected = documentSnapshot.getId();
+                selectedRef = documentSnapshot.toObject(Referral.class);
                 showprofile();
             }
         });
@@ -77,7 +75,7 @@ public class AdmittedChildrenActivity extends AppCompatActivity {
     }
     public void showprofile(){
         Intent intent = new Intent(this, AdmittedChildProfileActivity.class);
-        intent.putExtra("docid", profileselected);
+        intent.putExtra("selectedRef", selectedRef);
         startActivity(intent);
     }
 }
