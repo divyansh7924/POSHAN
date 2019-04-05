@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginHorizontal="40dp"
     android:orientation="vertical"
+    android:background="#fff"
     tools:context=".ZScoreActivity">
 
     <TextView
@@ -24,6 +26,7 @@
     <RadioGroup
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:orientation="horizontal">
 
         <RadioButton
@@ -45,6 +48,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="10dp"
         android:orientation="horizontal">
 
         <TextView
@@ -62,37 +66,84 @@
             android:hint="Date " />
     </LinearLayout>
 
-    <EditText
-        android:id="@+id/zscore_et_weight"
+    <android.support.design.widget.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Weight in Kgs"
-        android:inputType="numberDecimal" />
+        android:background="#fff"
+        android:gravity="center_vertical">
 
-    <EditText
-        android:id="@+id/zscore_et_height"
+        <EditText
+            android:id="@+id/zscore_et_weight"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Weight in Kgs"
+            android:inputType="numberDecimal" />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Height in CM"
-        android:inputType="number" />
+        android:background="#fff"
+        android:gravity="center_vertical">
 
-    <EditText
-        android:id="@+id/zscore_et_muac"
+        <EditText
+            android:id="@+id/zscore_et_height"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Height in CM"
+            android:inputType="number" />
+
+    </android.support.design.widget.TextInputLayout>
+    <android.support.design.widget.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="MUAC"
-        android:inputType="number" />
+        android:background="#fff"
+        android:gravity="center_vertical">
 
+
+
+        <EditText
+            android:id="@+id/zscore_et_muac"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="MUAC"
+            android:inputType="number" />
+
+    </android.support.design.widget.TextInputLayout>
+
+
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/Oedema_text_label"
+        android:layout_marginTop="10dp"
+        android:textSize="20sp"
+        android:text="Oedema"/>
     <Spinner
         android:id="@+id/zscore_spinner_oedema"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:layout_marginLeft="5dp"
+        android:layout_toRightOf="@+id/Oedema_text_label"
         android:entries="@array/oedema_stages" />
+</RelativeLayout>
+
+
 
     <Button
         android:id="@+id/zscore_btn_check_status"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="30dp"
         android:text="Show child status" />
 
     <TextView
