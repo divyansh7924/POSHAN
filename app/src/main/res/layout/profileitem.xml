@@ -3,17 +3,17 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/ritem"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="?android:attr/selectableItemBackground"
     android:clickable="true"
     android:focusable="true"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginRight="20dp"
+    android:layout_marginTop="20dp"
+    android:layout_marginLeft="20dp"
+    android:background="@drawable/btn_bg"
     android:orientation="vertical"
-    android:padding="2dp"
-    android:paddingLeft="15dp"
-    android:paddingTop="16dp"
-    android:paddingRight="16dp"
-    android:paddingBottom="15dp">
+    android:contextClickable="true"
+  >
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -42,16 +42,12 @@
         android:id="@+id/textviewguardian"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="5dp"
+        android:layout_marginLeft="5dp"
         android:paddingHorizontal="2dp"
         android:paddingVertical="17dp"
         android:text="Guardian name will be here"
         android:textAppearance="@style/TextAppearance.AppCompat.Small" />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="#000" />
+s
 
 
 </LinearLayout>
