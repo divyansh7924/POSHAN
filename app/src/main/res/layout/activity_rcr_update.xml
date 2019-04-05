@@ -8,14 +8,28 @@
     android:orientation="vertical"
     tools:context=".RCRUpdateActivity">
 
-    <EditText
-        android:id="@+id/rcr_update_et_phone"
+    <android.support.design.widget.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:hint="Phone"
-        android:inputType="phone" />
+        android:background="#fff"
+        android:gravity="center_vertical">
+
+
+        <EditText
+            android:id="@+id/rcr_update_et_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:hint="Phone"
+            android:inputType="phone" />
+
+    </android.support.design.widget.TextInputLayout>
+
+
 
     <Button
         android:id="@+id/rcr_update_btn_submit"

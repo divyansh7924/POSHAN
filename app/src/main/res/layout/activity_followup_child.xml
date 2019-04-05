@@ -6,6 +6,8 @@
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
     android:orientation="vertical"
+android:layout_marginRight="20dp"
+    android:layout_marginLeft="20dp"
     tools:context=".FollowupChildActivity">
 
     <ScrollView
@@ -194,6 +196,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/afc_btn_extend_followup"
             android:text="Extend Followup for one visit"
+            android:layout_marginLeft="5dp"
             android:visibility="invisible"/>
     </LinearLayout>
     <LinearLayout
