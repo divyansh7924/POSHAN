@@ -28,7 +28,7 @@ public class AdmittedChildrenActivity extends AppCompatActivity {
 
     private AdmittedChildrenAdapter adapter;
     Referral selectedRef = null;
-    public Boolean ack;
+    private String refDocSnap;
 
 
     @Override
@@ -41,6 +41,7 @@ public class AdmittedChildrenActivity extends AppCompatActivity {
             @Override
             public void onItemClick(DocumentSnapshot documentSnapshot, int position) {
                 selectedRef = documentSnapshot.toObject(Referral.class);
+                refDocSnap = documentSnapshot.getId();
                 showprofile();
             }
         });
@@ -76,6 +77,7 @@ public class AdmittedChildrenActivity extends AppCompatActivity {
     public void showprofile(){
         Intent intent = new Intent(this, AdmittedChildProfileActivity.class);
         intent.putExtra("selectedRef", selectedRef);
+        intent.putExtra("refDocSnap", refDocSnap);
         startActivity(intent);
     }
 }
