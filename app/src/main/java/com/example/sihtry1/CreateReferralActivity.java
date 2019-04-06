@@ -109,7 +109,7 @@ public class CreateReferralActivity extends AppCompatActivity implements Adapter
         spinner_oedema.setOnItemSelectedListener(this);
         db = FirebaseFirestore.getInstance();
 
-        //TextWatcher implementation
+        /*//TextWatcher implementation
         et_height.addTextChangedListener( button_toggle);
         et_weight.addTextChangedListener( button_toggle);
         et_parent_name.addTextChangedListener( button_toggle);
@@ -125,7 +125,7 @@ public class CreateReferralActivity extends AppCompatActivity implements Adapter
         et_village.addTextChangedListener( button_toggle);
         et_tehsil.addTextChangedListener( button_toggle);
         et_district.addTextChangedListener( button_toggle);
-        et_treatedFor.addTextChangedListener( button_toggle);
+        et_treatedFor.addTextChangedListener( button_toggle);*/
 
 
         btn_submit.setOnClickListener(new View.OnClickListener() {
@@ -159,7 +159,37 @@ public class CreateReferralActivity extends AppCompatActivity implements Adapter
                     Toast.makeText(getApplicationContext(), "Please enter a valid pincode ", Toast.LENGTH_SHORT).show();
                 }
                 else if(oedema_stage<0){
-                    Toast.makeText(getApplicationContext(), "Please enter select oedema stage ", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Please select oedema stage ", Toast.LENGTH_SHORT).show();
+                }
+                else if(et_height.getText().toString().trim().isEmpty()){
+                    Toast.makeText(getApplicationContext(), "Please enter height ", Toast.LENGTH_SHORT).show();
+                }
+                else if(et_weight.getText().toString().trim().isEmpty()){
+                    Toast.makeText(getApplicationContext(), "Please enter weight ", Toast.LENGTH_SHORT).show();
+                }
+                else if(et_parent_name.getText().toString().trim().isEmpty()){
+                    Toast.makeText(getApplicationContext(), "Please enter parent name ", Toast.LENGTH_SHORT).show();
+                }
+                else if(et_child_f_name.getText().toString().trim().isEmpty()){
+                    Toast.makeText(getApplicationContext(), "Please enter child's first name ", Toast.LENGTH_SHORT).show();
+                }
+                else if(et_child_l_name.getText().toString().trim().isEmpty()){
+                    Toast.makeText(getApplicationContext(), "Please enter child's last name ", Toast.LENGTH_SHORT).show();
+                }
+                else if(et_ashamsmt.getText().toString().trim().isEmpty()){
+                    Toast.makeText(getApplicationContext(), "Please enter asha measurement ", Toast.LENGTH_SHORT).show();
+                }
+                else if(et_symptoms.getText().toString().trim().isEmpty()){
+                    Toast.makeText(getApplicationContext(), "Please enter symptoms ", Toast.LENGTH_SHORT).show();
+                }
+                else if(et_village.getText().toString().isEmpty()){
+                    Toast.makeText(getApplicationContext(), "Please enter village ", Toast.LENGTH_SHORT).show();
+                }
+                else if(et_tehsil.getText().toString().trim().isEmpty()){
+                    Toast.makeText(getApplicationContext(), "Please enter tehsil ", Toast.LENGTH_SHORT).show();
+                }
+                else if(et_district.getText().toString().trim().isEmpty()){
+                    Toast.makeText(getApplicationContext(), "Please enter district ", Toast.LENGTH_SHORT).show();
                 }
                 else{
 
@@ -281,8 +311,8 @@ public class CreateReferralActivity extends AppCompatActivity implements Adapter
             String district_input =  et_district.getText().toString().trim();
             //String =  et_treatedFor.getText().toString().trim();
 
-            btn_submit.setEnabled(!height_input.isEmpty() && !weight_input.isEmpty() && !parent_name_input.isEmpty() && !child_first_name_input.isEmpty() && !child_last_name_input.isEmpty()
-                    && !asha_measurement.isEmpty() && !symptoms_input.isEmpty() && !village_input.isEmpty() && !tehsil_input.isEmpty() && !district_input.isEmpty());
+            /*btn_submit.setEnabled(!height_input.isEmpty() && !weight_input.isEmpty() && !parent_name_input.isEmpty() && !child_first_name_input.isEmpty() && !child_last_name_input.isEmpty()
+                    && !asha_measurement.isEmpty() && !symptoms_input.isEmpty() && !village_input.isEmpty() && !tehsil_input.isEmpty() && !district_input.isEmpty());*/
         }
 
         @Override
