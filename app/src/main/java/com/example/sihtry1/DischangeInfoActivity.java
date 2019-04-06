@@ -12,8 +12,10 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.sihtry1.models.Admits;
 import com.example.sihtry1.models.Followup;
 import com.example.sihtry1.models.NRC;
+import com.example.sihtry1.models.PastRecord;
 import com.example.sihtry1.models.Referral;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -42,6 +44,8 @@ public class DischangeInfoActivity extends AppCompatActivity implements AdapterV
     private FirebaseFirestore db;
     private Referral referral = null;
     private String refDocSnap, admitDocSnap;
+    private PastRecord pastRecord = null;
+    private Admits admit = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +55,7 @@ public class DischangeInfoActivity extends AppCompatActivity implements AdapterV
         referral = (Referral) getIntent().getSerializableExtra("referral");
         refDocSnap = getIntent().getStringExtra("refDocSnap");
         admitDocSnap = getIntent().getStringExtra("admitDocSnap");
+        admit = (Admits) getIntent().getSerializableExtra("admit");
 
         spinner_oedema = findViewById(R.id.disch_info_spinner_oedema);
         et_height = findViewById(R.id.disch_info_et_height);
@@ -60,6 +65,7 @@ public class DischangeInfoActivity extends AppCompatActivity implements AdapterV
         btn_submit = findViewById(R.id.disch_info_btn_submit);
 
         db = FirebaseFirestore.getInstance();
+        pastRecord = new PastRecord();
 
         spinner_oedema.setOnItemSelectedListener(this);
 
@@ -84,6 +90,10 @@ public class DischangeInfoActivity extends AppCompatActivity implements AdapterV
 
                     bedWithdraw();
                     createNewDischarge();
+                    pastRecordsBasicInfo();
+                    pastRecordsAdmitInfo();
+                    pastRecordsDischargeInfo();
+                    uploadPastRecord();
                 }
             }
         });
@@ -159,6 +169,7 @@ public class DischangeInfoActivity extends AppCompatActivity implements AdapterV
                     db1.collection("referral").document(refDocSnap).update(
                             "status", "Discharged"
                     );
+
                     db1.collection("Admit").document(admitDocSnap)
                             .delete()
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -173,10 +184,6 @@ public class DischangeInfoActivity extends AppCompatActivity implements AdapterV
                                     Log.w("error ", admitDocSnap + " ", e);
                                 }
                             });
-
-                    Toast.makeText(getApplicationContext(), "Discharged", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(getApplicationContext(), NRCActivity.class);
-                    startActivity(intent);
                 } else {
                     Toast.makeText(getApplicationContext(), "Discharge Failed", Toast.LENGTH_SHORT).show();
                 }
@@ -192,4 +199,89 @@ public class DischangeInfoActivity extends AppCompatActivity implements AdapterV
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
     }
+
+    public void pastRecordsBasicInfo() {
+        pastRecord.setReferral_id(referral.getReferral_id());
+        pastRecord.setChild_first_name(referral.getChild_first_name());
+        pastRecord.setChild_last_name(referral.getChild_last_name());
+        pastRecord.setChild_gender(referral.getChild_gender());
+        pastRecord.setChild_aadhaar_num(referral.getChild_aadhaar_num());
+        pastRecord.setDay_of_birth(referral.getDay_of_birth());
+        pastRecord.setMonth_of_birth(referral.getMonth_of_birth());
+        pastRecord.setYear_of_birth(referral.getYear_of_birth());
+        pastRecord.setBlood_group(referral.getBlood_group());
+        pastRecord.setGuardian_name(referral.getGuadian_name());
+        pastRecord.setGuardian_aadhaar_num(referral.getGuardian_aadhaar_num());
+        pastRecord.setNrc_id(referral.getNrc_id());
+        pastRecord.setRcr_id(referral.getRcr_id());
+        pastRecord.setPhone(referral.getPhone());
+        pastRecord.setVillage(referral.getVillage());
+        pastRecord.setState(referral.getState());
+        pastRecord.setTehsil(referral.getTehsil());
+        pastRecord.setDistrict(referral.getDistrict());
+        pastRecord.setPincode(referral.getPincode());
+        pastRecord.setStatus_complete(false);
+    }
+
+    public void pastRecordsAdmitInfo() {
+        pastRecord.setAdmit_dur(admit.getDuration());
+        pastRecord.setAdmit_date(admit.getDate_of_admission());
+        pastRecord.setAdmit_asha_measure(referral.getAsha_measure());
+        pastRecord.setAdmit_height(referral.getHeight());
+        pastRecord.setAdmit_weight(referral.getWeight());
+        pastRecord.setAdmit_oedema(referral.getOedema());
+        pastRecord.setAdmit_other_symptoms(referral.getOther_symptoms());
+        pastRecord.setAdmit_treated_for(referral.getTreated_for());
+    }
+
+    public void pastRecordsDischargeInfo() {
+        pastRecord.setDisch_asha_measure(muac);
+        pastRecord.setDisch_height(height);
+        pastRecord.setDisch_weight(weight);
+        pastRecord.setDisch_oedema(oedema_stage);
+        pastRecord.setDisch_treated_for(treatedfor);
+    }
+
+    public void uploadPastRecord() {
+        DocumentReference newPastRecordRef = db.collection("PastRecord").document();
+
+        newPastRecordRef.set(pastRecord).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                    Toast.makeText(DischangeInfoActivity.this, "Data saved as past record", Toast.LENGTH_SHORT).show();
+
+                    updateReferral();
+                } else {
+                    Toast.makeText(DischangeInfoActivity.this, "Couldn't upload past record data", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+    public void updateReferral() {
+        db.collection("referral").document(refDocSnap).update("asha_measure", muac,
+                "height", height, "weight", weight, "oedema", oedema_stage,
+                "treated_for", treatedfor, "other_symptoms", "No other symptoms")
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(DischangeInfoActivity.this, "Updated Referral", Toast.LENGTH_SHORT).show();
+
+                            openNRCActivity();
+                        } else {
+                            Toast.makeText(DischangeInfoActivity.this, "Couldn't update Referral", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+    }
+
+    public void openNRCActivity() {
+        Toast.makeText(getApplicationContext(), "Discharged", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(getApplicationContext(), NRCActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
 }

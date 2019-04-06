@@ -52,6 +52,7 @@ public class AdmittedChildProfileActivity extends AppCompatActivity {
     private ArrayList<RCR> mrcr = new ArrayList<>();
     String rcrselected, referralid, child_first_name, child_last_name, guardian_name, refDocSnap, admitDocSnap;
     private ArrayList<Admits> admits = new ArrayList<>();
+    private Admits admit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -143,7 +144,7 @@ public class AdmittedChildProfileActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
                     for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
-                        Admits admit = documentSnapshot.toObject(Admits.class);
+                        admit = documentSnapshot.toObject(Admits.class);
                         admits.add(admit);
                         admitDocSnap = documentSnapshot.getId();
                     }
@@ -175,6 +176,7 @@ public class AdmittedChildProfileActivity extends AppCompatActivity {
     private void dischangeActivity() {
         Intent intent = new Intent(this, DischangeInfoActivity.class);
         intent.putExtra("referral", selectedRef);
+        intent.putExtra("admit", admit);
         intent.putExtra("refDocSnap", refDocSnap);
         intent.putExtra("admitDocSnap", admitDocSnap);
         startActivity(intent);
