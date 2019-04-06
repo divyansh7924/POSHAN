@@ -37,6 +37,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import retrofit2.http.HEAD;
+
 public class CreateReferralActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     private static final String TAG = "CreateReferralActivity";
 
@@ -193,10 +195,9 @@ public class CreateReferralActivity extends AppCompatActivity implements Adapter
                 }
                 else{
 
-<<<<<<< HEAD
                     createNewReferral();
                 }
-=======
+
                 String aadhaarnum_p = et_aadhaar_parent.getText().toString();
                 boolean correctaadhaarnumresult = Verhoeff.validateVerhoeff(aadhaarnum_p);
                 if (correctaadhaarnumresult){
@@ -206,9 +207,6 @@ public class CreateReferralActivity extends AppCompatActivity implements Adapter
                     Toast.makeText(getApplicationContext(),"Enter valid AADHAAR number of parent",Toast.LENGTH_LONG).show();
                 }
 
-
-
->>>>>>> upstream/master
             }
         });
 
