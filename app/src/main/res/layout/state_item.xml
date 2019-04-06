@@ -2,7 +2,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-android:background="@drawable/btn_bg"
     android:clickable="true"
     android:focusable="true"
     android:orientation="vertical"
@@ -21,6 +20,11 @@ android:background="@drawable/btn_bg"
         android:paddingVertical="17dp"
         android:text="Title will be here"
         android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#000" />
 
 
 

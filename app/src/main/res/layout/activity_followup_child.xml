@@ -211,7 +211,7 @@ android:layout_marginRight="20dp"
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Readmit"
+            android:text="Re-admit"
             android:id="@+id/afc_btn_readmit"/>
     </LinearLayout>
 </LinearLayout>
