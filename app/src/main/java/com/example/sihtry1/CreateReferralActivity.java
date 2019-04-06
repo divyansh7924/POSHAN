@@ -193,8 +193,22 @@ public class CreateReferralActivity extends AppCompatActivity implements Adapter
                 }
                 else{
 
+<<<<<<< HEAD
                     createNewReferral();
                 }
+=======
+                String aadhaarnum_p = et_aadhaar_parent.getText().toString();
+                boolean correctaadhaarnumresult = Verhoeff.validateVerhoeff(aadhaarnum_p);
+                if (correctaadhaarnumresult){
+                    createNewReferral();
+                }
+                else{
+                    Toast.makeText(getApplicationContext(),"Enter valid AADHAAR number of parent",Toast.LENGTH_LONG).show();
+                }
+
+
+
+>>>>>>> upstream/master
             }
         });
 
