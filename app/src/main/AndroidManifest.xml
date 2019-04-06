@@ -23,7 +23,8 @@
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
     </activity>
-        <activity android:name=".DischangeInfoActivity"></activity>
+        <activity android:name=".PastRecordInfoActivity"></activity>
+        <activity android:name=".DischangeInfoActivity" />
         <activity android:name=".RcrPastRecordsActivity" />
         <activity android:name=".NRCUpdateActivity" />
         <activity android:name=".RCRUpdateActivity" />
