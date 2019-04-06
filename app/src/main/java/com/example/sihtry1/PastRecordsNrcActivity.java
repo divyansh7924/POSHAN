@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.Toast;
 
 import com.example.sihtry1.models.PastRecord;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
@@ -21,7 +22,7 @@ public class PastRecordsNrcActivity extends AppCompatActivity {
     private CollectionReference childref = db.collection("PastRecord");
 
     private PastRecordsNrcAdapter adapter;
-    String profileselected;
+    private PastRecord pastRecord = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +33,11 @@ public class PastRecordsNrcActivity extends AppCompatActivity {
         adapter.setOnItemClickListener(new PastRecordsNrcAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(DocumentSnapshot documentSnapshot, int position) {
-                profileselected = documentSnapshot.getId();
+                pastRecord = documentSnapshot.toObject(PastRecord.class);
+                Intent intent = new Intent(PastRecordsNrcActivity.this, PastRecordInfoActivity.class);
+                intent.putExtra("PastRecord", pastRecord);
+                startActivity(intent);
+                Toast.makeText(getApplicationContext(), "dszvsdf", Toast.LENGTH_SHORT).show();
             }
         });
     }
