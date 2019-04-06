@@ -13,7 +13,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".PastRecordInfoActivity"></activity>
+        <activity android:name=".PastRecordsNrcActivity"></activity>
+        <activity android:name=".PastRecordInfoActivity" />
         <activity android:name=".DischangeInfoActivity" />
         <activity android:name=".RcrPastRecordsActivity" />
         <activity android:name=".NRCUpdateActivity" />
