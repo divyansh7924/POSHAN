@@ -13,7 +13,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class NRCActivity extends AppCompatActivity {
 
-    private Button btn_current_referrals, btn_admitted_children, btn_followups, btn_settings;
+    private Button btn_current_referrals, btn_admitted_children, btn_followups, btn_settings, btn_past_record;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +23,7 @@ public class NRCActivity extends AppCompatActivity {
         btn_admitted_children = (Button) findViewById(R.id.nrc_admitted);
         btn_followups = (Button) findViewById(R.id.nrc_followups);
         btn_settings = findViewById(R.id.nrc_settings);
+        btn_past_record = findViewById(R.id.nrc_past_records);
 
         btn_settings.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,6 +47,12 @@ public class NRCActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 show_followups();
+            }
+        });
+        btn_past_record.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                show_past_record();
             }
         });
 
@@ -90,6 +97,11 @@ public class NRCActivity extends AppCompatActivity {
 
     public void show_followups() {
         Intent intent = new Intent(this, FollowupsListActivity.class);
+        startActivity(intent);
+    }
+
+    public void show_past_record() {
+        Intent intent = new Intent(this, PastRecordsNrcActivity.class);
         startActivity(intent);
     }
 }
