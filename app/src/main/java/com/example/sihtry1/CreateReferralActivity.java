@@ -143,20 +143,21 @@ public class CreateReferralActivity extends AppCompatActivity implements Adapter
                 String aadhaarnum_p = et_aadhaar_parent.getText().toString().trim();
                 String child_aadhar_num = et_aadhaar_child.getText().toString().trim();
                 boolean correctaadhaarnumresult_parent = Verhoeff.validateVerhoeff(aadhaarnum_p);
-                boolean correctaadhaarnumresult_child = Verhoeff.validateVerhoeff(child_aadhar_num);
+               // boolean correctaadhaarnumresult_child = Verhoeff.validateVerhoeff(child_aadhar_num);
                 if(!rb_child_male.isChecked()&&!rb_child_female.isChecked()){
                     Toast.makeText(getApplicationContext(), "Please Select Gender", Toast.LENGTH_SHORT).show();
                 }
                 else if(!correctaadhaarnumresult_parent){
                     Toast.makeText(getApplicationContext(),"Parent's Aadhar invalid",Toast.LENGTH_LONG).show();
                 }
-                else if(!correctaadhaarnumresult_child){
+                /*else if(!correctaadhaarnumresult_child){
                     Toast.makeText(getApplicationContext(),"Child's Aadhar invalid",Toast.LENGTH_LONG).show();
-                }
+                }*/
                 else if (child_age<1){
                     Toast.makeText(getApplicationContext(), "Please enter a valid date of birth ", Toast.LENGTH_SHORT).show();
                 }
-                else if(et_aadhaar_child.getText().toString().trim().length()!=12){
+                else if((et_aadhaar_child.getText().toString().trim().length()!=12)&&(!et_aadhaar_child.getText().toString().trim().isEmpty()))
+                {
                     Toast.makeText(getApplicationContext(), "Please enter a valid aadhar number for child ", Toast.LENGTH_SHORT).show();
                 }
                 else if(et_aadhaar_parent.getText().toString().trim().length()!=12){
