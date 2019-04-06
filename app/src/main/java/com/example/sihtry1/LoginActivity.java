@@ -2,6 +2,7 @@ package com.example.sihtry1;
 
 import android.content.Intent;
 import android.content.pm.LabeledIntent;
+import android.os.Build;
 import android.os.PatternMatcher;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +10,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -42,6 +45,8 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        getSupportActionBar().hide();
 
         login_btn_login = (Button) findViewById(R.id.login_btn_login);
         login_btn_register = (Button) findViewById(R.id.login_btn_register);

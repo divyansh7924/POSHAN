@@ -4,8 +4,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#fff"
     android:orientation="vertical"
     tools:context=".LoginActivity">
+
+
+
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="40dp"
+        android:src="@drawable/logo"
+        />
+
+    <ImageView
+        android:layout_width="110dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="10dp"
+        android:src="@drawable/ic_name"
+        />
+
 
 
     <android.support.design.widget.TextInputLayout
@@ -13,7 +33,7 @@
         android:layout_height="wrap_content"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_marginHorizontal="15dp"
-        android:layout_marginTop="10dp">
+        android:layout_marginTop="30dp">
 
 
         <EditText
@@ -60,7 +80,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="50sp"
         android:backgroundTint="#000"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="20dp"
         android:text="Register" />
 
 </LinearLayout>

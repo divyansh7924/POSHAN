@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Poshan</string>
     <string-array name="oedema_stages">
-        <item>Selecet Oedema</item>
+        <item>Select Oedema</item>
         <item>0</item>
         <item>+</item>
         <item>++</item>
