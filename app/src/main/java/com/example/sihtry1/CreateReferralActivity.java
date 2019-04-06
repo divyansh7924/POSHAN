@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -38,7 +40,7 @@ import java.util.Locale;
 public class CreateReferralActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     private static final String TAG = "CreateReferralActivity";
 
-    private int mYear, mMonth, mDay;
+    private int mYear, mMonth, mDay,child_age=0,current_date=0,child_dob=0;
     private Button btn_submit;
     private EditText et_parent_name, et_child_f_name, et_child_l_name, et_bloodgp,
             et_ashamsmt, et_pincode, et_height, et_symptoms,
@@ -107,11 +109,29 @@ public class CreateReferralActivity extends AppCompatActivity implements Adapter
         spinner_oedema.setOnItemSelectedListener(this);
         db = FirebaseFirestore.getInstance();
 
+        //TextWatcher implementation
+        et_height.addTextChangedListener( button_toggle);
+        et_weight.addTextChangedListener( button_toggle);
+        et_parent_name.addTextChangedListener( button_toggle);
+        et_child_f_name.addTextChangedListener( button_toggle);
+        et_child_l_name.addTextChangedListener( button_toggle);
+        et_bloodgp.addTextChangedListener( button_toggle);
+        et_ashamsmt.addTextChangedListener( button_toggle);
+        et_pincode.addTextChangedListener( button_toggle);
+        et_symptoms.addTextChangedListener( button_toggle);
+        et_aadhaar_parent.addTextChangedListener( button_toggle);
+        et_aadhaar_child.addTextChangedListener( button_toggle);
+        et_phone.addTextChangedListener( button_toggle);
+        et_village.addTextChangedListener( button_toggle);
+        et_tehsil.addTextChangedListener( button_toggle);
+        et_district.addTextChangedListener( button_toggle);
+        et_treatedFor.addTextChangedListener( button_toggle);
+
 
         btn_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String gender = null;
+              /*  String gender = null;
                 if (rb_child_male.isChecked()) {
                     gender = "m";
                 } else if (rb_child_female.isChecked()) {
@@ -119,10 +139,32 @@ public class CreateReferralActivity extends AppCompatActivity implements Adapter
                 } else {
                     Toast.makeText(getApplicationContext(), "Select Gender", Toast.LENGTH_SHORT).show();
                     return;
+                }*/
+                if(!rb_child_male.isChecked()&&!rb_child_female.isChecked()){
+                    Toast.makeText(getApplicationContext(), "Please Select Gender", Toast.LENGTH_SHORT).show();
                 }
+                else if (child_age<1){
+                    Toast.makeText(getApplicationContext(), "Please enter a valid date of birth ", Toast.LENGTH_SHORT).show();
+                }
+                else if(et_aadhaar_child.getText().toString().trim().length()!=12){
+                    Toast.makeText(getApplicationContext(), "Please enter a valid aadhar number for child ", Toast.LENGTH_SHORT).show();
+                }
+                else if(et_aadhaar_parent.getText().toString().trim().length()!=12){
+                    Toast.makeText(getApplicationContext(), "Please enter a valid aadhar number for parent ", Toast.LENGTH_SHORT).show();
+                }
+                else if(et_phone.getText().toString().trim().length()!=10){
+                    Toast.makeText(getApplicationContext(), "Please enter a valid phone number ", Toast.LENGTH_SHORT).show();
+                }
+                else if(et_pincode.getText().toString().trim().length()!=6){
+                    Toast.makeText(getApplicationContext(), "Please enter a valid pincode ", Toast.LENGTH_SHORT).show();
+                }
+                else if(oedema_stage<0){
+                    Toast.makeText(getApplicationContext(), "Please enter select oedema stage ", Toast.LENGTH_SHORT).show();
+                }
+                else{
 
-
-                createNewReferral();
+                    createNewReferral();
+                }
             }
         });
 
@@ -201,6 +243,9 @@ public class CreateReferralActivity extends AppCompatActivity implements Adapter
                                 Log.v("CreateReferralActivity", String.valueOf(day_of_birth));
                                 Log.v("CreateReferralActivity", String.valueOf(month_of_birth));
                                 Log.v("CreateReferralActivity", String.valueOf(year_of_birth));
+                                child_dob= ((365 * year) + (year / 4) - (year / 100) + (year / 400) + dayOfMonth + (((153 * monthOfYear) + 8) / 5));
+                                current_date=((365 * mYear) + (mYear / 4) - (mYear / 100) + (mYear / 400) + mDay + (((153 * mMonth) + 8) / 5));
+                                child_age=(int)((current_date-child_dob)/30.5);
 
                             }
                         }, mYear, mMonth, mDay);
@@ -210,6 +255,41 @@ public class CreateReferralActivity extends AppCompatActivity implements Adapter
             }
         });
     }
+
+    private TextWatcher button_toggle = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            String height_input = et_height.getText().toString().trim();
+            String weight_input =  et_weight.getText().toString().trim();
+            String parent_name_input = et_parent_name.getText().toString().trim();
+            String child_first_name_input = et_child_f_name.getText().toString().trim();
+            String child_last_name_input = et_child_l_name.getText().toString().trim();
+            //String = et_bloodgp.getText().toString().trim();
+            String asha_measurement =  et_ashamsmt.getText().toString().trim();
+            //String =  et_pincode.getText().toString().trim();
+            String symptoms_input =  et_symptoms.getText().toString().trim();
+            //String =  et_aadhaar_parent.getText().toString().trim();
+            //String =  et_aadhaar_child.getText().toString().trim();
+            //String =  et_phone.getText().toString().trim();
+            String village_input =  et_village.getText().toString().trim();
+            String tehsil_input=  et_tehsil.getText().toString().trim();
+            String district_input =  et_district.getText().toString().trim();
+            //String =  et_treatedFor.getText().toString().trim();
+
+            btn_submit.setEnabled(!height_input.isEmpty() && !weight_input.isEmpty() && !parent_name_input.isEmpty() && !child_first_name_input.isEmpty() && !child_last_name_input.isEmpty()
+                    && !asha_measurement.isEmpty() && !symptoms_input.isEmpty() && !village_input.isEmpty() && !tehsil_input.isEmpty() && !district_input.isEmpty());
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+
+        }
+    };
 
     private void createNewReferral() {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
