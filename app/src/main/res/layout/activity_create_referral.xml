@@ -208,13 +208,22 @@
                 android:layout_marginRight="20dp"
                 >
 
-                <EditText
+                <!--<EditText
                     android:id="@+id/create_referral_et_bloodgp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:hint="Blood Group" />
+-->
+                <Spinner
+                    android:id="@+id/blood_group_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginRight="40dp"
+                    android:layout_marginLeft="40dp"
+                    android:layout_marginTop="20px"
+                    android:entries="@array/blood_group_array" />
 
             </android.support.design.widget.TextInputLayout>
 

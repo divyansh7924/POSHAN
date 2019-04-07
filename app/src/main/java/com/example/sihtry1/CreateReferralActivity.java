@@ -42,16 +42,17 @@ public class CreateReferralActivity extends AppCompatActivity implements Adapter
 
     private int mYear, mMonth, mDay,child_age=0,current_date=0,child_dob=0;
     private Button btn_submit;
+    private String blood_group_text;
     private EditText et_parent_name, et_child_f_name, et_child_l_name, et_bloodgp,
             et_ashamsmt, et_pincode, et_height, et_symptoms,
             et_weight, et_aadhaar_parent, et_aadhaar_child, et_phone, et_village, et_tehsil, et_district, et_treatedFor;
     private RadioButton rb_child_male, rb_child_female;
     private int day_of_birth, month_of_birth, year_of_birth;
-    private Spinner spinner_oedema;
+    private Spinner spinner_oedema,spinner_blood_group;
     private Spinner sp_state;
     public FirebaseFirestore db;
     ArrayList<String> states = new ArrayList<>();
-    private int oedema_stage = -1;
+    private int oedema_stage = -1,blood_group_stage = 0;
     Referral referral = null;
     private Button btn_pickDate;
     private TextView tv_dob;
@@ -65,7 +66,7 @@ public class CreateReferralActivity extends AppCompatActivity implements Adapter
         et_parent_name = findViewById(R.id.create_referral_et_parent_name);
         et_child_f_name = findViewById(R.id.create_referral_et_child_f_name);
         et_child_l_name = findViewById(R.id.create_referral_et_child_l_name);
-        et_bloodgp = findViewById(R.id.create_referral_et_bloodgp);
+        //et_bloodgp = findViewById(R.id.create_referral_et_bloodgp);
         sp_state = findViewById(R.id.create_referral_et_state);
         et_ashamsmt = findViewById(R.id.create_referral_et_ashamsmt);
         et_pincode = findViewById(R.id.create_referral_et_pin);
@@ -77,13 +78,18 @@ public class CreateReferralActivity extends AppCompatActivity implements Adapter
         et_phone = findViewById(R.id.create_referral_et_phone);
         rb_child_male = findViewById(R.id.create_referral_rb_child_male);
         rb_child_female = findViewById(R.id.create_referral_rb_child_female);
-        spinner_oedema = findViewById(R.id.create_referral_spinner_oedema);
         et_tehsil = findViewById(R.id.create_referral_et_tehsil);
         et_village = findViewById(R.id.create_referral_et_village);
         et_district = findViewById(R.id.create_referral_et_district);
         et_treatedFor = findViewById(R.id.create_referral_et_treatedfor);
+        spinner_oedema = findViewById(R.id.create_referral_spinner_oedema);
+        Spinner spinner_blood_group = findViewById(R.id.blood_group_spinner);
         btn_pickDate = findViewById(R.id.pick_date);
         tv_dob = findViewById(R.id.date);
+
+        ArrayAdapter<CharSequence> blood_group_adapter =ArrayAdapter.createFromResource(this,R.array.blood_group_array,android.R.layout.simple_spinner_item);
+        blood_group_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner_blood_group.setOnItemSelectedListener(this);
 
         referral = (Referral) getIntent().getSerializableExtra("referral");
         if (referral != null) {
@@ -107,6 +113,7 @@ public class CreateReferralActivity extends AppCompatActivity implements Adapter
         }
 
         spinner_oedema.setOnItemSelectedListener(this);
+        spinner_blood_group.setOnItemSelectedListener(this);
         db = FirebaseFirestore.getInstance();
 
         /*//TextWatcher implementation
@@ -171,6 +178,10 @@ public class CreateReferralActivity extends AppCompatActivity implements Adapter
                 }
                 else if(oedema_stage<0){
                     Toast.makeText(getApplicationContext(), "Please select oedema stage ", Toast.LENGTH_SHORT).show();
+                }
+                else if(blood_group_text.equals("Select Blood Group"))
+                {
+                    Toast.makeText(getApplicationContext(), "Please select blood group ", Toast.LENGTH_SHORT).show();
                 }
                 else if(et_height.getText().toString().trim().isEmpty()){
                     Toast.makeText(getApplicationContext(), "Please enter height ", Toast.LENGTH_SHORT).show();
@@ -361,7 +372,8 @@ public class CreateReferralActivity extends AppCompatActivity implements Adapter
 
         referral.setYear_of_birth(year_of_birth);
 
-        referral.setBlood_group(et_bloodgp.getText().toString());
+        //referral.setBlood_group(et_bloodgp.getText().toString());
+        referral.setBlood_group(blood_group_text);
 
         referral.setAsha_measure(Integer.parseInt(et_ashamsmt.getText().toString()));
 
@@ -416,7 +428,16 @@ public class CreateReferralActivity extends AppCompatActivity implements Adapter
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        oedema_stage = position - 1;
+
+        parent.getItemAtPosition(position);
+        switch (parent.getId()){
+            case R.id.create_referral_spinner_oedema:
+            oedema_stage = position - 1;
+            break;
+            case R.id.blood_group_spinner:
+            blood_group_text = parent.getItemAtPosition(position).toString();
+            break;
+        }
     }
 
     @Override
