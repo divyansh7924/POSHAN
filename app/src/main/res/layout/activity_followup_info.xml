@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".DischangeInfoActivity">
+    tools:context=".FollowupInfoActivity">
 
     <android.support.design.widget.TextInputLayout
         style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
@@ -16,12 +16,12 @@
         android:gravity="center_vertical">
 
         <EditText
-            android:id="@+id/disch_info_et_treatedfor"
+            android:id="@+id/followup_info_et_othersym"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:hint="Treated For" />
+            android:hint="Other Symptoms" />
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
@@ -34,7 +34,7 @@
         android:gravity="center_vertical">
 
         <EditText
-            android:id="@+id/disch_info_et_ashamsmt"
+            android:id="@+id/followup_info_et_ashamsmt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
@@ -53,7 +53,7 @@
         android:gravity="center_vertical">
 
         <EditText
-            android:id="@+id/disch_info_et_height"
+            android:id="@+id/followup_info_et_height"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
@@ -72,7 +72,7 @@
         android:gravity="center_vertical">
 
         <EditText
-            android:id="@+id/disch_info_et_weight"
+            android:id="@+id/followup_info_et_weight"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
@@ -82,7 +82,7 @@
     </android.support.design.widget.TextInputLayout>
 
     <Spinner
-        android:id="@+id/disch_info_spinner_oedema"
+        android:id="@+id/followup_info_spinner_oedema"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginLeft="40dp"
@@ -91,7 +91,7 @@
         android:entries="@array/oedema_stages" />
 
     <Button
-        android:id="@+id/disch_info_btn_submit"
+        android:id="@+id/followup_info_btn_submit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"

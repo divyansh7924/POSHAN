@@ -42,30 +42,32 @@ public class FollowupChildActivity extends AppCompatActivity {
             tv_date_discharge, tv_address, tv_followups_done, tv_lastscreening;
     private EditText et_readmit_period;
     private Button btn_followup_done, btn_extend_followup, btn_readmit;
-    private String selectedchild, rcrid, referralid;
-    int followupsdone, totalfollowups;
-    Date next_appointment;
-    private CollectionReference referraldetails;
-    FirebaseFirestore db;
+    private String followupDocId, rcrid, referralid;
+    private int followupsdone, totalfollowups;
+    private Date next_appointment;
+    private CollectionReference refCollection;
+    private FirebaseFirestore db;
     private ArrayList<Referral> mref = new ArrayList<>();
     private ArrayList<RCR> rcr = new ArrayList<>();
     private ArrayList<NRC> mNrc = new ArrayList<>();
-    String referraldocid,followupdocsnap, NrcId;
-    int bed_vacant;
+    private String referralDocId, nrcId;
+    private int bed_vacant;
+    private Followup followup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_followup_child);
         Intent intent = getIntent();
-        selectedchild = intent.getStringExtra("docid");
+        followupDocId = intent.getStringExtra("followupDocId");
+        followup = (Followup) intent.getSerializableExtra("followupObject");
 
-        tv_guardian_name = (TextView) findViewById(R.id.afc_tv_guardian_name);
-        tv_child_name = (TextView) findViewById(R.id.afc_tv_child_name);
-        tv_gender = (TextView) findViewById(R.id.afc_tv_child_gender);
-        tv_date_of_birth = (TextView) findViewById(R.id.afc_tv_date_of_birth);
-        tv_blood_group = (TextView) findViewById(R.id.afc_tv_blood_group);
-        tv_phone = (TextView) findViewById(R.id.afc_tv_phone);
+        tv_guardian_name = findViewById(R.id.afc_tv_guardian_name);
+        tv_child_name = findViewById(R.id.afc_tv_child_name);
+        tv_gender = findViewById(R.id.afc_tv_child_gender);
+        tv_date_of_birth = findViewById(R.id.afc_tv_date_of_birth);
+        tv_blood_group = findViewById(R.id.afc_tv_blood_group);
+        tv_phone = findViewById(R.id.afc_tv_phone);
         tv_date_discharge = findViewById(R.id.afc_tv_date_discharged);
         tv_address = findViewById(R.id.afc_tv_Address);
         tv_followups_done = findViewById(R.id.afc_tv_followups_done);
@@ -77,14 +79,12 @@ public class FollowupChildActivity extends AppCompatActivity {
 
 
         db = FirebaseFirestore.getInstance();
-        referraldetails = db.collection("referral");
-        final DocumentReference docRef = db.collection("Followup").document(selectedchild);
+        refCollection = db.collection("referral");
 
-        final Followup[] Followup = {null};
         btn_followup_done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Followupdone();
+                followupdone();
             }
         });
         btn_extend_followup.setOnClickListener(new View.OnClickListener() {
@@ -96,72 +96,59 @@ public class FollowupChildActivity extends AppCompatActivity {
         btn_readmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                readmit();
+                reAdmit();
             }
         });
 
 
-        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+        tv_guardian_name.setText(followup.getGuardian_name());
+        tv_followups_done.setText(String.valueOf(followup.getFollowups_done()));
+        followupsdone = followup.getFollowups_done();
+        if (followupsdone > 2) {
+            btn_extend_followup.setVisibility(View.VISIBLE);
+        }
+        totalfollowups = followup.getTotal_followups();
+        next_appointment = followup.getNext_date();
+
+        tv_child_name.setText(followup.getChild_first_name() + " " + followup.getChild_last_name());
+        tv_date_discharge.setText(String.valueOf(followup.getDate_of_discharge()));
+
+        Calendar cal = GregorianCalendar.getInstance();
+        Date next_date = followup.getNext_date();
+        cal.setTime(next_date);
+        cal.add(Calendar.DAY_OF_YEAR, -15);
+        Date last_screening = cal.getTime();
+        tv_lastscreening.setText(String.valueOf(last_screening));
+        referralid = followup.getReferral_id();
+
+        Query query = refCollection.whereEqualTo("referral_id", referralid);
+        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
-                    Followup[0] = task.getResult().toObject(Followup.class);
-                    if (Followup[0] == null) {
-                        Toast.makeText(getApplicationContext(), "null  ", Toast.LENGTH_SHORT).show();
-                    } else {
-                        followupdocsnap = docRef.getId();
-                        tv_guardian_name.setText(Followup[0].getGuardian_name());
-                        tv_followups_done.setText(String.valueOf(Followup[0].getFollowups_done()));
-                        followupsdone = Followup[0].getFollowups_done();
-                        if (followupsdone > 2) {
-                            btn_extend_followup.setVisibility(View.VISIBLE);
-                        }
-                        totalfollowups = Followup[0].getTotal_followups();
-                        next_appointment = Followup[0].getNext_date();
-//                        if (next_appointment != null)
-//                        {
-//                            btn_followup_done.setVisibility(View.VISIBLE);
-//                        }
-                        tv_child_name.setText(Followup[0].getChild_first_name() + " " + Followup[0].getChild_last_name());
-                        tv_date_discharge.setText(String.valueOf(Followup[0].getDate_of_discharge()));
-
-                        Calendar cal = GregorianCalendar.getInstance();
-                        Date next_date = Followup[0].getNext_date();
-                        cal.setTime(next_date);
-                        cal.add(Calendar.DAY_OF_YEAR, -15);
-                        Date last_screening = cal.getTime();
-                        tv_lastscreening.setText(String.valueOf(last_screening));
-                        referralid = Followup[0].getReferral_id();
-
-                        Query query = referraldetails.whereEqualTo("referral_id", referralid);
-                        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                if (task.isSuccessful()) {
-                                    for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
-                                        Referral ref = documentSnapshot.toObject(Referral.class);
-                                        mref.add(ref);
-                                        referraldocid = documentSnapshot.getId();
-                                    }
-                                    tv_address.setText(mref.get(0).getVillage() + ", " + mref.get(0).getTehsil() + ", " + mref.get(0).getDistrict());
-                                    tv_gender.setText(mref.get(0).getChild_gender());
-                                    tv_date_of_birth.setText(mref.get(0).getDay_of_birth() + "/" + mref.get(0).getMonth_of_birth() + "/" + mref.get(0).getYear_of_birth());
-                                    tv_blood_group.setText(mref.get(0).getBlood_group());
-                                    tv_phone.setText(mref.get(0).getPhone());
-                                    rcrid = mref.get(0).getRcr_id();
-                                } else {
-                                    Toast.makeText(getApplicationContext(), "Ref not found", Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        });
+                    for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
+                        Referral ref = documentSnapshot.toObject(Referral.class);
+                        mref.add(ref);
+                        referralDocId = documentSnapshot.getId();
                     }
+
+                    tv_address.setText(mref.get(0).getVillage() + ", " + mref.get(0).getTehsil() + ", " + mref.get(0).getDistrict());
+                    tv_gender.setText(mref.get(0).getChild_gender());
+                    tv_date_of_birth.setText(mref.get(0).getDay_of_birth() + "/" + mref.get(0).getMonth_of_birth() + "/" + mref.get(0).getYear_of_birth());
+                    tv_blood_group.setText(mref.get(0).getBlood_group());
+                    tv_phone.setText(mref.get(0).getPhone());
+                    rcrid = mref.get(0).getRcr_id();
+                } else {
+                    Toast.makeText(getApplicationContext(), "Ref not found", Toast.LENGTH_SHORT).show();
                 }
             }
         });
-        CollectionReference nrcRef = db.collection("nrc");
-        NrcId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        Query query = nrcRef.whereEqualTo("user_id", NrcId);
 
+
+        CollectionReference nrcRef = db.collection("nrc");
+        nrcId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        query = nrcRef.whereEqualTo("user_id", nrcId);
         query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -171,8 +158,7 @@ public class FollowupChildActivity extends AppCompatActivity {
                         mNrc.add(nrc);
                     }
                     bed_vacant = mNrc.get(0).getBed_vacant();
-                    if(bed_vacant == 0)
-                    {
+                    if (bed_vacant == 0) {
                         btn_readmit.setVisibility(View.INVISIBLE);
                         et_readmit_period.setFocusable(false);
                         et_readmit_period.setText("Beds Full can't admit more until any Discharge");
@@ -184,39 +170,42 @@ public class FollowupChildActivity extends AppCompatActivity {
         });
     }
 
-    private void Followupdone() {
-        if(followupsdone < 3) {
+    private void followupdone() {
+        if (followupsdone < 3) {
             followupsdone = followupsdone + 1;
-            db.collection("Followup").document(selectedchild).update(
+            db.collection("Followup").document(followupDocId).update(
                     "followups_done", followupsdone
             );
             Calendar cal = GregorianCalendar.getInstance();
             cal.setTime(new Date());
             cal.add(Calendar.DAY_OF_YEAR, 15);
             final Date next_date = cal.getTime();
-            db.collection("Followup").document(selectedchild).update(
-                    "next_date", next_date
-            ).addOnCompleteListener(new OnCompleteListener<Void>() {
-                @Override
-                public void onComplete(@NonNull Task<Void> task) {
-                    Toast.makeText(getApplicationContext(), followupsdone + "th Followup Done and next appointment given for " + next_date, Toast.LENGTH_LONG).show();
-                    Intent intent = new Intent(getApplicationContext(), NRCActivity.class);
-                    startActivity(intent);
-                }
-            });
-        }
-        else{
+            db.collection("Followup").document(followupDocId).update("next_date", next_date)
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            Toast.makeText(getApplicationContext(), followupsdone + "th Followup Done and next appointment given for " + next_date, Toast.LENGTH_LONG).show();
+                        }
+                    });
+        } else {
             followupsdone = followupsdone + 1;
-            db.collection("Followup").document(selectedchild).update(
+            db.collection("Followup").document(followupDocId).update(
                     "followups_done", followupsdone
             );
-            db.collection("Followup").document(selectedchild).update(
+            db.collection("Followup").document(followupDocId).update(
                     "next_date", FieldValue.delete()
             );
             Toast.makeText(getApplicationContext(), followupsdone + "th Followup Done", Toast.LENGTH_LONG).show();
-            Intent intent = new Intent(getApplicationContext(), NRCActivity.class);
-            startActivity(intent);
         }
+
+        followupInfoActivity();
+    }
+
+    private void followupInfoActivity() {
+        Intent intent = new Intent(FollowupChildActivity.this, FollowupInfoActivity.class);
+        intent.putExtra("referralDocId", referralDocId);
+        intent.putExtra("referral", mref.get(0));
+        startActivity(intent);
     }
 
     private void extend_followup() {
@@ -224,24 +213,24 @@ public class FollowupChildActivity extends AppCompatActivity {
         cal.setTime(new Date());
         cal.add(Calendar.DAY_OF_YEAR, 15);
         final Date next_date = cal.getTime();
-        db.collection("Followup").document(selectedchild).update(
-                "next_date", next_date
-        ).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                followupsdone = followupsdone + 1;
-                db.collection("Followup").document(selectedchild).update(
-                        "followups_done", followupsdone
-                );
-                totalfollowups = totalfollowups + 1;
-                db.collection("Followup").document(selectedchild).update("total_followups", totalfollowups);
-                Toast.makeText(getApplicationContext(),followupsdone + "th followup done and Total followups for this child are now " + totalfollowups + ", next appointment on" + next_date, Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(getApplicationContext(), NRCActivity.class);
-                startActivity(intent);
-            }
-        });
+        db.collection("Followup").document(followupDocId).update("next_date", next_date)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        followupsdone = followupsdone + 1;
+                        db.collection("Followup").document(followupDocId).update(
+                                "followups_done", followupsdone
+                        );
+                        totalfollowups = totalfollowups + 1;
+                        db.collection("Followup").document(followupDocId).update("total_followups", totalfollowups);
+                        Toast.makeText(getApplicationContext(), followupsdone + "th followup done and Total followups for this child are now " + totalfollowups + ", next appointment on" + next_date, Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(getApplicationContext(), NRCActivity.class);
+                        startActivity(intent);
+                    }
+                });
     }
-    private void readmit() {
+
+    private void reAdmit() {
         db = FirebaseFirestore.getInstance();
         DocumentReference newAdmit = db.collection("Admit").document();
         String userid = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -258,21 +247,21 @@ public class FollowupChildActivity extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     FirebaseFirestore db1;
                     db1 = FirebaseFirestore.getInstance();
-                    db1.collection("referral").document(referraldocid).update(
+                    db1.collection("referral").document(referralDocId).update(
                             "status", "Admitted"
                     );
-                    db1.collection("Followup").document(followupdocsnap)
+                    db1.collection("Followup").document(followupDocId)
                             .delete()
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
-                                    Log.d("deleted followup ", followupdocsnap);
+                                    Log.d("deleted followup ", followupDocId);
                                 }
                             })
                             .addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
-                                    Log.w("error ", followupdocsnap + " ", e);
+                                    Log.w("error ", followupDocId + " ", e);
                                 }
                             });
                     Toast.makeText(getApplicationContext(), "Admitted", Toast.LENGTH_SHORT).show();
