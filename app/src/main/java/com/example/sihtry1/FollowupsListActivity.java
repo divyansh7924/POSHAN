@@ -16,12 +16,12 @@ import com.google.firebase.firestore.Query;
 
 
 public class FollowupsListActivity extends AppCompatActivity {
-
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private CollectionReference childref = db.collection("Followup");
-
     private FollowUpsAdapter adapter;
-    String profileselected;
+    private String followupDocId;
+    private Followup followup;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +32,8 @@ public class FollowupsListActivity extends AppCompatActivity {
         adapter.setOnItemClickListener(new FollowUpsAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(DocumentSnapshot documentSnapshot, int position) {
-                profileselected = documentSnapshot.getId();
+                followupDocId = documentSnapshot.getId();
+                followup = documentSnapshot.toObject(Followup.class);
                 showprofile();
             }
         });
@@ -41,7 +42,7 @@ public class FollowupsListActivity extends AppCompatActivity {
     public void setupRecyclerView() {
         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        Query query = childref.whereEqualTo("nrc_id", userId).orderBy("next_date",Query.Direction.ASCENDING);
+        Query query = childref.whereEqualTo("nrc_id", userId).orderBy("next_date", Query.Direction.ASCENDING);
         FirestoreRecyclerOptions<Followup> options = new FirestoreRecyclerOptions.Builder<Followup>()
                 .setQuery(query, Followup.class)
                 .build();
@@ -65,9 +66,11 @@ public class FollowupsListActivity extends AppCompatActivity {
         super.onStop();
         adapter.stopListening();
     }
-    public void showprofile(){
+
+    public void showprofile() {
         Intent intent = new Intent(this, FollowupChildActivity.class);
-        intent.putExtra("docid", profileselected);
+        intent.putExtra("followupDocId", followupDocId);
+        intent.putExtra("followupObject", followup);
         startActivity(intent);
     }
 }

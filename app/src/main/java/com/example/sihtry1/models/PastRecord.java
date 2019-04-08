@@ -55,7 +55,7 @@ public class PastRecord implements Serializable {
     ArrayList<Date> followup_dates;
     ArrayList<Integer> fllw_asha_measure;
     ArrayList<Integer> fllw_height;
-    ArrayList<Integer> fllw_weight;
+    ArrayList<Float> fllw_weight;
     ArrayList<Integer> fllw_oedema;
     ArrayList<String> fllw_other_symptoms;
 
@@ -68,14 +68,13 @@ public class PastRecord implements Serializable {
                       int month_of_birth, int year_of_birth, String blood_group, String guardian_name,
                       String guardian_aadhaar_num, String nrc_id, String rcr_id, String phone,
                       String village, String state, String tehsil, String district, int pincode,
-                      int admit_dur, Date admit_date, float admit_asha_measure, float admit_height,
-                      float admit_weight, int admit_oedema, String admit_other_symptoms,
+                      boolean status_complete, int admit_dur, Date admit_date, float admit_asha_measure,
+                      float admit_height, float admit_weight, int admit_oedema, String admit_other_symptoms,
                       String admit_treated_for, float disch_asha_measure, float disch_height,
                       float disch_weight, int disch_oedema, String disch_treated_for,
                       int num_of_followups, ArrayList<Date> followup_dates, ArrayList<Integer> fllw_asha_measure,
-                      ArrayList<Integer> fllw_height, ArrayList<Integer> fllw_weight,
-                      ArrayList<Integer> fllw_oedema, ArrayList<String> fllw_other_symptoms,
-                      boolean status_complete) {
+                      ArrayList<Integer> fllw_height, ArrayList<Float> fllw_weight, ArrayList<Integer> fllw_oedema,
+                      ArrayList<String> fllw_other_symptoms) {
         this.referral_id = referral_id;
         this.child_first_name = child_first_name;
         this.child_last_name = child_last_name;
@@ -95,6 +94,7 @@ public class PastRecord implements Serializable {
         this.tehsil = tehsil;
         this.district = district;
         this.pincode = pincode;
+        this.status_complete = status_complete;
         this.admit_dur = admit_dur;
         this.admit_date = admit_date;
         this.admit_asha_measure = admit_asha_measure;
@@ -115,7 +115,6 @@ public class PastRecord implements Serializable {
         this.fllw_weight = fllw_weight;
         this.fllw_oedema = fllw_oedema;
         this.fllw_other_symptoms = fllw_other_symptoms;
-        this.status_complete = status_complete;
     }
 
     public String getReferral_id() {
@@ -270,6 +269,14 @@ public class PastRecord implements Serializable {
         this.pincode = pincode;
     }
 
+    public boolean isStatus_complete() {
+        return status_complete;
+    }
+
+    public void setStatus_complete(boolean status_complete) {
+        this.status_complete = status_complete;
+    }
+
     public int getAdmit_dur() {
         return admit_dur;
     }
@@ -406,11 +413,11 @@ public class PastRecord implements Serializable {
         this.fllw_height = fllw_height;
     }
 
-    public ArrayList<Integer> getFllw_weight() {
+    public ArrayList<Float> getFllw_weight() {
         return fllw_weight;
     }
 
-    public void setFllw_weight(ArrayList<Integer> fllw_weight) {
+    public void setFllw_weight(ArrayList<Float> fllw_weight) {
         this.fllw_weight = fllw_weight;
     }
 
@@ -428,13 +435,5 @@ public class PastRecord implements Serializable {
 
     public void setFllw_other_symptoms(ArrayList<String> fllw_other_symptoms) {
         this.fllw_other_symptoms = fllw_other_symptoms;
-    }
-
-    public boolean isStatus_complete() {
-        return status_complete;
-    }
-
-    public void setStatus_complete(boolean status_complete) {
-        this.status_complete = status_complete;
     }
 }

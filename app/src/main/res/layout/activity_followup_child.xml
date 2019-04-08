@@ -206,7 +206,7 @@ android:layout_marginRight="20dp"
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="Enter Re-admission period"
+            android:hint="Enter Re-Admission period"
             android:id="@+id/afc_et_readmit_period"/>
         <Button
             android:layout_width="wrap_content"

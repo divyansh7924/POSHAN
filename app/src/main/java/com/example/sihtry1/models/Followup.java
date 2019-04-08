@@ -5,12 +5,13 @@ import android.os.Parcelable;
 
 import com.google.firebase.firestore.ServerTimestamp;
 
+import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Followup {
+public class Followup implements Serializable {
     String nrc_id;
     @ServerTimestamp Date date_of_discharge;
     String referral_id;

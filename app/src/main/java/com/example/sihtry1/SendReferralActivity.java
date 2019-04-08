@@ -73,7 +73,7 @@ public class SendReferralActivity extends AppCompatActivity {
         tv_nrc_title.setText(nrc.getTitle());
         tv_nrc_addresscity.setText(nrc.getAddress() + ", " + nrc.getCity());
         tv_nrc_statepin.setText(nrc.getState() + ", " + nrc.getPincode());
-        tv_bed_avl.setText(nrc.getBed_vacant() + " / " + nrc.getBed_count());
+        tv_bed_avl.setText("Bed Availability: " + nrc.getBed_vacant() + " / " + nrc.getBed_count());
 
         btn_locate.setOnClickListener(new View.OnClickListener() {
             @Override
