@@ -12,19 +12,24 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.sihtry1.models.Admits;
+import com.example.sihtry1.models.Followup;
 import com.example.sihtry1.models.PastRecord;
 import com.example.sihtry1.models.Referral;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.errorprone.annotations.OverridingMethodsMustInvokeSuper;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 public class FollowupInfoActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     private Spinner spinner_oedema;
@@ -35,9 +40,12 @@ public class FollowupInfoActivity extends AppCompatActivity implements AdapterVi
     private Button btn_submit;
     private FirebaseFirestore db;
     private Referral referral = null;
-    private String refDocId, admitDocSnap, pastRecordDocId;
+    private String refDocId, pastRecordDocId;
     private PastRecord pastRecord = null;
-    private Admits admit = null;
+    private Followup followup;
+    private String followupDocId;
+    private int followupsdone, totalfollowups;
+    private Boolean followupExtend;
 
     private int num_of_followups;
     private ArrayList<Date> followup_dates;
@@ -54,6 +62,12 @@ public class FollowupInfoActivity extends AppCompatActivity implements AdapterVi
 
         referral = (Referral) getIntent().getSerializableExtra("referral");
         refDocId = getIntent().getStringExtra("referralDocId");
+        followup = (Followup) getIntent().getSerializableExtra("followup");
+        followupDocId = getIntent().getStringExtra("followupDocId");
+        followupExtend = getIntent().getBooleanExtra("followupExtend", false);
+
+        followupsdone = followup.getFollowups_done();
+        totalfollowups = followup.getTotal_followups();
 
         spinner_oedema = findViewById(R.id.followup_info_spinner_oedema);
         et_height = findViewById(R.id.followup_info_et_height);
@@ -83,6 +97,11 @@ public class FollowupInfoActivity extends AppCompatActivity implements AdapterVi
                     height = Integer.parseInt(et_height.getText().toString());
                     muac = Integer.parseInt(et_muac.getText().toString());
 
+                    if (followupExtend) {
+                        extendFollowup();
+                    } else {
+                        followupdone();
+                    }
                     updatePastRecord();
                     openNRCActivity();
                 }
@@ -100,7 +119,7 @@ public class FollowupInfoActivity extends AppCompatActivity implements AdapterVi
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
-                    Toast.makeText(FollowupInfoActivity.this, "Past Record Retreived", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(FollowupInfoActivity.this, "Past Record Retrieved", Toast.LENGTH_SHORT).show();
 
                     for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
                         PastRecord pastRecord = documentSnapshot.toObject(PastRecord.class);
@@ -161,10 +180,71 @@ public class FollowupInfoActivity extends AppCompatActivity implements AdapterVi
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
-                            Toast.makeText(FollowupInfoActivity.this, "Past Referra, Updated", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(FollowupInfoActivity.this, "Past Referral Updated", Toast.LENGTH_SHORT).show();
                         } else {
-                            Toast.makeText(FollowupInfoActivity.this, "Past Referra, Updated", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(FollowupInfoActivity.this, "Past Referral not Updated", Toast.LENGTH_SHORT).show();
                         }
+                    }
+                });
+    }
+
+    private void followupdone() {
+        if (followupsdone < 3) {
+            followupsdone = followupsdone + 1;
+
+            Calendar cal = GregorianCalendar.getInstance();
+            cal.setTime(new Date());
+            cal.add(Calendar.DAY_OF_YEAR, 15);
+            final Date next_date = cal.getTime();
+
+            db.collection("Followup").document(followupDocId).update(
+                    "followups_done", followupsdone, "next_date", next_date
+            ).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if (task.isSuccessful()) {
+                        Toast.makeText(getApplicationContext(), followupsdone + " followups done and next followup scheduled " + next_date, Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Followup couldn't be done", Toast.LENGTH_LONG).show();
+                    }
+                }
+            });
+        } else {
+            followupsdone = followupsdone + 1;
+            db.collection("Followup").document(followupDocId).update(
+                    "followups_done", followupsdone, "next_date", FieldValue.delete()
+            ).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if (task.isSuccessful()) {
+                        Toast.makeText(getApplicationContext(), "All followups done", Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Followup couldn't be done", Toast.LENGTH_LONG).show();
+                    }
+                }
+            });
+        }
+    }
+
+    private void extendFollowup() {
+        Calendar cal = GregorianCalendar.getInstance();
+        cal.setTime(new Date());
+        cal.add(Calendar.DAY_OF_YEAR, 15);
+        final Date next_date = cal.getTime();
+        db.collection("Followup").document(followupDocId).update("next_date", next_date)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        followupsdone = followupsdone + 1;
+                        db.collection("Followup").document(followupDocId).update(
+                                "followups_done", followupsdone
+                        );
+                        totalfollowups = totalfollowups + 1;
+                        db.collection("Followup").document(followupDocId).update("total_followups", totalfollowups);
+                        Toast.makeText(getApplicationContext(), followupsdone + "th followup done and Total followups for this child are now " +
+                                totalfollowups + ", next appointment on" + next_date, Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(getApplicationContext(), NRCActivity.class);
+                        startActivity(intent);
                     }
                 });
     }
@@ -172,6 +252,12 @@ public class FollowupInfoActivity extends AppCompatActivity implements AdapterVi
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         oedema_stage = position - 1;
+    }
+
+    @OverridingMethodsMustInvokeSuper
+    @Override
+    public void onBackPressed() {
+
     }
 
     @Override
