@@ -7,4 +7,9 @@
         <item>++</item>
         <item>+++</item>
     </string-array>
+    <string-array name="pastselect">
+        <item>Height</item>
+        <item>Weight</item>
+        <item>Oedema</item>
+    </string-array>
 </resources>
