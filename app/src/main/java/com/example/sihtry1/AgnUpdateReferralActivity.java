@@ -5,16 +5,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.sihtry1.models.NRC;
-import com.example.sihtry1.models.RCR;
+import com.example.sihtry1.adapters.AgnUpdateReferralAdapter;
 import com.example.sihtry1.models.Referral;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;

@@ -1,8 +1,7 @@
-package com.example.sihtry1;
+package com.example.sihtry1.adapters;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -12,6 +11,8 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.sihtry1.R;
+import com.example.sihtry1.SendReferralActivity;
 import com.example.sihtry1.models.NRC;
 
 import java.util.ArrayList;
