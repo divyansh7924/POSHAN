@@ -92,103 +92,6 @@
             android:layout_marginTop="5dp"
             android:textSize="22sp" />
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Select Past Data to Show"
-                android:layout_alignParentLeft="true"/>
-
-            <Spinner
-                android:layout_alignParentRight="true"
-                android:id="@+id/past_rec_info_sel"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginRight="40dp"
-                android:layout_marginLeft="40dp"
-                android:layout_marginTop="20px"
-                android:entries="@array/pastselect" />
-
-        </RelativeLayout>
-
-
-
-        <com.anychart.AnyChartView
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:id="@+id/past_rec_info_graph">
-
-        </com.anychart.AnyChartView>
-
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:text="MUAC"
-            android:textColor="#000"
-            android:textSize="22sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/past_rec_info_tv_asha_tape"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:textSize="22sp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:text="Height"
-            android:textColor="#000"
-            android:textSize="22sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/past_rec_info_tv_height"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:textSize="22sp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:text="Weight"
-            android:textColor="#000"
-            android:textSize="22sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/past_rec_info_tv_weight"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:textSize="22sp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:text="Oedema"
-            android:textColor="#000"
-            android:textSize="22sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/past_rec_info_tv_oedema"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:textSize="22sp" />
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -204,6 +107,31 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:textSize="22sp" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="10dp"
+            android:text="Select Past Data to Show"
+            android:textStyle="bold"/>
+
+        <Spinner
+            android:id="@+id/past_rec_info_sel"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:entries="@array/pastselect" />
+
+
+        <Button
+            android:id="@+id/past_rec_info_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="Show Progress" />
+
+
     </LinearLayout>
 
 </ScrollView>

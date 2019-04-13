@@ -11,5 +11,6 @@
         <item>Height</item>
         <item>Weight</item>
         <item>Oedema</item>
+        <item>MUAC</item>
     </string-array>
 </resources>
