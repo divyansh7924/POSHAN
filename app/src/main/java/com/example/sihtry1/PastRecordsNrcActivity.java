@@ -44,7 +44,7 @@ public class PastRecordsNrcActivity extends AppCompatActivity {
     public void setupRecyclerView() {
         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        Query query = pastRecordRef.whereEqualTo("nrc_id", userId).whereEqualTo("status_complete", true);
+        Query query = pastRecordRef.whereEqualTo("nrc_id", userId);
         FirestoreRecyclerOptions<PastRecord> options = new FirestoreRecyclerOptions.Builder<PastRecord>()
                 .setQuery(query, PastRecord.class)
                 .build();

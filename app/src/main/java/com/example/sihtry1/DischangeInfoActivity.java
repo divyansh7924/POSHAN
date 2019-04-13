@@ -220,7 +220,6 @@ public class DischangeInfoActivity extends AppCompatActivity implements AdapterV
         pastRecord.setTehsil(referral.getTehsil());
         pastRecord.setDistrict(referral.getDistrict());
         pastRecord.setPincode(referral.getPincode());
-        pastRecord.setStatus_complete(false);
     }
 
     public void pastRecordsAdmitInfo() {
