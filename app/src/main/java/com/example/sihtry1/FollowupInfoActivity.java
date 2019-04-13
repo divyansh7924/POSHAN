@@ -223,18 +223,6 @@ public class FollowupInfoActivity extends AppCompatActivity implements AdapterVi
                     }
                 }
             });
-
-            db.collection("PastRecord").document(pastRecordDocId).update("status_complete", true)
-                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if (task.isSuccessful()) {
-                                Toast.makeText(FollowupInfoActivity.this, "Past Referral complete", Toast.LENGTH_SHORT).show();
-                            } else {
-                                Toast.makeText(FollowupInfoActivity.this, "Past Referral couldn't complete", Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    });
         }
     }
 

@@ -3,6 +3,7 @@ package com.example.sihtry1.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.firebase.firestore.IgnoreExtraProperties;
 import com.google.firebase.firestore.ServerTimestamp;
 
 import java.io.Serializable;
@@ -10,6 +11,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
 
+@IgnoreExtraProperties
 public class PastRecord implements Serializable {
     //basic info
     String referral_id;
@@ -31,7 +33,6 @@ public class PastRecord implements Serializable {
     String tehsil;
     String district;
     int pincode;
-    boolean status_complete;
 
     //admission details
     int admit_dur;
@@ -64,14 +65,13 @@ public class PastRecord implements Serializable {
     }
 
     public PastRecord(String referral_id, String child_first_name, String child_last_name,
-                      String child_gender, String child_aadhaar_num, int day_of_birth,
-                      int month_of_birth, int year_of_birth, String blood_group, String guardian_name,
-                      String guardian_aadhaar_num, String nrc_id, String rcr_id, String phone,
-                      String village, String state, String tehsil, String district, int pincode,
-                      boolean status_complete, int admit_dur, Date admit_date, float admit_asha_measure,
-                      float admit_height, float admit_weight, int admit_oedema, String admit_other_symptoms,
-                      String admit_treated_for, float disch_asha_measure, float disch_height,
-                      float disch_weight, int disch_oedema, String disch_treated_for,
+                      String child_gender, String child_aadhaar_num, int day_of_birth, int month_of_birth,
+                      int year_of_birth, String blood_group, String guardian_name, String guardian_aadhaar_num,
+                      String nrc_id, String rcr_id, String phone, String village, String state,
+                      String tehsil, String district, int pincode, int admit_dur, Date admit_date,
+                      float admit_asha_measure, float admit_height, float admit_weight, int admit_oedema,
+                      String admit_other_symptoms, String admit_treated_for, float disch_asha_measure,
+                      float disch_height, float disch_weight, int disch_oedema, String disch_treated_for,
                       int num_of_followups, ArrayList<Date> followup_dates, ArrayList<Integer> fllw_asha_measure,
                       ArrayList<Integer> fllw_height, ArrayList<Float> fllw_weight, ArrayList<Integer> fllw_oedema,
                       ArrayList<String> fllw_other_symptoms) {
@@ -94,7 +94,6 @@ public class PastRecord implements Serializable {
         this.tehsil = tehsil;
         this.district = district;
         this.pincode = pincode;
-        this.status_complete = status_complete;
         this.admit_dur = admit_dur;
         this.admit_date = admit_date;
         this.admit_asha_measure = admit_asha_measure;
@@ -267,14 +266,6 @@ public class PastRecord implements Serializable {
 
     public void setPincode(int pincode) {
         this.pincode = pincode;
-    }
-
-    public boolean isStatus_complete() {
-        return status_complete;
-    }
-
-    public void setStatus_complete(boolean status_complete) {
-        this.status_complete = status_complete;
     }
 
     public int getAdmit_dur() {
