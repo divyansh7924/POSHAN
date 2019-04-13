@@ -1,56 +1,56 @@
-package com.example.sihtry1;
+package com.example.sihtry1.adapters;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.sihtry1.models.PastRecord;
+import com.example.sihtry1.R;
+import com.example.sihtry1.models.Referral;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.DocumentSnapshot;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-
-public class PastRecordsNrcAdapter extends FirestoreRecyclerAdapter<PastRecord, PastRecordsNrcAdapter.PastRecordsNrcHolder> {
+public class RcrPastRecordsAdapter extends FirestoreRecyclerAdapter<Referral, RcrPastRecordsAdapter.RcrPastRecordsHolder> {
     private OnItemClickListener listener;
 
 
-    public PastRecordsNrcAdapter(FirestoreRecyclerOptions<PastRecord> options) {
+    public RcrPastRecordsAdapter(@NonNull FirestoreRecyclerOptions<Referral> options) {
         super(options);
     }
 
 
     @Override
-    protected void onBindViewHolder(@NonNull PastRecordsNrcAdapter.PastRecordsNrcHolder holder, int position, @NonNull PastRecord model) {
-        holder.textViewchildname.setText("Child Name: " + model.getChild_first_name());
-        holder.textrcrid.setText("Guardian Name: " + model.getGuardian_name());
-        holder.textviewdob.setText(model.getDay_of_birth() + "/" + model.getMonth_of_birth() + "/" + model.getYear_of_birth());
+    protected void onBindViewHolder(@NonNull RcrPastRecordsAdapter.RcrPastRecordsHolder holder, int position, @NonNull Referral model) {
+        holder.ritem.setClickable(false);
+        holder.textViewchildname.setText(model.getChild_first_name());
+        holder.textviewdob.setText("Status: " + model.getStatus());
+        holder.textrcrid.setText("Guardian Name: " + model.getGuadian_name());
     }
 
     @NonNull
     @Override
-    public PastRecordsNrcHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
+    public RcrPastRecordsHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.profileitem, parent, false);
-        return new PastRecordsNrcHolder(v);
+        return new RcrPastRecordsHolder(v);
     }
 
 
-    class PastRecordsNrcHolder extends RecyclerView.ViewHolder {
+    class RcrPastRecordsHolder extends RecyclerView.ViewHolder {
         TextView textViewchildname;
         TextView textviewdob;
         TextView textrcrid;
+        LinearLayout ritem;
 
-        public PastRecordsNrcHolder(@NonNull View itemView) {
+        public RcrPastRecordsHolder(@NonNull View itemView) {
             super(itemView);
             textViewchildname = itemView.findViewById(R.id.textviewname);
             textviewdob = itemView.findViewById(R.id.textviewage);
             textrcrid = itemView.findViewById(R.id.textviewguardian);
+            ritem = itemView.findViewById(R.id.ritem);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

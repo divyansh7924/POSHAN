@@ -1,4 +1,4 @@
-package com.example.sihtry1;
+package com.example.sihtry1.adapters;
 
 import android.graphics.Color;
 import android.support.annotation.NonNull;
@@ -8,14 +8,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.TextClock;
 import android.widget.TextView;
 
+import com.example.sihtry1.R;
 import com.example.sihtry1.models.Referral;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.example.sihtry1.CurrentReferralsActivity;
 
 public class CurrentReferralAdapter extends FirestoreRecyclerAdapter<Referral, CurrentReferralAdapter.CurrentReferralHolder> {
     private OnItemClickListener listener;

@@ -84,13 +84,13 @@ public class FollowupChildActivity extends AppCompatActivity {
         btn_followup_done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                followupdone();
+                followupInfoActivity(false);
             }
         });
         btn_extend_followup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                extend_followup();
+                followupInfoActivity(true);
             }
         });
         btn_readmit.setOnClickListener(new View.OnClickListener() {
@@ -170,64 +170,14 @@ public class FollowupChildActivity extends AppCompatActivity {
         });
     }
 
-    private void followupdone() {
-        if (followupsdone < 3) {
-            followupsdone = followupsdone + 1;
-            db.collection("Followup").document(followupDocId).update(
-                    "followups_done", followupsdone
-            );
-            Calendar cal = GregorianCalendar.getInstance();
-            cal.setTime(new Date());
-            cal.add(Calendar.DAY_OF_YEAR, 15);
-            final Date next_date = cal.getTime();
-            db.collection("Followup").document(followupDocId).update("next_date", next_date)
-                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            Toast.makeText(getApplicationContext(), followupsdone + "th Followup Done and next appointment given for " + next_date, Toast.LENGTH_LONG).show();
-                        }
-                    });
-        } else {
-            followupsdone = followupsdone + 1;
-            db.collection("Followup").document(followupDocId).update(
-                    "followups_done", followupsdone
-            );
-            db.collection("Followup").document(followupDocId).update(
-                    "next_date", FieldValue.delete()
-            );
-            Toast.makeText(getApplicationContext(), followupsdone + "th Followup Done", Toast.LENGTH_LONG).show();
-        }
-
-        followupInfoActivity();
-    }
-
-    private void followupInfoActivity() {
+    private void followupInfoActivity(boolean followupExtend) {
         Intent intent = new Intent(FollowupChildActivity.this, FollowupInfoActivity.class);
         intent.putExtra("referralDocId", referralDocId);
         intent.putExtra("referral", mref.get(0));
+        intent.putExtra("followup", followup);
+        intent.putExtra("followupDocId", followupDocId);
+        intent.putExtra("followupExtend", followupExtend);
         startActivity(intent);
-    }
-
-    private void extend_followup() {
-        Calendar cal = GregorianCalendar.getInstance();
-        cal.setTime(new Date());
-        cal.add(Calendar.DAY_OF_YEAR, 15);
-        final Date next_date = cal.getTime();
-        db.collection("Followup").document(followupDocId).update("next_date", next_date)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        followupsdone = followupsdone + 1;
-                        db.collection("Followup").document(followupDocId).update(
-                                "followups_done", followupsdone
-                        );
-                        totalfollowups = totalfollowups + 1;
-                        db.collection("Followup").document(followupDocId).update("total_followups", totalfollowups);
-                        Toast.makeText(getApplicationContext(), followupsdone + "th followup done and Total followups for this child are now " + totalfollowups + ", next appointment on" + next_date, Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(getApplicationContext(), NRCActivity.class);
-                        startActivity(intent);
-                    }
-                });
     }
 
     private void reAdmit() {

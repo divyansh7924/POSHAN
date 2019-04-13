@@ -2,22 +2,15 @@ package com.example.sihtry1;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.view.WindowManager;
 
-public class splashscreen extends Activity {
+public class SplashScreenActivity extends Activity {
 
-    private static int SPLASH_TIME_OUT = 1500;
+    private static int SPLASH_TIME_OUT = 500;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-//        if (Build.VERSION.SDK_INT < 16) {
-//            getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-//                    WindowManager.LayoutParams.FLAG_FULLSCREEN);
-//        }
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
@@ -33,7 +26,7 @@ public class splashscreen extends Activity {
             public void run() {
                 // This method will be executed once the timer is over
                 // Start your app main activity
-                Intent i = new Intent(com.example.sihtry1.splashscreen.this, LoginActivity.class);
+                Intent i = new Intent(SplashScreenActivity.this, LoginActivity.class);
                 startActivity(i);
 
                 // close this activity

@@ -5,8 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.widget.Toast;
 
+import com.example.sihtry1.adapters.PastRecordsNrcAdapter;
 import com.example.sihtry1.models.PastRecord;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
@@ -19,7 +19,7 @@ import com.google.firebase.firestore.Query;
 public class PastRecordsNrcActivity extends AppCompatActivity {
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private CollectionReference childref = db.collection("PastRecord");
+    private CollectionReference pastRecordRef = db.collection("PastRecord");
 
     private PastRecordsNrcAdapter adapter;
     private PastRecord pastRecord = null;
@@ -37,7 +37,6 @@ public class PastRecordsNrcActivity extends AppCompatActivity {
                 Intent intent = new Intent(PastRecordsNrcActivity.this, PastRecordInfoActivity.class);
                 intent.putExtra("PastRecord", pastRecord);
                 startActivity(intent);
-                Toast.makeText(getApplicationContext(), "dszvsdf", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -45,7 +44,7 @@ public class PastRecordsNrcActivity extends AppCompatActivity {
     public void setupRecyclerView() {
         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        Query query = childref.whereEqualTo("nrc_id", userId);
+        Query query = pastRecordRef.whereEqualTo("nrc_id", userId).whereEqualTo("status_complete", true);
         FirestoreRecyclerOptions<PastRecord> options = new FirestoreRecyclerOptions.Builder<PastRecord>()
                 .setQuery(query, PastRecord.class)
                 .build();

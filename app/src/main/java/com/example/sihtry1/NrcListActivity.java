@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.sihtry1.adapters.NrcListAdapter;
 import com.example.sihtry1.models.NRC;
 import com.example.sihtry1.models.RCR;
 import com.google.android.gms.tasks.OnCompleteListener;
