@@ -49,16 +49,22 @@ public class PastRecProgressActivity extends Activity {
                 seriesData.add(new ValueDataEntry("Admitted", pastRecord.getAdmit_height()));
                 seriesData.add(new ValueDataEntry("Discharged", pastRecord.getDisch_height()));
                 progdata = pastRecord.getFllw_height();
-                for (n = progdata.size(); i < n; i++) {
-                    seriesData.add(new ValueDataEntry("Followup" + i, (Number) progdata.get(i)));
+                if (progdata != null) {
+                    for (n = progdata.size(); i < n; i++) {
+                        seriesData.add(new ValueDataEntry("Followup" + i, (Number) progdata.get(i)));
+                    }
                 }
                 break;
             case "Weight":
                 cartesian.title("Weight Progress of the child");
                 cartesian.yAxis(0).title("Weight of child");
+                seriesData.add(new ValueDataEntry("Admitted", pastRecord.getAdmit_weight()));
+                seriesData.add(new ValueDataEntry("Discharged", pastRecord.getDisch_weight()));
                 progdata = pastRecord.getFllw_weight();
-                for (n = progdata.size(); i < n; i++) {
-                    seriesData.add(new ValueDataEntry("Followup" + i, (Number) progdata.get(i)));
+                if (progdata != null) {
+                    for (n = progdata.size(); i < n; i++) {
+                        seriesData.add(new ValueDataEntry("Followup" + i, (Number) progdata.get(i)));
+                    }
                 }
                 break;
             case "Oedema":
@@ -67,8 +73,10 @@ public class PastRecProgressActivity extends Activity {
                 seriesData.add(new ValueDataEntry("Admitted", pastRecord.getAdmit_oedema()));
                 seriesData.add(new ValueDataEntry("Discharged", pastRecord.getDisch_oedema()));
                 progdata = pastRecord.getFllw_oedema();
-                for (n = progdata.size(); i < n; i++) {
-                    seriesData.add(new ValueDataEntry("Followup" + i, (Number) progdata.get(i)));
+                if (progdata != null) {
+                    for (n = progdata.size(); i < n; i++) {
+                        seriesData.add(new ValueDataEntry("Followup" + i, (Number) progdata.get(i)));
+                    }
                 }
                 break;
             case "MUAC":
@@ -77,8 +85,10 @@ public class PastRecProgressActivity extends Activity {
                 seriesData.add(new ValueDataEntry("Admitted", pastRecord.getAdmit_asha_measure()));
                 seriesData.add(new ValueDataEntry("Discharged", pastRecord.getDisch_asha_measure()));
                 progdata = pastRecord.getFllw_asha_measure();
-                for (n = progdata.size(); i < n; i++) {
-                    seriesData.add(new ValueDataEntry("Followup" + i, (Number) progdata.get(i)));
+                if (progdata != null){
+                    for (n = progdata.size(); i < n; i++) {
+                        seriesData.add(new ValueDataEntry("Followup" + i, (Number) progdata.get(i)));
+                    }
                 }
         }
 
