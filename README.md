@@ -6,7 +6,7 @@ A mobile application developed as a step towards helping the malnourished and un
 
 three types of users: Hospital, Anganwadi and NRC. 
 Hospitals and Anganwadi can check bed availability at NRCs and send 
-referrals for a child with SAM to any of thern. The referrals are then managed by 
+referrals for a child with SAM to any of the NRC. The referrals are then managed by 
 NRCs. NRCs can admit a child ,app will assign a bed hence also managing the bed 
 availability. A time period for admission is initially assigned to the child which can be 
 extended later if child doesn't fully recover. NRCs can discharge the child, app will 
